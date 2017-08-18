@@ -1,0 +1,5 @@
+tests/
+lexer.cpp
+parser.cpp
+*.o
+*.txt
