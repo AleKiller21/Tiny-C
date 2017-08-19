@@ -3,3 +3,4 @@ lexer.cpp
 parser.cpp
 *.o
 *.txt
+Tiny
