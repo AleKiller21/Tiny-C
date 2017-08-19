@@ -8,6 +8,7 @@
 %{
     #include <stdio.h>
     #include <string>
+    #include "tokens.h"
 
     using namespace std;
 
@@ -16,25 +17,6 @@
 
     int extract_lexeme(char delimiter);
     char get_escape_secuence();
-
-    #define RW_INT 1
-    #define RW_CHAR 2
-    #define RW_PRINTF 3
-    #define RW_SCANF 4
-    #define RW_IF 5
-    #define RW_ELSE 6
-    #define RW_WHILE 7
-    #define RW_FOR 8
-    #define TK_ID 9
-    #define TK_NUMBER 10
-    #define TK_STRING 11
-    #define TK_CHAR 12
-    #define OP_LE 13
-    #define OP_GE 14
-    #define OP_EQ 15
-    #define OP_NE 16
-    #define TK_EOF 17
-    #define RW_RETURN 18
 %}
 
 ID          [a-zA-Z_][a-zA-Z0-9_]*
@@ -58,6 +40,7 @@ NUMBER      [0-9]+
 "return"                    { return RW_RETURN; }
 {ID}                        { return TK_ID; }
 {NUMBER}                    { return TK_NUMBER; }
+"&"                         { return '&'; }
 "="                         { return '='; }
 "+"                         { return '+'; }
 "-"                         { return '-'; }
@@ -78,7 +61,6 @@ NUMBER      [0-9]+
 ";"                         { return ';'; }
 "["                         { return '['; }
 "]"                         { return ']'; }
-<INITIAL><<EOF>>            { return TK_EOF; }
 .                           { fprintf(stderr, "Line %d: error: Unrecognized token %s.\n", yylineno, yytext); }
 
 <string_lit>[^\n\'\"\\]+    {
