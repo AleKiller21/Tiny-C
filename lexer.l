@@ -38,6 +38,8 @@ NUMBER      [0-9]+
 "while"                     { return RW_WHILE; }
 "for"                       { return RW_FOR; }
 "return"                    { return RW_RETURN; }
+"continue"                  { return RW_CONTINUE; }
+"break"                     { return RW_BREAK; }
 {ID}                        { return TK_ID; }
 {NUMBER}                    { return TK_NUMBER; }
 "&"                         { return '&'; }

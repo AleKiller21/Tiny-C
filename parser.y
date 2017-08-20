@@ -8,7 +8,7 @@
     #define YYERROR_VERBOSE 1
 %}
 
-%token RW_INT RW_CHAR RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN
+%token RW_INT RW_CHAR RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token TK_ID TK_NUMBER TK_STRING TK_CHAR 
 %token OP_LE "<="
 %token OP_GE ">="
@@ -16,6 +16,52 @@
 %token OP_NE "!="
 
 %%
+
+statement_list: statement
+              | statement_list statement
+;
+
+statement: expression_statement
+         | block_statement
+         | selection_statement
+         | loop_statement
+         | jump_statement
+;
+
+expression_statement: optional_expression ';'
+;
+
+block_statement: '{' declaration_list '}'
+               | '{' statement_list '}'
+               | '{' declaration_list statement_list '}'
+               | '{' '}'
+;
+
+selection_statement: RW_IF '(' expression ')' statement else_statement
+;
+
+else_statement: RW_ELSE statement
+              | %empty
+;
+
+loop_statement: while_statement
+              | for_statement
+;
+
+while_statement: RW_WHILE '(' expression ')' statement
+;
+
+for_statement: RW_FOR '(' expression_statement expression_statement optional_expression ')' statement
+;
+
+jump_statement: RW_CONTINUE ';'
+              | RW_BREAK ';'
+              | RW_RETURN optional_expression ';'
+;
+
+declaration_list: declaration
+                | declaration_list declaration
+;
 
 declaration: type declarators_list ';'
 ;
@@ -55,12 +101,12 @@ parameter_list: parameter_declaration
 parameter_declaration: type declarator
 ;
 
-optional_expression: expression
-                   | %empty
-;
-
 type: RW_INT
     | RW_CHAR
+;
+
+optional_expression: expression
+                   | %empty
 ;
 
 expression: equality_expression
