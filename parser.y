@@ -184,3 +184,10 @@ primary_expression: TK_ID
                   | TK_STRING
                   | '(' expression ')'
 ;
+
+%%
+
+void yyerror(const char* msg)
+{
+    fprintf(stderr, "Line %d: error: %s\n", yylineno, msg);
+}

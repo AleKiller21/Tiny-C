@@ -1,6 +1,8 @@
 tests/
 lexer.cpp
 parser.cpp
+tokens.h
 *.o
 *.txt
+*.output
 Tiny

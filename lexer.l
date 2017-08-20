@@ -136,16 +136,3 @@ char get_escape_secuence()
             return symbol;
     }
 }
-
-int main()
-{
-    int token;
-    while((token = yylex()) != TK_EOF)
-    {
-        if(token == TK_STRING) printf("Token: %d, Value: %s\n", token, string_lexeme.c_str());
-        else if(token == TK_CHAR) printf("Token: %d, Value: %c\n", token, char_lexeme);
-        else printf("Token: %d, Value: %s\n", token, yytext);
-    }
-
-    printf("End of file\n");
-}
