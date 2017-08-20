@@ -17,14 +17,54 @@
 
 %%
 
+declaration: type declarators_list ';'
+;
 
+declarators_list: declarator_init
+                | declarators_list ',' declarator_init
+;
 
-expression: equality_expression
-          | assign_expression
+declarator_init: declarator
+               | declarator '=' initializer
+;
+
+initializer: expression
+;
+
+declarator: pointer direct_declarator
+;
+
+pointer: '*'
+       | %empty
+;
+
+direct_declarator: TK_ID
+                 | '(' declarator ')'
+                 | direct_declarator '[' optional_expression ']'
+                 | direct_declarator '(' parameter_type_list ')'
+;
+
+parameter_type_list: parameter_list
+                   | %empty
+;
+
+parameter_list: parameter_declaration
+              | parameter_list ',' parameter_declaration
+;
+
+parameter_declaration: type declarator
+;
+
+optional_expression: expression
+                   | %empty
 ;
 
 type: RW_INT
     | RW_CHAR
+;
+
+expression: equality_expression
+          | assign_expression
 ;
 
 assign_expression: unary_expression '=' expression
