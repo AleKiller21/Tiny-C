@@ -17,6 +17,17 @@
 
 %%
 
+translation_unit: external_declaration
+                | translation_unit external_declaration
+;
+
+external_declaration: declaration
+                    | function_definition
+;
+
+function_definition: type declarator block_statement
+;
+
 statement_list: statement
               | statement_list statement
 ;
