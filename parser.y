@@ -8,7 +8,7 @@
     #define YYERROR_VERBOSE 1
 %}
 
-%token RW_INT RW_CHAR RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
+%token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token TK_ID TK_NUMBER TK_STRING TK_CHAR 
 %token OP_LE "<="
 %token OP_GE ">="
@@ -115,6 +115,7 @@ parameter_declaration: type declarator
 
 type: RW_INT
     | RW_CHAR
+    | RW_VOID
 ;
 
 optional_expression: expression
@@ -161,7 +162,7 @@ unary_expression: unary_operator cast_expression
 ;
 
 unary_operator: '&'
-              | '*'
+              | pointer
               | '+'
               | '-'
 ;

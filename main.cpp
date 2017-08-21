@@ -9,5 +9,5 @@ int main()
 {
     yydebug = 0;
     yyparse();
-    cout << "SUCESS" << endl;
+    cout << "SUCCESS" << endl;
 }

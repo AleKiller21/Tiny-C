@@ -31,6 +31,7 @@ NUMBER      [0-9]+
 "/*"                        { BEGIN(block_comment); }
 "int"                       { return RW_INT; }
 "char"                      { return RW_CHAR; }
+"void"                      { return RW_VOID; }
 "printf"                    { return RW_PRINTF; }
 "scanf"                     { return RW_SCANF; }
 "if"                        { return RW_IF; }
