@@ -17,9 +17,11 @@ parser.cpp: parser.y
 run: $(TARGET)
 	./$(TARGET) < ./tests/quicksort.c
 
-tests: $(TARGET)
+test: $(TARGET)
 	./$(TARGET) < ./tests/if_test.cpp
 	./$(TARGET) < ./tests/quicksort.c
+	./$(TARGET) < ./tests/interpolation_search.c
+	./$(TARGET) < ./tests/sample.cpp
 
 clean:
 	rm -f lexer.cpp parser.cpp *.o

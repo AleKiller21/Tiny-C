@@ -14,6 +14,8 @@
 %token OP_GE ">="
 %token OP_EQ "=="
 %token OP_NE "!="
+%token OP_LA "&&"
+%token OP_LO "||"
 
 %%
 
@@ -122,13 +124,20 @@ optional_expression: expression
                    | %empty
 ;
 
-expression: equality_expression
+expression: logical_or_expression
           | assign_expression
 ;
 
 assign_expression: unary_expression '=' expression
 ;
 
+logical_or_expression: logical_or_expression "||" logical_and_expression
+                     | logical_and_expression
+;
+
+logical_and_expression: logical_and_expression "&&" equality_expression
+                      | equality_expression
+;
 
 equality_expression: equality_expression "==" relational_expression
                    | equality_expression "!=" relational_expression

@@ -6,7 +6,6 @@
 %x block_comment
 
 %{
-    #include <stdio.h>
     #include <string>
     #include "tokens.h"
 
@@ -56,6 +55,8 @@ NUMBER      [0-9]+
 ">="                        { return OP_GE; }
 "=="                        { return OP_EQ; }
 "!="                        { return OP_NE; }
+"&&"                        { return OP_LA; }
+"||"                        { return OP_LO; }
 "{"                         { return '{'; /*}*/ }
 "}"                         { /*{*/ return '}'; }
 "("                         { return '('; /*)*/ }
