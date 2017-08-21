@@ -12,10 +12,10 @@ parser.cpp: parser.y
 	bison -v -rall --defines=tokens.h -o $@ $<
 
 %.o: %.cpp tokens.h
-	g++ -c $^
+	g++ -c $<
 
 run: $(TARGET)
-	./$(TARGET) < ./tests/sample.cpp
+	./$(TARGET) < ./tests/if_test.cpp
 
 clean:
 	rm -f lexer.cpp parser.cpp *.o

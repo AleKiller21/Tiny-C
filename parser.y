@@ -39,7 +39,8 @@ statement: expression_statement
          | jump_statement
 ;
 
-expression_statement: optional_expression ';'
+expression_statement: expression ';'
+                    | ';'
 ;
 
 block_statement: '{' declaration_list '}'
@@ -89,10 +90,10 @@ initializer: expression
 ;
 
 declarator: pointer direct_declarator
+          | direct_declarator
 ;
 
 pointer: '*'
-       | %empty
 ;
 
 direct_declarator: TK_ID
