@@ -103,6 +103,11 @@ declarator_init: declarator
 ;
 
 initializer: expression
+           | '{' initializer_list '}'
+;
+
+initializer_list: initializer
+                | initializer_list ',' initializer
 ;
 
 declarator: pointer direct_declarator
