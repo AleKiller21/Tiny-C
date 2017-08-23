@@ -143,6 +143,8 @@ char get_escape_secuence()
             return '\'';
         case '\"':
             return '\"';
+        case '0':
+            return '\0';
         default:
             printf("Line %d: warning: Unknown escape secuence: '\\%c'.\n", yylineno, symbol);
             return symbol;
