@@ -128,11 +128,15 @@ optional_expression: expression
                    | %empty
 ;
 
-expression: logical_or_expression
+expression: conditional_expression
           | assign_expression
 ;
 
 assign_expression: unary_expression '=' expression
+;
+
+conditional_expression: logical_or_expression '?' expression ':' conditional_expression
+                      | logical_or_expression
 ;
 
 logical_or_expression: logical_or_expression "||" logical_and_expression

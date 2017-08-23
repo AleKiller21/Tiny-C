@@ -43,6 +43,8 @@ NUMBER      [0-9]+
 {ID}                        { return TK_ID; }
 {NUMBER}                    { return TK_NUMBER; }
 "&"                         { return '&'; }
+"?"                         { return '?'; }
+":"                         { return ':'; }
 "="                         { return '='; }
 "++"                        { return OP_INC; }
 "--"                        { return OP_DEC; }
