@@ -44,6 +44,8 @@ NUMBER      [0-9]+
 {NUMBER}                    { return TK_NUMBER; }
 "&"                         { return '&'; }
 "="                         { return '='; }
+"++"                        { return OP_INCREMENT; }
+"--"                        { return OP_DECREMENT; }
 "+"                         { return '+'; }
 "-"                         { return '-'; }
 "*"                         { return '*'; }

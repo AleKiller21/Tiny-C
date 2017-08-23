@@ -16,6 +16,8 @@
 %token OP_NE "!="
 %token OP_LA "&&"
 %token OP_LO "||"
+%token OP_INCREMENT "++"
+%token OP_DECREMENT "--"
 
 %%
 
@@ -167,6 +169,8 @@ cast_expression: '(' type ')' cast_expression
 ;
 
 unary_expression: unary_operator cast_expression
+                | "++" unary_expression
+                | "--" unary_expression
                 | postfix_expression
 ;
 
@@ -178,6 +182,8 @@ unary_operator: '&'
 
 postfix_expression: postfix_expression '[' expression ']'
                   | postfix_expression '(' argument_list ')'
+                  | postfix_expression "++"
+                  | postfix_expression "--"
                   | primary_expression
 ;
 

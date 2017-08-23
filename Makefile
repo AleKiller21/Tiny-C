@@ -15,13 +15,13 @@ parser.cpp: parser.y
 	g++ -c $<
 
 run: $(TARGET)
-	./$(TARGET) < ./tests/quicksort.c
+	./$(TARGET) < ./samples/quicksort.c
 
 test: $(TARGET)
-	./$(TARGET) < ./tests/if_test.cpp
-	./$(TARGET) < ./tests/quicksort.c
-	./$(TARGET) < ./tests/interpolation_search.c
-	./$(TARGET) < ./tests/sample.cpp
+	./$(TARGET) < ./samples/if_test.cpp
+	./$(TARGET) < ./samples/quicksort.c
+	./$(TARGET) < ./samples/interpolation_search.c
+	./$(TARGET) < ./samples/sample.cpp
 
 clean:
 	rm -f lexer.cpp parser.cpp *.o
