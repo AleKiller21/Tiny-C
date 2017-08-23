@@ -139,8 +139,20 @@ logical_or_expression: logical_or_expression "||" logical_and_expression
                      | logical_and_expression
 ;
 
-logical_and_expression: logical_and_expression "&&" equality_expression
-                      | equality_expression
+logical_and_expression: logical_and_expression "&&" inclusive_or_expression
+                      | inclusive_or_expression
+;
+
+inclusive_or_expression: inclusive_or_expression '|' exclusive_or_expression
+                       | exclusive_or_expression
+;
+
+exclusive_or_expression: exclusive_or_expression '^' and_expression
+                       | and_expression
+;
+
+and_expression: and_expression '&' equality_expression
+              | equality_expression
 ;
 
 equality_expression: equality_expression "==" relational_expression
@@ -148,10 +160,10 @@ equality_expression: equality_expression "==" relational_expression
                    | relational_expression
 ;
 
-relational_expression: relational_expression '<' additive_expression
-                     | relational_expression '>' additive_expression
-                     | relational_expression "<=" additive_expression
-                     | relational_expression ">=" additive_expression
+relational_expression: relational_expression '<' shift_expression
+                     | relational_expression '>' shift_expression
+                     | relational_expression "<=" shift_expression
+                     | relational_expression ">=" shift_expression
                      | shift_expression
 ;
 

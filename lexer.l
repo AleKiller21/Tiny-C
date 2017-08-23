@@ -48,6 +48,8 @@ NUMBER      [0-9]+
 "--"                        { return OP_DEC; }
 "<<"                        { return OP_SL; }
 ">>"                        { return OP_SR; }
+"^"                         { return '^'; }
+"|"                         { return '|'; }
 "~"                         { return '~'; }
 "!"                         { return '!'; }
 "+"                         { return '+'; }
