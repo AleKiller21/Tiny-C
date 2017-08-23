@@ -44,8 +44,12 @@ NUMBER      [0-9]+
 {NUMBER}                    { return TK_NUMBER; }
 "&"                         { return '&'; }
 "="                         { return '='; }
-"++"                        { return OP_INCREMENT; }
-"--"                        { return OP_DECREMENT; }
+"++"                        { return OP_INC; }
+"--"                        { return OP_DEC; }
+"<<"                        { return OP_SL; }
+">>"                        { return OP_SR; }
+"~"                         { return '~'; }
+"!"                         { return '!'; }
 "+"                         { return '+'; }
 "-"                         { return '-'; }
 "*"                         { return '*'; }

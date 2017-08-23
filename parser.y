@@ -16,8 +16,10 @@
 %token OP_NE "!="
 %token OP_LA "&&"
 %token OP_LO "||"
-%token OP_INCREMENT "++"
-%token OP_DECREMENT "--"
+%token OP_INC "++"
+%token OP_DEC "--"
+%token OP_SL "<<"
+%token OP_SR ">>"
 
 %%
 
@@ -150,7 +152,12 @@ relational_expression: relational_expression '<' additive_expression
                      | relational_expression '>' additive_expression
                      | relational_expression "<=" additive_expression
                      | relational_expression ">=" additive_expression
-                     | additive_expression
+                     | shift_expression
+;
+
+shift_expression: shift_expression "<<" additive_expression
+                | shift_expression ">>" additive_expression
+                | additive_expression
 ;
 
 additive_expression: additive_expression '+' multiplicative_expression
@@ -168,16 +175,18 @@ cast_expression: '(' type ')' cast_expression
                | unary_expression
 ;
 
-unary_expression: unary_operator cast_expression
-                | "++" unary_expression
+unary_expression: "++" unary_expression
                 | "--" unary_expression
+                | unary_operator cast_expression
                 | postfix_expression
 ;
 
-unary_operator: '&'
-              | pointer
+unary_operator: pointer
+              | '&'
               | '+'
               | '-'
+              | '~'
+              | '!'
 ;
 
 postfix_expression: postfix_expression '[' expression ']'
