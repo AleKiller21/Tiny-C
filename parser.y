@@ -20,6 +20,16 @@
 %token OP_DEC "--"
 %token OP_SL "<<"
 %token OP_SR ">>"
+%token OP_MULT_EQUAL "*="
+%token OP_DIV_EQUAL "/="
+%token OP_MOD_EQUAL "%="
+%token OP_SUM_EQUAL "+="
+%token OP_SUB_EQUAL "-="
+%token OP_SHIFT_LEFT_EQUAL "<<="
+%token OP_SHIFT_RIGHT_EQUAL ">>="
+%token OP_AND_EQUAL "&="
+%token OP_EX_OR_EQUAL "^="
+%token OP_IN_OR_EQUAL "|="
 
 %%
 
@@ -132,7 +142,20 @@ expression: conditional_expression
           | assign_expression
 ;
 
-assign_expression: unary_expression '=' expression
+assign_expression: unary_expression assign_operators expression
+;
+
+assign_operators: '='
+                | "*="
+                | "/="
+                | "%="
+                | "+="
+                | "-="
+                | "<<="
+                | ">>="
+                | "&="
+                | "^="
+                | "|="
 ;
 
 conditional_expression: logical_or_expression '?' expression ':' conditional_expression
