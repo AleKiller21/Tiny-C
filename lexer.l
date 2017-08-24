@@ -4,6 +4,7 @@
 %x char_lit
 %x line_comment
 %x block_comment
+%x hex
 
 %{
     #include <string>
@@ -16,10 +17,13 @@
 
     int extract_lexeme(char delimiter);
     char get_escape_secuence();
+    void consume_invalid_number_literal(const char* number_format);
 %}
 
 ID          [a-zA-Z_][a-zA-Z0-9_]*
-NUMBER      [0-9]+
+DECIMAL     [1-9][0-9]*
+HEXADECIMAL 0[xX]
+OCTAL       0[0-7]*
 
 %%
 
@@ -41,7 +45,9 @@ NUMBER      [0-9]+
 "continue"                  { return RW_CONTINUE; }
 "break"                     { return RW_BREAK; }
 {ID}                        { return TK_ID; }
-{NUMBER}                    { return TK_NUMBER; }
+{HEXADECIMAL}               { BEGIN(hex); }
+{OCTAL}                     { return TK_OCT; }
+{DECIMAL}                   { return TK_DEC; }
 "?"                         { return '?'; }
 ":"                         { return ':'; }
 "="                         { return '='; }
@@ -85,6 +91,7 @@ NUMBER      [0-9]+
 ";"                         { return ';'; }
 "["                         { return '['; }
 "]"                         { return ']'; }
+<INITIAL><<EOF>>                        { return 0; }
 .                           { fprintf(stderr, "Line %d: error: Unrecognized token %s.\n", yylineno, yytext); }
 
 <string_lit>[^\n\'\"\\]+    {
@@ -120,6 +127,10 @@ NUMBER      [0-9]+
 
 <block_comment>"*/"         { BEGIN(INITIAL); }
 <block_comment>.|\n         { /* Nothing */ }
+
+<hex>[a-fA-F0-9]+           { BEGIN(INITIAL); return TK_HEX;}
+<hex>.|\n                   { consume_invalid_number_literal("hexadecimal"); }
+
 
 %%
 
@@ -158,5 +169,24 @@ char get_escape_secuence()
         default:
             printf("Line %d: warning: Unknown escape secuence: '\\%c'.\n", yylineno, symbol);
             return symbol;
+    }
+}
+
+void consume_invalid_number_literal(const char* number_format)
+{
+    int c;
+    BEGIN(INITIAL);
+    fprintf(stderr, "Line %d: error: Invalid %s literal %s.\n", yylineno, number_format, yytext);
+    if(*yytext != '\n')
+        while((c = yyinput()) != '\n');
+}
+
+int main()
+{
+    int token;
+
+    while((token = yylex()) != 0)
+    {
+        printf("Token-ID: %d, lexeme: %s\n", token, yytext);
     }
 }

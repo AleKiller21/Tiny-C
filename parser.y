@@ -9,7 +9,7 @@
 %}
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
-%token TK_ID TK_NUMBER TK_STRING TK_CHAR 
+%token TK_ID TK_DEC TK_OCT TK_HEX TK_STRING TK_CHAR 
 %token OP_LE "<="
 %token OP_GE ">="
 %token OP_EQ "=="
@@ -250,7 +250,9 @@ expression_list: expression
 
 primary_expression: TK_ID
                   | TK_CHAR
-                  | TK_NUMBER
+                  | TK_DEC
+                  | TK_HEX
+                  | TK_OCT
                   | TK_STRING
                   | '(' expression ')'
 ;
