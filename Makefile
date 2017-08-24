@@ -22,6 +22,7 @@ test: $(TARGET)
 	./$(TARGET) < ./samples/quicksort.c
 	./$(TARGET) < ./samples/interpolation_search.c
 	./$(TARGET) < ./samples/sample.cpp
+	./$(TARGET) < ./samples/routines.c
 
 clean:
 	rm -f lexer.cpp parser.cpp *.o

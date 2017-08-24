@@ -180,13 +180,3 @@ void consume_invalid_number_literal(const char* number_format)
     if(*yytext != '\n')
         while((c = yyinput()) != '\n');
 }
-
-int main()
-{
-    int token;
-
-    while((token = yylex()) != 0)
-    {
-        printf("Token-ID: %d, lexeme: %s\n", token, yytext);
-    }
-}
