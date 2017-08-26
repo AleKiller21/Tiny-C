@@ -10,6 +10,7 @@ private:
 
 public:
     string_expression(string value);
+    string to_string();
     // string get_type();
     // string generate_mips();
 };

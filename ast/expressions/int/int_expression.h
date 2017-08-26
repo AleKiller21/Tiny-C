@@ -12,6 +12,7 @@ private:
 public:
     int_expression(int value, int format);
     char get_format();
+    string to_string();
     // string get_type();
     // string generate_mips();
 };

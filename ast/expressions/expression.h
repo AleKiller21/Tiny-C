@@ -4,16 +4,19 @@
 #include <string>
 #include <cstdio>
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
 
 class expression
 {
-protected:
+public:
+    bool lvalue;
+
     virtual string get_type() { throw "Function has not been implemented"; }
     virtual string generate_mips() { throw "Function has not been implemented"; }
+    virtual string to_string() = 0;
 
-public:
     void show_error(const char* msg)
     {
         extern int yylineno;

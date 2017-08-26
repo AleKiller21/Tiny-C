@@ -10,6 +10,7 @@ private:
 
 public:
     id_expression(string* lexeme);
+    string to_string();
 
     // string get_type();
     // string generate_mips();

@@ -10,6 +10,7 @@ private:
 
 public:
     char_expression(char value);
+    string to_string();
 
     // string get_type();
     // string generate_mips();
