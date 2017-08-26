@@ -105,6 +105,26 @@ jump_statement: RW_CONTINUE ';'
               | RW_RETURN optional_expression ';'
 ;
 
+type_name: type
+         | type abstract_declarator
+;
+
+abstract_declarator: pointer
+                   | pointer direct_abstract_declarator
+                   | direct_abstract_declarator
+;
+
+direct_abstract_declarator: '(' abstract_declarator ')'
+                          | direct_abstract_declarator '[' conditional_expression ']'
+                          | direct_abstract_declarator '[' ']'
+                          | '[' conditional_expression ']'
+                          | '[' ']'
+                          | direct_abstract_declarator '(' parameter_type_list ')'
+                          | direct_abstract_declarator '(' ')'
+                          | '(' parameter_type_list ')'
+                          | '(' ')'
+;
+
 declaration_list: declaration
                 | declaration_list declaration
 ;
@@ -139,10 +159,10 @@ direct_declarator: TK_ID
                  | '(' declarator ')'
                  | direct_declarator '[' optional_expression ']'
                  | direct_declarator '(' parameter_type_list ')'
+                 | direct_declarator '(' ')'
 ;
 
 parameter_type_list: parameter_list
-                   | %empty
 ;
 
 parameter_list: parameter_declaration
@@ -150,6 +170,8 @@ parameter_list: parameter_declaration
 ;
 
 parameter_declaration: type declarator
+                     | type abstract_declarator
+                     | type
 ;
 
 type: RW_INT
@@ -233,7 +255,7 @@ multiplicative_expression: multiplicative_expression '*' cast_expression
                          | cast_expression
 ;
 
-cast_expression: '(' type ')' cast_expression
+cast_expression: '(' type_name ')' cast_expression
                | unary_expression { $$ = $1; }
 ;
 
