@@ -1,7 +1,7 @@
 TARGET=Tiny
 AST_EXPRESSION=./ast/expressions
-PURE_HEADER=ast.h ${AST_EXPRESSION}/expression.h ${AST_EXPRESSION}/unary_expression.h
-HEADER=${AST_EXPRESSION}/id/id_expression.h ${AST_EXPRESSION}/char/char_expression.h ${AST_EXPRESSION}/string/string_expression.h ${AST_EXPRESSION}/int/int_expression.h ${AST_EXPRESSION}/expression_list/expression_list.h ${AST_EXPRESSION}/array/array_expression.h ${AST_EXPRESSION}/function/function_expression.h ${AST_EXPRESSION}/post_increment/post_increment_expression.h ${AST_EXPRESSION}/post_decrement/post_decrement_expression.h ${AST_EXPRESSION}/pre_increment/pre_increment_expression.h ${AST_EXPRESSION}/pre_decrement/pre_decrement_expression.h ${AST_EXPRESSION}/pointer/pointer_expression.h ${AST_EXPRESSION}/address/address_expression.h ${AST_EXPRESSION}/negative/negative_expression.h ${AST_EXPRESSION}/positive/positive_expression.h ${AST_EXPRESSION}/two_complement/two_complement_expression.h ${AST_EXPRESSION}/negation/negation_expression.h
+PURE_HEADER=ast.h ${AST_EXPRESSION}/expression.h ${AST_EXPRESSION}/unary/unary_expression.h
+HEADER=${AST_EXPRESSION}/primary/id/id_expression.h ${AST_EXPRESSION}/primary/char/char_expression.h ${AST_EXPRESSION}/primary/string/string_expression.h ${AST_EXPRESSION}/primary/int/int_expression.h ${AST_EXPRESSION}/expression_list/expression_list.h ${AST_EXPRESSION}/postfix/array/array_expression.h ${AST_EXPRESSION}/postfix/function/function_expression.h ${AST_EXPRESSION}/postfix/post_increment/post_increment_expression.h ${AST_EXPRESSION}/postfix/post_decrement/post_decrement_expression.h ${AST_EXPRESSION}/unary/pre_increment/pre_increment_expression.h ${AST_EXPRESSION}/unary/pre_decrement/pre_decrement_expression.h ${AST_EXPRESSION}/unary/pointer/pointer_expression.h ${AST_EXPRESSION}/unary/address/address_expression.h ${AST_EXPRESSION}/unary/negative/negative_expression.h ${AST_EXPRESSION}/unary/positive/positive_expression.h ${AST_EXPRESSION}/unary/two_complement/two_complement_expression.h ${AST_EXPRESSION}/unary/negation/negation_expression.h
 SOURCE=${HEADER:.h=.cpp} parser.cpp lexer.cpp main.cpp
 OBJECT_FILES=${SOURCE:.cpp=.o}
 
@@ -28,5 +28,5 @@ test: $(TARGET)
 	./$(TARGET) < ./samples/routines.c
 
 clean:
-	rm -f lexer.cpp parser.cpp *.o $(AST_EXPRESSION)/**/*.o
+	rm -f lexer.cpp parser.cpp *.o $(AST_EXPRESSION)/**/**/*.o
 	rm -f $(TARGET)

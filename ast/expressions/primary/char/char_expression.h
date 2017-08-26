@@ -1,7 +1,7 @@
 #ifndef CHAR_EXPRESSION
 #define CHAR_EXPRESSION
 
-#include "../expression.h"
+#include "../../expression.h"
 
 class char_expression : public expression
 {

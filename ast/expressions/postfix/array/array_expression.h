@@ -1,7 +1,7 @@
 #ifndef ARRAY_EXPRESSION
 #define ARRAY_EXPRESSION
 
-#include "../expression.h"
+#include "../../expression.h"
 
 class array_expression : public expression
 {

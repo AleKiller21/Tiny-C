@@ -255,7 +255,7 @@ multiplicative_expression: multiplicative_expression '*' cast_expression
                          | cast_expression
 ;
 
-cast_expression: '(' type_name ')' cast_expression
+cast_expression: '(' type_name ')' cast_expression { $$ = NULL; /* TODO: Implementar despues de haber terminado type_name production*/ }
                | unary_expression { $$ = $1; }
 ;
 

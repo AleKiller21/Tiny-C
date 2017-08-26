@@ -1,7 +1,7 @@
 #ifndef STRING_EXPRESSION
 #define STRING_EXPRESSION
 
-#include "../expression.h"
+#include "../../expression.h"
 
 class string_expression : public expression
 {

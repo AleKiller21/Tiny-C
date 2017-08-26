@@ -1,7 +1,7 @@
 #ifndef FUNCTION_EXPRESSION
 #define FUNCTION_EXPRESSION
 
-#include "../expression.h"
+#include "../../expression.h"
 
 class function_expression : public expression
 {
