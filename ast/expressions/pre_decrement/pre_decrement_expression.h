@@ -6,7 +6,7 @@
 class pre_decrement_expression : public unary_expression
 {
 public:
-    pre_decrement_expression(expression* expr) : unary_expression(expr) {}
+    pre_decrement_expression(expression* expr, int position) : unary_expression(expr, position) {}
     string to_string();
     // string get_type();
     // string generate_mips();

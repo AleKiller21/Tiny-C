@@ -6,7 +6,7 @@
 class positive_expression : public unary_expression
 {
 public:
-    positive_expression(expression* expr) : unary_expression(expr) {}
+    positive_expression(expression* expr, int position) : unary_expression(expr, position) {}
     string to_string();
     // string get_type();
     // string generate_mips();

@@ -6,7 +6,7 @@
 class two_complement_expression : public unary_expression
 {
 public:
-    two_complement_expression(expression* expr) : unary_expression(expr) {}
+    two_complement_expression(expression* expr, int position) : unary_expression(expr, position) {}
     string to_string();
     // string get_type();
     // string generate_mips();

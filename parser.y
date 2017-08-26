@@ -237,21 +237,21 @@ cast_expression: '(' type ')' cast_expression
                | unary_expression { $$ = $1; }
 ;
 
-unary_expression: "++" unary_expression { $$ = pre_increment_expression($2); }
-                | "--" unary_expression { $$ = pre_decrement_expression($2); }
-                | pointer cast_expression { $$ = new pointer_expression($2); }
-                | '&' cast_expression { $$ = new address_expression($2); }
-                | '+' cast_expression { $$ = new positive_expression($2); }
-                | '-' cast_expression { $$ = new negative_expression($2); }
-                | '~' cast_expression { $$ = new two_complement_expression($2); }
-                | '!' cast_expression { $$ = new negation_expression($2); }
+unary_expression: "++" unary_expression { $$ = new pre_increment_expression($2, yylineno); }
+                | "--" unary_expression { $$ = new pre_decrement_expression($2, yylineno); }
+                | pointer cast_expression { $$ = new pointer_expression($2, yylineno); }
+                | '&' cast_expression { $$ = new address_expression($2, yylineno); }
+                | '+' cast_expression { $$ = new positive_expression($2, yylineno); }
+                | '-' cast_expression { $$ = new negative_expression($2, yylineno); }
+                | '~' cast_expression { $$ = new two_complement_expression($2, yylineno); }
+                | '!' cast_expression { $$ = new negation_expression($2, yylineno); }
                 | postfix_expression { $$ = $1; }
 ;
 
-postfix_expression: postfix_expression '[' expression ']' { $$ = new array_expression($1, $3); }
-                  | postfix_expression '(' argument_list ')' { $$ = new function_expression($1, $3); }
-                  | postfix_expression "++" { $$ = new post_increment_expression($1); }
-                  | postfix_expression "--" { $$ = new post_decrement_expression($1); }
+postfix_expression: postfix_expression '[' expression ']' { $$ = new array_expression($1, $3, yylineno); }
+                  | postfix_expression '(' argument_list ')' { $$ = new function_expression($1, $3, yylineno); }
+                  | postfix_expression "++" { $$ = new post_increment_expression($1, yylineno); }
+                  | postfix_expression "--" { $$ = new post_decrement_expression($1, yylineno); }
                   | primary_expression { $$ = $1; }
 ;
 
@@ -259,16 +259,16 @@ argument_list: expression_list { $$ = $1; }
              | %empty { $$ = NULL; }
 ;
 
-expression_list: expression { $$ = new expression_list(); ((expression_list*)$$)->add_expression($1); }
+expression_list: expression { $$ = new expression_list(yylineno); ((expression_list*)$$)->add_expression($1); }
                | expression_list ',' expression { $$ = $1; ((expression_list*)$$)->add_expression($3); }
 ;
 
-primary_expression: TK_ID { $$ = new id_expression($1); }
-                  | TK_CHAR { $$ = new char_expression($1); }
-                  | TK_DEC { $$ = new int_expression($1, 'd'); }
-                  | TK_HEX { $$ = new int_expression($1, 'h'); }
-                  | TK_OCT { $$ = new int_expression($1, 'o'); }
-                  | TK_STRING { $$ = new string_expression($1); }
+primary_expression: TK_ID { $$ = new id_expression($1, yylineno); }
+                  | TK_CHAR { $$ = new char_expression($1, yylineno); }
+                  | TK_DEC { $$ = new int_expression($1, 'd', yylineno); }
+                  | TK_HEX { $$ = new int_expression($1, 'h', yylineno); }
+                  | TK_OCT { $$ = new int_expression($1, 'o', yylineno); }
+                  | TK_STRING { $$ = new string_expression($1, yylineno); }
                   | '(' expression ')' { $$ = $2; }
 ;
 

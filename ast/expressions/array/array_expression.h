@@ -10,7 +10,11 @@ private:
     expression* index;
 
 public:
-    array_expression(expression* expr, expression* index);
+    array_expression(expression* expr, expression* index, int position) : expression(position)
+    {
+        this->expr = expr;
+        this->index = index;
+    }
     string to_string();
     // string get_type();
     // string generate_mips();

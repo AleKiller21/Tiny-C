@@ -9,7 +9,12 @@ private:
     string value;
 
 public:
-    string_expression(string* value);
+    string_expression(string* value, int position) : expression(position)
+    {
+        this->value = *value;
+        delete value;
+    }
+    
     string to_string();
     // string get_type();
     // string generate_mips();

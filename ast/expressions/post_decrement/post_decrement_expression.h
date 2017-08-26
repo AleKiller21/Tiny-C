@@ -9,7 +9,11 @@ private:
     expression* expr;
 
 public:
-    post_decrement_expression(expression* expr);
+    post_decrement_expression(expression* expr, int position) : expression(position)
+    {
+        this->expr = expr;
+    }
+    
     string to_string();
     // string get_type();
     // string generate_mips();

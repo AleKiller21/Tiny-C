@@ -10,7 +10,12 @@ private:
     char format;
 
 public:
-    int_expression(int value, char format);
+    int_expression(int value, char format, int position) : expression(position)
+    {
+        this->value = value;
+        this->format = format;
+    }
+    
     char get_format();
     string to_string();
     // string get_type();

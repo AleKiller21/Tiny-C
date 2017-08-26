@@ -9,7 +9,11 @@ private:
     char value;
 
 public:
-    char_expression(char value);
+    char_expression(char value, int position) : expression(position)
+    {
+        this->value = value;
+    }
+    
     string to_string();
 
     // string get_type();

@@ -9,7 +9,12 @@ private:
     string lexeme;
 
 public:
-    id_expression(string* lexeme);
+    id_expression(string* lexeme, int position) : expression(position)
+    {
+        this->lexeme = *lexeme;
+        delete lexeme;
+    }
+    
     string to_string();
 
     // string get_type();

@@ -10,7 +10,12 @@ private:
     expression* arguments;
 
 public:
-    function_expression(expression* id, expression* arguments);
+    function_expression(expression* id, expression* arguments, int position) : expression(position)
+    {
+        this->id = id;
+        this->arguments = arguments;
+    }
+    
     string to_string();
     // string generate_mips();
     // string get_type();

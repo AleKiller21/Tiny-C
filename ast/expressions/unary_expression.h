@@ -8,7 +8,7 @@ class unary_expression : public expression
 protected:
     expression* expr;
     
-    unary_expression(expression* expr) { this->expr = expr; }
+    unary_expression(expression* expr, int position) : expression(position) { this->expr = expr; }
 };
 
 #endif // UNARY_EXPRESSION
