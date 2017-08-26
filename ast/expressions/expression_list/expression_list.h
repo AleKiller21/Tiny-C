@@ -12,7 +12,6 @@ private:
     list<expression*> expressions;
 
 public:
-    expression_list(list<expression*>* exprs);
     void add_expression(expression* expr);
     string to_string();
     // string get_type();

@@ -3,7 +3,7 @@
 
 #include "../expression.h"
 
-class char_expression : expression
+class char_expression : public expression
 {
 private:
     char value;

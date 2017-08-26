@@ -1,3 +1,8 @@
+%code requires
+{
+    #include "ast.h"
+}
+
 %{
     extern int yylineno;
 
@@ -8,8 +13,19 @@
     #define YYERROR_VERBOSE 1
 %}
 
+%union {
+    string* str_t;
+    expression* expr_t;
+    int int_t;
+    char char_t;
+}
+
+%type <expr_t> expression primary_expression expression_list argument_list postfix_expression
+
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
-%token TK_ID TK_DEC TK_OCT TK_HEX TK_STRING TK_CHAR 
+%token <str_t> TK_ID TK_STRING 
+%token <int_t> TK_DEC TK_OCT TK_HEX
+%token <char_t> TK_CHAR
 %token OP_LE "<="
 %token OP_GE ">="
 %token OP_EQ "=="
@@ -235,28 +251,28 @@ unary_operator: pointer
               | '!'
 ;
 
-postfix_expression: postfix_expression '[' expression ']'
-                  | postfix_expression '(' argument_list ')'
-                  | postfix_expression "++"
-                  | postfix_expression "--"
-                  | primary_expression
+postfix_expression: postfix_expression '[' expression ']' { $$ = new array_expression($1, $3); }
+                  | postfix_expression '(' argument_list ')' { $$ = new function_expression($1, $3); }
+                  | postfix_expression "++" { $$ = new post_increment_expression($1); }
+                  | postfix_expression "--" { $$ = new post_decrement_expression($1); }
+                  | primary_expression { $$ = $1; }
 ;
 
-argument_list: expression_list
-             | %empty
+argument_list: expression_list { $$ = $1; }
+             | %empty { $$ = NULL; }
 ;
 
-expression_list: expression
-               | expression_list ',' expression
+expression_list: expression { $$ = new expression_list(); ((expression_list*)$$)->add_expression($1); }
+               | expression_list ',' expression { $$ = $1; ((expression_list*)$$)->add_expression($3); }
 ;
 
-primary_expression: TK_ID
-                  | TK_CHAR
-                  | TK_DEC
-                  | TK_HEX
-                  | TK_OCT
-                  | TK_STRING
-                  | '(' expression ')'
+primary_expression: TK_ID { $$ = new id_expression($1); }
+                  | TK_CHAR { $$ = new char_expression($1); }
+                  | TK_DEC { $$ = new int_expression($1, 'd'); }
+                  | TK_HEX { $$ = new int_expression($1, 'h'); }
+                  | TK_OCT { $$ = new int_expression($1, 'o'); }
+                  | TK_STRING { $$ = new string_expression($1); }
+                  | '(' expression ')' { $$ = $2; }
 ;
 
 %%

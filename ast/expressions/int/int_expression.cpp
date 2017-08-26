@@ -1,6 +1,6 @@
 #include "int_expression.h"
 
-int_expression::int_expression(int value, int format)
+int_expression::int_expression(int value, char format)
 {
     this->value = value;
     this->format = format;

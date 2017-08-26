@@ -10,7 +10,7 @@ private:
     char format;
 
 public:
-    int_expression(int value, int format);
+    int_expression(int value, char format);
     char get_format();
     string to_string();
     // string get_type();

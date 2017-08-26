@@ -1,11 +1,5 @@
 #include "expression_list.h"
 
-expression_list::expression_list(list<expression*>* exprs)
-{
-    this->expressions = *exprs;
-    delete exprs;
-}
-
 void expression_list::add_expression(expression* expr)
 {
     expressions.push_back(expr);

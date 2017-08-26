@@ -1,8 +1,9 @@
 #include "string_expression.h"
 
-string_expression::string_expression(string value)
+string_expression::string_expression(string* value)
 {
-    this->value = value;
+    this->value = *value;
+    delete value;
 }
 
 string string_expression::to_string()

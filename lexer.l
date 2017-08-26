@@ -8,6 +8,7 @@
 
 %{
     #include <string>
+    #include <cstdlib>
     #include "tokens.h"
 
     using namespace std;
@@ -44,10 +45,10 @@ OCTAL       0[0-7]*
 "return"                    { return RW_RETURN; }
 "continue"                  { return RW_CONTINUE; }
 "break"                     { return RW_BREAK; }
-{ID}                        { return TK_ID; }
+{ID}                        { yylval.str_t = new string(yytext); return TK_ID; }
 {HEXADECIMAL}               { BEGIN(hex); }
-{OCTAL}                     { return TK_OCT; }
-{DECIMAL}                   { return TK_DEC; }
+{OCTAL}                     { yylval.int_t = atoi(yytext); return TK_OCT; }
+{DECIMAL}                   { yylval.int_t = atoi(yytext); return TK_DEC; }
 "?"                         { return '?'; }
 ":"                         { return ':'; }
 "="                         { return '='; }
@@ -105,7 +106,7 @@ OCTAL       0[0-7]*
                                     if(extract_lexeme('\"') == 0) return TK_STRING;
                                 }
                             }
-<string_lit>\"              { /*TODO: save string_lexeme value into yylval */ BEGIN(INITIAL); return TK_STRING; }
+<string_lit>\"              { yylval.str_t = new string(string_lexeme); BEGIN(INITIAL); return TK_STRING; }
 <string_lit>\\              { string_lexeme += get_escape_secuence(); }
 <string_lit>\n|\'           { BEGIN(INITIAL); fprintf(stderr, "Line %d: error: Missing terminating \" character.\n", yylineno); }
 
@@ -114,11 +115,11 @@ OCTAL       0[0-7]*
 <char_lit>\\                {
                                 char_lexeme = get_escape_secuence();
                                 BEGIN(INITIAL);
-                                /*TODO: save yytext[0] value into yylval */
+                                yylval.char_t = char_lexeme;
                                 if(extract_lexeme('\'') == 0) return TK_CHAR;
 
                             }
-<char_lit>.\'               { /*TODO: save yytext[0] value into yylval */ BEGIN(INITIAL); return TK_CHAR; }
+<char_lit>.\'               { yylval.char_t = *yytext; BEGIN(INITIAL); return TK_CHAR; }
 <char_lit>[^\n\'\\]{2,}       { BEGIN(INITIAL); yyinput(); fprintf(stderr, "Line %d: error: character constant too long for its type.\n", yylineno); }
 
 
@@ -128,7 +129,7 @@ OCTAL       0[0-7]*
 <block_comment>"*/"         { BEGIN(INITIAL); }
 <block_comment>.|\n         { /* Nothing */ }
 
-<hex>[a-fA-F0-9]+           { BEGIN(INITIAL); return TK_HEX;}
+<hex>[a-fA-F0-9]+           { yylval.int_t = atoi(yytext); BEGIN(INITIAL); return TK_HEX;}
 <hex>.|\n                   { consume_invalid_number_literal("hexadecimal"); }
 
 
@@ -142,8 +143,9 @@ int extract_lexeme(char delimiter)
         fprintf(stderr, "Line %d: error: Missing terminating %c character.\n", yylineno, delimiter);
         return 1;
     }
-    
-    //TODO: save string_lexeme value into yylval
+
+    if(delimiter == '\"') yylval.str_t = new string(string_lexeme);
+
     return 0;
 }
 
