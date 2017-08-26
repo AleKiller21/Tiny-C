@@ -20,7 +20,7 @@
     char char_t;
 }
 
-%type <expr_t> expression primary_expression expression_list argument_list postfix_expression
+%type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -234,21 +234,18 @@ multiplicative_expression: multiplicative_expression '*' cast_expression
 ;
 
 cast_expression: '(' type ')' cast_expression
-               | unary_expression
+               | unary_expression { $$ = $1; }
 ;
 
-unary_expression: "++" unary_expression
-                | "--" unary_expression
-                | unary_operator cast_expression
-                | postfix_expression
-;
-
-unary_operator: pointer
-              | '&'
-              | '+'
-              | '-'
-              | '~'
-              | '!'
+unary_expression: "++" unary_expression { $$ = pre_increment_expression($2); }
+                | "--" unary_expression { $$ = pre_decrement_expression($2); }
+                | pointer cast_expression { $$ = new pointer_expression($2); }
+                | '&' cast_expression { $$ = new address_expression($2); }
+                | '+' cast_expression { $$ = new positive_expression($2); }
+                | '-' cast_expression { $$ = new negative_expression($2); }
+                | '~' cast_expression { $$ = new two_complement_expression($2); }
+                | '!' cast_expression { $$ = new negation_expression($2); }
+                | postfix_expression { $$ = $1; }
 ;
 
 postfix_expression: postfix_expression '[' expression ']' { $$ = new array_expression($1, $3); }

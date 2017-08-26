@@ -1,0 +1,15 @@
+#ifndef TWO_COMPLEMENT
+#define TWO_COMPLEMENT
+
+#include "../unary_expression.h"
+
+class two_complement_expression : public unary_expression
+{
+public:
+    two_complement_expression(expression* expr) : unary_expression(expr) {}
+    string to_string();
+    // string get_type();
+    // string generate_mips();
+};
+
+#endif // TWO_COMPLEMENT
