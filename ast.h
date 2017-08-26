@@ -18,5 +18,8 @@
 #include "ast/expressions/unary/positive/positive_expression.h"
 #include "ast/expressions/unary/two_complement/two_complement_expression.h"
 #include "ast/expressions/unary/negation/negation_expression.h"
+#include "ast/expressions/binary/mult/mult_expression.h"
+#include "ast/expressions/binary/div/div_expression.h"
+#include "ast/expressions/binary/mod/mod_expression.h"
 
 #endif // AST_H

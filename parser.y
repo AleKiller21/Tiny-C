@@ -20,7 +20,7 @@
     char char_t;
 }
 
-%type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
+%type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression multiplicative_expression
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -249,10 +249,10 @@ additive_expression: additive_expression '+' multiplicative_expression
                    | multiplicative_expression
 ;
 
-multiplicative_expression: multiplicative_expression '*' cast_expression
-                         | multiplicative_expression '/' cast_expression
-                         | multiplicative_expression '%' cast_expression
-                         | cast_expression
+multiplicative_expression: multiplicative_expression '*' cast_expression { $$ = new mult_expression($1, $3, yylineno); }
+                         | multiplicative_expression '/' cast_expression { $$ = new div_expression($1, $3, yylineno); }
+                         | multiplicative_expression '%' cast_expression { $$ = new mod_expression($1, $3, yylineno); }
+                         | cast_expression { $$ = $1; }
 ;
 
 cast_expression: '(' type_name ')' cast_expression { $$ = NULL; /* TODO: Implementar despues de haber terminado type_name production*/ }
