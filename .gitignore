@@ -1,4 +1,5 @@
 samples/
+.vscode/
 lexer.cpp
 parser.cpp
 tokens.h

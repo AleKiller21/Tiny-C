@@ -31,6 +31,8 @@
 %token OP_EX_OR_EQUAL "^="
 %token OP_IN_OR_EQUAL "|="
 
+%expect 1
+
 %%
 
 translation_unit: external_declaration

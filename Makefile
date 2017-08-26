@@ -1,5 +1,8 @@
 TARGET=Tiny
-SOURCE=parser.cpp lexer.cpp main.cpp
+AST_EXPRESSION=./ast/expressions
+PURE_HEADER=${AST_EXPRESSION}/expression.h
+HEADER=${AST_EXPRESSION}/id/id_expression.h ${AST_EXPRESSION}/char/char_expression.h ${AST_EXPRESSION}/string/string_expression.h ${AST_EXPRESSION}/int/int_expression.h
+SOURCE=${HEADER:.h=.cpp} parser.cpp lexer.cpp main.cpp
 OBJECT_FILES=${SOURCE:.cpp=.o}
 
 $(TARGET): $(OBJECT_FILES)
@@ -11,8 +14,8 @@ lexer.cpp: lexer.l
 parser.cpp: parser.y
 	bison -v -rall --defines=tokens.h -o $@ $<
 
-%.o: %.cpp tokens.h
-	g++ -c $<
+%.o: %.cpp tokens.h $(PURE_HEADER) $(HEADER)
+	g++ -c -o $@ $<
 
 run: $(TARGET)
 	./$(TARGET) < ./samples/quicksort.c
@@ -25,5 +28,5 @@ test: $(TARGET)
 	./$(TARGET) < ./samples/routines.c
 
 clean:
-	rm -f lexer.cpp parser.cpp *.o
+	rm -f lexer.cpp parser.cpp *.o $(AST_EXPRESSION)/**/*.o
 	rm -f $(TARGET)
