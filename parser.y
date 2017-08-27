@@ -21,7 +21,8 @@
 }
 
 %type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
-%type <expr_t> multiplicative_expression additive_expression shift_expression relational_expression equality_expression
+%type <expr_t> multiplicative_expression additive_expression shift_expression relational_expression equality_expression and_expression
+%type <expr_t> exclusive_or_expression inclusive_or_expression logical_and_expression logical_or_expression conditional_expression
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -224,8 +225,8 @@ exclusive_or_expression: exclusive_or_expression '^' and_expression
                        | and_expression
 ;
 
-and_expression: and_expression '&' equality_expression
-              | equality_expression
+and_expression: and_expression '&' equality_expression { $$ = new and_expression($1, $3, yylineno); }
+              | equality_expression { $$ = $1; }
 ;
 
 equality_expression: equality_expression "==" relational_expression { $$ = new equal_expression($1, $3, yylineno); }

@@ -31,5 +31,6 @@
 #include "ast/expressions/binary/greater_equal/greater_equal_expression.h"
 #include "ast/expressions/binary/equal/equal_expression.h"
 #include "ast/expressions/binary/not_equal/not_equal_expression.h"
+#include "ast/expressions/binary/and/and_expression.h"
 
 #endif // AST_H
