@@ -32,5 +32,9 @@
 #include "ast/expressions/binary/equal/equal_expression.h"
 #include "ast/expressions/binary/not_equal/not_equal_expression.h"
 #include "ast/expressions/binary/and/and_expression.h"
+#include "ast/expressions/binary/xor/xor_expression.h"
+#include "ast/expressions/binary/or/or_expression.h"
+#include "ast/expressions/binary/logical_and/logical_and_expression.h"
+#include "ast/expressions/binary/logical_or/logical_or_expression.h"
 
 #endif // AST_H
