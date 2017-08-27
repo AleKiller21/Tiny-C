@@ -53,5 +53,6 @@
 #include "ast/statements/continue/continue_statement.h"
 #include "ast/statements/expression/expression_statement.h"
 #include "ast/statements/for/for_statement.h"
+#include "ast/statements/while/while_statement.h"
 
 #endif // AST_H
