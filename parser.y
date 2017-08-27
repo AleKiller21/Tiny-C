@@ -205,8 +205,8 @@ assign_operators: '='
                 | "|="
 ;
 
-conditional_expression: logical_or_expression '?' expression ':' conditional_expression
-                      | logical_or_expression
+conditional_expression: logical_or_expression '?' expression ':' conditional_expression { $$ = new conditional_expression($1, $3, $5, yylineno); }
+                      | logical_or_expression { $$ = $1; }
 ;
 
 logical_or_expression: logical_or_expression "||" logical_and_expression { $$ = new logical_or_expression($1, $3, yylineno); }

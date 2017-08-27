@@ -36,5 +36,6 @@
 #include "ast/expressions/binary/or/or_expression.h"
 #include "ast/expressions/binary/logical_and/logical_and_expression.h"
 #include "ast/expressions/binary/logical_or/logical_or_expression.h"
+#include "ast/expressions/conditional/conditional_expression.h"
 
 #endif // AST_H
