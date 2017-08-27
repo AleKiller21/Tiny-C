@@ -24,7 +24,7 @@
 %type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
 %type <expr_t> multiplicative_expression additive_expression shift_expression relational_expression equality_expression and_expression
 %type <expr_t> exclusive_or_expression inclusive_or_expression logical_and_expression logical_or_expression conditional_expression assign_expression
-%type <stmt_t> statement jump_statement expression_statement
+%type <stmt_t> statement jump_statement expression_statement for_statement
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -101,8 +101,8 @@ loop_statement: while_statement
 while_statement: RW_WHILE '(' expression ')' statement
 ;
 
-for_statement: RW_FOR '(' expression_statement expression_statement expression ')' statement
-             | RW_FOR '(' expression_statement expression_statement ')' statement
+for_statement: RW_FOR '(' expression_statement expression_statement expression ')' statement { $$ = new for_statement(yylineno, $7, $3, $4, $5); }
+             | RW_FOR '(' expression_statement expression_statement ')' statement { $$ = new for_statement(yylineno, $6, $3, $4, NULL); }
 ;
 
 jump_statement: RW_CONTINUE ';' { $$ = new continue_statement(yylineno); }
