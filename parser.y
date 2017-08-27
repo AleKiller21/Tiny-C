@@ -20,8 +20,8 @@
     char char_t;
 }
 
-%type <expr_t> expression primary_expression expression_list argument_list postfix_expression 
-%type <expr_t> unary_expression cast_expression multiplicative_expression additive_expression shift_expression
+%type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
+%type <expr_t> multiplicative_expression additive_expression shift_expression relational_expression
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -233,10 +233,10 @@ equality_expression: equality_expression "==" relational_expression
                    | relational_expression
 ;
 
-relational_expression: relational_expression '<' shift_expression
-                     | relational_expression '>' shift_expression
-                     | relational_expression "<=" shift_expression
-                     | relational_expression ">=" shift_expression
+relational_expression: relational_expression '<' shift_expression { $$ = new less_expression($1, $3, yylineno); }
+                     | relational_expression '>' shift_expression { $$ = new greater_expression($1, $3, yylineno); }
+                     | relational_expression "<=" shift_expression { $$ = new less_equal_expression($1, $3, yylineno); }
+                     | relational_expression ">=" shift_expression { $$ = new greater_equal_expression($1, $3, yylineno); }
                      | shift_expression
 ;
 

@@ -25,5 +25,9 @@
 #include "ast/expressions/binary/sub/sub_expression.h"
 #include "ast/expressions/binary/lshift/lshift_expression.h"
 #include "ast/expressions/binary/rshift/rshift_expression.h"
+#include "ast/expressions/binary/less/less_expression.h"
+#include "ast/expressions/binary/less_equal/less_equal_expression.h"
+#include "ast/expressions/binary/greater/greater_expression.h"
+#include "ast/expressions/binary/greater_equal/greater_equal_expression.h"
 
 #endif // AST_H
