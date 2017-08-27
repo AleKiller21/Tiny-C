@@ -48,5 +48,8 @@
 #include "ast/expressions/binary/assign/and_equal/and_equal_expression.h"
 #include "ast/expressions/binary/assign/xor_equal/xor_equal_expression.h"
 #include "ast/expressions/binary/assign/or_equal/or_equal_expression.h"
+#include "ast/statements/return/return_statement.h"
+#include "ast/statements/break/break_statement.h"
+#include "ast/statements/continue/continue_statement.h"
 
 #endif // AST_H
