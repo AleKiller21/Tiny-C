@@ -51,5 +51,6 @@
 #include "ast/statements/return/return_statement.h"
 #include "ast/statements/break/break_statement.h"
 #include "ast/statements/continue/continue_statement.h"
+#include "ast/statements/expression/expression_statement.h"
 
 #endif // AST_H
