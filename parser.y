@@ -24,7 +24,8 @@
 %type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
 %type <expr_t> multiplicative_expression additive_expression shift_expression relational_expression equality_expression and_expression
 %type <expr_t> exclusive_or_expression inclusive_or_expression logical_and_expression logical_or_expression conditional_expression assign_expression
-%type <stmt_t> statement jump_statement expression_statement for_statement while_statement
+%type <stmt_t> statement jump_statement expression_statement for_statement while_statement loop_statement else_statement selection_statement
+%type <stmt_t> block_statement statement_list
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -70,11 +71,11 @@ statement_list: statement
               | statement_list statement
 ;
 
-statement: expression_statement
+statement: expression_statement { $$ = $1; }
          | block_statement
-         | selection_statement
-         | loop_statement
-         | jump_statement
+         | selection_statement { $$ = $1; }
+         | loop_statement { $$ = $1; }
+         | jump_statement { $$ = $1; }
 ;
 
 expression_statement: expression ';' { $$ = new expression_statement(yylineno, $1); }
@@ -87,15 +88,15 @@ block_statement: '{' declaration_list '}'
                | '{' '}'
 ;
 
-selection_statement: RW_IF '(' expression ')' statement else_statement
+selection_statement: RW_IF '(' expression ')' statement else_statement { $$ = new if_statement(yylineno, $3, $5, $6); }
+                   | RW_IF '(' expression ')' statement { $$ = new if_statement(yylineno, $3, $5, NULL); }
 ;
 
-else_statement: RW_ELSE statement
-              | %empty
+else_statement: RW_ELSE statement { $$ = $2; }
 ;
 
-loop_statement: while_statement
-              | for_statement
+loop_statement: while_statement { $$ = $1; }
+              | for_statement { $$ = $1; }
 ;
 
 while_statement: RW_WHILE '(' expression ')' statement { $$ = new while_statement($3, $5, yylineno); }
