@@ -67,8 +67,8 @@ external_declaration: declaration
 function_definition: type declarator block_statement
 ;
 
-statement_list: statement
-              | statement_list statement
+statement_list: statement { $$ = new statement_list(yylineno); ((statement_list*)$$)->add_statement($1); }
+              | statement_list statement { $$ = $1; ((statement_list*)$$)->add_statement($2); }
 ;
 
 statement: expression_statement { $$ = $1; }

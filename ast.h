@@ -55,5 +55,6 @@
 #include "ast/statements/for/for_statement.h"
 #include "ast/statements/while/while_statement.h"
 #include "ast/statements/if/if_statement.h"
+#include "ast/statements/list/statement_list.h"
 
 #endif // AST_H
