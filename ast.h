@@ -29,5 +29,7 @@
 #include "ast/expressions/binary/less_equal/less_equal_expression.h"
 #include "ast/expressions/binary/greater/greater_expression.h"
 #include "ast/expressions/binary/greater_equal/greater_equal_expression.h"
+#include "ast/expressions/binary/equal/equal_expression.h"
+#include "ast/expressions/binary/not_equal/not_equal_expression.h"
 
 #endif // AST_H
