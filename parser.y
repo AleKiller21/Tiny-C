@@ -23,6 +23,7 @@
 %type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
 %type <expr_t> multiplicative_expression additive_expression shift_expression relational_expression equality_expression and_expression
 %type <expr_t> exclusive_or_expression inclusive_or_expression logical_and_expression logical_or_expression conditional_expression
+%type <expr_t> assign_expression
 
 %token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -99,12 +100,14 @@ loop_statement: while_statement
 while_statement: RW_WHILE '(' expression ')' statement
 ;
 
-for_statement: RW_FOR '(' expression_statement expression_statement optional_expression ')' statement
+for_statement: RW_FOR '(' expression_statement expression_statement expression ')' statement
+             | RW_FOR '(' expression_statement expression_statement ')' statement
 ;
 
 jump_statement: RW_CONTINUE ';'
               | RW_BREAK ';'
-              | RW_RETURN optional_expression ';'
+              | RW_RETURN expression ';'
+              | RW_RETURN ';'
 ;
 
 type_name: type
@@ -159,7 +162,8 @@ pointer: '*'
 
 direct_declarator: TK_ID
                  | '(' declarator ')'
-                 | direct_declarator '[' optional_expression ']'
+                 | direct_declarator '[' expression ']'
+                 | direct_declarator '[' ']'
                  | direct_declarator '(' parameter_type_list ')'
                  | direct_declarator '(' ')'
 ;
@@ -181,28 +185,21 @@ type: RW_INT
     | RW_VOID
 ;
 
-optional_expression: expression
-                   | %empty
+expression: conditional_expression { $$ = $1; }
+          | assign_expression { $$ = $1; }
 ;
 
-expression: conditional_expression
-          | assign_expression
-;
-
-assign_expression: unary_expression assign_operators expression
-;
-
-assign_operators: '='
-                | "*="
-                | "/="
-                | "%="
-                | "+="
-                | "-="
-                | "<<="
-                | ">>="
-                | "&="
-                | "^="
-                | "|="
+assign_expression: unary_expression '=' expression { $$ = new assign_equal_expression($1, $3, yylineno); }
+                 | unary_expression "*=" expression { $$ = new mult_equal_expression($1, new mult_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "/=" expression { $$ = new div_equal_expression($1, new div_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "%=" expression { $$ = new mod_equal_expression($1, new mod_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "+=" expression { $$ = new sum_equal_expression($1, new sum_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "-=" expression { $$ = new sub_equal_expression($1, new sub_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "<<=" expression { $$ = new lshift_equal_expression($1, new lshift_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression ">>=" expression { $$ = new rshift_equal_expression($1, new rshift_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "&=" expression { $$ = new and_equal_expression($1, new and_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "^=" expression { $$ = new xor_equal_expression($1, new xor_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "|=" expression { $$ = new or_equal_expression($1, new or_expression($1, $3, yylineno), yylineno); }
 ;
 
 conditional_expression: logical_or_expression '?' expression ':' conditional_expression { $$ = new conditional_expression($1, $3, $5, yylineno); }

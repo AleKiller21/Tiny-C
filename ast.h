@@ -37,5 +37,16 @@
 #include "ast/expressions/binary/logical_and/logical_and_expression.h"
 #include "ast/expressions/binary/logical_or/logical_or_expression.h"
 #include "ast/expressions/conditional/conditional_expression.h"
+#include "ast/expressions/binary/assign/assign_equal/assign_equal_expression.h"
+#include "ast/expressions/binary/assign/mult_equal/mult_equal_expression.h"
+#include "ast/expressions/binary/assign/div_equal/div_equal_expression.h"
+#include "ast/expressions/binary/assign/mod_equal/mod_equal_expression.h"
+#include "ast/expressions/binary/assign/sum_equal/sum_equal_expression.h"
+#include "ast/expressions/binary/assign/sub_equal/sub_equal_expression.h"
+#include "ast/expressions/binary/assign/lshift_equal/lshift_equal_expression.h"
+#include "ast/expressions/binary/assign/rshift_equal/rshift_equal_expression.h"
+#include "ast/expressions/binary/assign/and_equal/and_equal_expression.h"
+#include "ast/expressions/binary/assign/xor_equal/xor_equal_expression.h"
+#include "ast/expressions/binary/assign/or_equal/or_equal_expression.h"
 
 #endif // AST_H
