@@ -21,5 +21,7 @@
 #include "ast/expressions/binary/mult/mult_expression.h"
 #include "ast/expressions/binary/div/div_expression.h"
 #include "ast/expressions/binary/mod/mod_expression.h"
+#include "ast/expressions/binary/sum/sum_expression.h"
+#include "ast/expressions/binary/sub/sub_expression.h"
 
 #endif // AST_H
