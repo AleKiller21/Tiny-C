@@ -23,5 +23,7 @@
 #include "ast/expressions/binary/mod/mod_expression.h"
 #include "ast/expressions/binary/sum/sum_expression.h"
 #include "ast/expressions/binary/sub/sub_expression.h"
+#include "ast/expressions/binary/lshift/lshift_expression.h"
+#include "ast/expressions/binary/rshift/rshift_expression.h"
 
 #endif // AST_H
