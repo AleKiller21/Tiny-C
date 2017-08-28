@@ -18,6 +18,7 @@
     expression* expr_t;
     statement* stmt_t;
     declarator* decl_t;
+    parameter_list* params_t;
     int int_t;
     char char_t;
 }
@@ -27,7 +28,8 @@
 %type <expr_t> exclusive_or_expression inclusive_or_expression logical_and_expression logical_or_expression conditional_expression assign_expression
 %type <stmt_t> statement jump_statement expression_statement for_statement while_statement loop_statement else_statement selection_statement
 %type <stmt_t> block_statement statement_list
-%type <decl_t> direct_declarator declarator
+%type <decl_t> direct_declarator declarator parameter_declaration abstract_declarator
+%type <params_t> parameter_list parameter_type_list
 %type <int_t> type
 
 %token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
@@ -169,18 +171,18 @@ direct_declarator: TK_ID { $$ = new simple_declarator(new id_expression($1, yyli
                  | '(' declarator ')' { $$ = $2; }
                  | direct_declarator '[' expression ']' { $$ = new array_declarator(yylineno, $1, $3); }
                  | direct_declarator '[' ']' { $$ = new array_declarator(yylineno, $1, NULL); }
-                 | direct_declarator '(' parameter_type_list ')'
-                 | direct_declarator '(' ')'
+                 | direct_declarator '(' parameter_type_list ')' { $$ = new function_declarator(yylineno, $1, $3); }
+                 | direct_declarator '(' ')' { $$ = new function_declarator(yylineno, $1, NULL); }
 ;
 
-parameter_type_list: parameter_list
+parameter_type_list: parameter_list { $$ = $1; }
 ;
 
-parameter_list: parameter_declaration
-              | parameter_list ',' parameter_declaration
+parameter_list: parameter_declaration { $$ = new parameter_list(); $$->add_param((parameter_declarator*)$1); }
+              | parameter_list ',' parameter_declaration { $$ = $1; $$->add_param((parameter_declarator*)$3); }
 ;
 
-parameter_declaration: type declarator
+parameter_declaration: type declarator { $$ = new parameter_declarator($2, $1, yylineno); }
                      | type abstract_declarator
                      | type
 ;

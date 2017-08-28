@@ -59,5 +59,8 @@
 #include "ast/statements/list/statement_list.h"
 #include "ast/declarations/simple/simple_declarator.h"
 #include "ast/declarations/array/array_declarator.h"
+#include "ast/declarations/parameter/parameter_declarator.h"
+#include "ast/declarations/function/function_declarator.h"
+#include "ast/declarations/parameter_list/parameter_list.h"
 
 #endif // AST_H
