@@ -2,5 +2,5 @@
 
 string id_expression::to_string()
 {
-   return string(lexeme) + " ";
+   return lexeme + " ";
 }

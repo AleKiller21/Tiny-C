@@ -17,6 +17,7 @@
     string* str_t;
     expression* expr_t;
     statement* stmt_t;
+    declarator* decl_t;
     int int_t;
     char char_t;
 }
@@ -26,10 +27,12 @@
 %type <expr_t> exclusive_or_expression inclusive_or_expression logical_and_expression logical_or_expression conditional_expression assign_expression
 %type <stmt_t> statement jump_statement expression_statement for_statement while_statement loop_statement else_statement selection_statement
 %type <stmt_t> block_statement statement_list
+%type <decl_t> direct_declarator declarator
+%type <int_t> type
 
-%token RW_INT RW_CHAR RW_VOID RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
+%token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
-%token <int_t> TK_DEC TK_OCT TK_HEX
+%token <int_t> TK_DEC TK_OCT TK_HEX RW_INT RW_CHAR RW_VOID
 %token <char_t> TK_CHAR
 %token OP_LE "<="
 %token OP_GE ">="
@@ -155,17 +158,17 @@ initializer_list: initializer
                 | initializer_list ',' initializer
 ;
 
-declarator: pointer direct_declarator
-          | direct_declarator
+declarator: pointer direct_declarator { $$ = $2; $$->pointer = true; }
+          | direct_declarator { $$ = $1; }
 ;
 
 pointer: '*'
 ;
 
-direct_declarator: TK_ID
-                 | '(' declarator ')'
-                 | direct_declarator '[' expression ']'
-                 | direct_declarator '[' ']'
+direct_declarator: TK_ID { $$ = new simple_declarator(new id_expression($1, yylineno), yylineno); }
+                 | '(' declarator ')' { $$ = $2; }
+                 | direct_declarator '[' expression ']' { $$ = new array_declarator(yylineno, $1, $3); }
+                 | direct_declarator '[' ']' { $$ = new array_declarator(yylineno, $1, NULL); }
                  | direct_declarator '(' parameter_type_list ')'
                  | direct_declarator '(' ')'
 ;
@@ -182,9 +185,9 @@ parameter_declaration: type declarator
                      | type
 ;
 
-type: RW_INT
-    | RW_CHAR
-    | RW_VOID
+type: RW_INT { $$ = $1; }
+    | RW_CHAR { $$ = $1; }
+    | RW_VOID { $$ = $1; }
 ;
 
 expression: conditional_expression { $$ = $1; }

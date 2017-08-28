@@ -1,6 +1,7 @@
 #ifndef AST_H
 #define AST_H
 
+#include "ast/types.h"
 #include "ast/expressions/postfix/array/array_expression.h"
 #include "ast/expressions/primary/char/char_expression.h"
 #include "ast/expressions/expression_list/expression_list.h"
@@ -56,5 +57,7 @@
 #include "ast/statements/while/while_statement.h"
 #include "ast/statements/if/if_statement.h"
 #include "ast/statements/list/statement_list.h"
+#include "ast/declarations/simple/simple_declarator.h"
+#include "ast/declarations/array/array_declarator.h"
 
 #endif // AST_H

@@ -33,9 +33,9 @@ OCTAL       0[0-7]*
 \'                          { BEGIN(char_lit); }
 "//"                        { BEGIN(line_comment); }
 "/*"                        { BEGIN(block_comment); }
-"int"                       { return RW_INT; }
-"char"                      { return RW_CHAR; }
-"void"                      { return RW_VOID; }
+"int"                       { yylval.int_t = INT; return RW_INT; }
+"char"                      { yylval.int_t = CHAR; return RW_CHAR; }
+"void"                      { yylval.int_t = VOID; return RW_VOID; }
 "printf"                    { return RW_PRINTF; }
 "scanf"                     { return RW_SCANF; }
 "if"                        { return RW_IF; }
