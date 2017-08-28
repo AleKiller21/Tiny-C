@@ -16,3 +16,8 @@ string expression_list::to_string()
 
     return source;
 }
+
+list<expression*> expression_list::get_list()
+{
+    return expressions;
+}

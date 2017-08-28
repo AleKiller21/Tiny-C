@@ -16,9 +16,11 @@
 %union {
     string* str_t;
     expression* expr_t;
+    expression_list* expr_lst;
     statement* stmt_t;
     declarator* decl_t;
     parameter_list* params_t;
+    initializer* initializer_t;
     int int_t;
     char char_t;
 }
@@ -26,11 +28,13 @@
 %type <expr_t> expression primary_expression expression_list argument_list postfix_expression unary_expression cast_expression
 %type <expr_t> multiplicative_expression additive_expression shift_expression relational_expression equality_expression and_expression
 %type <expr_t> exclusive_or_expression inclusive_or_expression logical_and_expression logical_or_expression conditional_expression assign_expression
+%type <expr_lst> initializer_list
 %type <stmt_t> statement jump_statement expression_statement for_statement while_statement loop_statement else_statement selection_statement
 %type <stmt_t> block_statement statement_list
 %type <decl_t> direct_declarator declarator parameter_declaration abstract_declarator
 %type <params_t> parameter_list parameter_type_list
 %type <int_t> type
+%type <initializer_t> initializer
 
 %token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -152,12 +156,12 @@ declarator_init: declarator
                | declarator '=' initializer
 ;
 
-initializer: expression
-           | '{' initializer_list '}'
+initializer: expression { $$ = new initializer($1, NULL); }
+           | '{' initializer_list '}' { $$ = new initializer(NULL, $2); }
 ;
 
-initializer_list: initializer
-                | initializer_list ',' initializer
+initializer_list: expression { $$ = new expression_list(yylineno); $$->add_expression($1); }
+                | initializer_list ',' expression { $$ = $1; $$->add_expression($3); }
 ;
 
 declarator: pointer direct_declarator { $$ = $2; $$->pointer = true; }
