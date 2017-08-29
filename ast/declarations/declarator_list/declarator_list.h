@@ -16,6 +16,7 @@ public:
     // void validate_semantic();
     // string generate_mips();
     string to_string();
+    void set_type(int type);
 };
 
 #endif // DECLARATOR_LIST

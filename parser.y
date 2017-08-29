@@ -18,6 +18,7 @@
     expression* expr_t;
     expression_list* expr_lst;
     statement* stmt_t;
+    declaration* declaration_t;
     declarator* decl_t;
     declarator_list* decl_lst;
     parameter_list* params_t;
@@ -37,6 +38,7 @@
 %type <int_t> type
 %type <initializer_t> initializer
 %type <decl_lst> declarators_list
+%type <declaration_t> declaration
 
 %token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -147,7 +149,7 @@ declaration_list: declaration
                 | declaration_list declaration
 ;
 
-declaration: type declarators_list ';'
+declaration: type declarators_list ';' { $$ = new declaration($2, $1); }
 ;
 
 declarators_list: declarator_init { $$ = new declarator_list(); $$->add_declarator($1); }

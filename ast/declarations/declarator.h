@@ -23,6 +23,11 @@ public:
     virtual string generate_mips() { throw "function not yet implemented"; }
     virtual void validate_semantic() { throw "function not yet implemented"; }
 
+    void show_error(const char* msg)
+    {
+        fprintf(stderr, "Line %d: error: %s", position, msg);
+    }
+
 protected:
     declarator(id_expression* id, int position)
     {
