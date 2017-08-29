@@ -19,7 +19,12 @@ public:
     bool pointer;
     int type;
 
-    virtual string to_string() = 0;
+    virtual string to_string() 
+    {
+        if(init != NULL) return " = " + init->to_string();
+        return "";
+    }
+    
     virtual string generate_mips() { throw "function not yet implemented"; }
     virtual void validate_semantic() { throw "function not yet implemented"; }
 

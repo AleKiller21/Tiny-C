@@ -64,5 +64,6 @@
 #include "ast/declarations/initializer/initializer.h"
 #include "ast/declarations/declarator_list/declarator_list.h"
 #include "ast/declarations/declaration/declaration.h"
+#include "ast/declarations/declaration_list/declaration_list.h"
 
 #endif // AST_H

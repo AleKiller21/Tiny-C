@@ -21,6 +21,7 @@
     declaration* declaration_t;
     declarator* decl_t;
     declarator_list* decl_lst;
+    declaration_list* declaration_lst;
     parameter_list* params_t;
     initializer* initializer_t;
     int int_t;
@@ -38,6 +39,7 @@
 %type <int_t> type
 %type <initializer_t> initializer
 %type <decl_lst> declarators_list
+%type <declaration_lst> declaration_list
 %type <declaration_t> declaration
 
 %token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
@@ -145,8 +147,8 @@ direct_abstract_declarator: '(' abstract_declarator ')'
                           | '(' ')'
 ;
 
-declaration_list: declaration
-                | declaration_list declaration
+declaration_list: declaration { $$ = new declaration_list(); $$->add_declaration($1); }
+                | declaration_list declaration { $$ = $1; $$->add_declaration($2); }
 ;
 
 declaration: type declarators_list ';' { $$ = new declaration($2, $1); }
