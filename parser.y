@@ -24,6 +24,7 @@
     declaration_list* declaration_lst;
     parameter_list* params_t;
     initializer* initializer_t;
+    function_definition* funct_t;
     int int_t;
     char char_t;
 }
@@ -41,6 +42,7 @@
 %type <decl_lst> declarators_list
 %type <declaration_lst> declaration_list
 %type <declaration_t> declaration
+%type <funct_t> function_definition
 
 %token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -79,7 +81,7 @@ external_declaration: declaration
                     | function_definition
 ;
 
-function_definition: type declarator block_statement
+function_definition: type declarator block_statement { $$ = new function_definition($1, $2, $3); }
 ;
 
 statement_list: statement { $$ = new statement_list(yylineno); ((statement_list*)$$)->add_statement($1); }

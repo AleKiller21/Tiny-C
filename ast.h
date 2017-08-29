@@ -66,5 +66,6 @@
 #include "ast/declarations/declarator_list/declarator_list.h"
 #include "ast/declarations/declaration/declaration.h"
 #include "ast/declarations/declaration_list/declaration_list.h"
+#include "ast/functions/function_definition.h"
 
 #endif // AST_H
