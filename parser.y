@@ -13,12 +13,19 @@
     #define YYERROR_VERBOSE 1
 %}
 
+%code
+{
+    #include <list>
+    std::list<external_declaration*> source;
+}
+
 %union {
     string* str_t;
     expression* expr_t;
     expression_list* expr_lst;
     statement* stmt_t;
     declaration* declaration_t;
+    external_declaration* external_decl_t;
     declarator* decl_t;
     declarator_list* decl_lst;
     declaration_list* declaration_lst;
@@ -43,6 +50,7 @@
 %type <declaration_lst> declaration_list
 %type <declaration_t> declaration
 %type <funct_t> function_definition
+%type <external_decl_t> external_declaration
 
 %token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -73,12 +81,12 @@
 
 %%
 
-translation_unit: external_declaration
-                | translation_unit external_declaration
+translation_unit: external_declaration { source.push_back($1); }
+                | translation_unit external_declaration { source.push_back($2); }
 ;
 
-external_declaration: declaration
-                    | function_definition
+external_declaration: declaration { $$ = $1; }
+                    | function_definition { $$ = $1; }
 ;
 
 function_definition: type declarator block_statement { $$ = new function_definition($1, $2, $3); }
@@ -89,7 +97,7 @@ statement_list: statement { $$ = new statement_list(yylineno); ((statement_list*
 ;
 
 statement: expression_statement { $$ = $1; }
-         | block_statement
+         | block_statement { $$ = $1; }
          | selection_statement { $$ = $1; }
          | loop_statement { $$ = $1; }
          | jump_statement { $$ = $1; }

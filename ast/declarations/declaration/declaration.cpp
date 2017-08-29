@@ -1,12 +1,5 @@
 #include "declaration.h"
 
-declaration::declaration(declarator_list* decls, int type)
-{
-    declarators = decls;
-    this->type = type;
-    declarators->set_type(type);
-}
-
 string declaration::to_string()
 {
     string str;
