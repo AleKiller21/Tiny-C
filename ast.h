@@ -63,5 +63,6 @@
 #include "ast/declarations/function/function_declarator.h"
 #include "ast/declarations/parameter_list/parameter_list.h"
 #include "ast/declarations/initializer/initializer.h"
+#include "ast/declarations/declarator_list/declarator_list.h"
 
 #endif // AST_H

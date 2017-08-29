@@ -19,6 +19,7 @@
     expression_list* expr_lst;
     statement* stmt_t;
     declarator* decl_t;
+    declarator_list* decl_lst;
     parameter_list* params_t;
     initializer* initializer_t;
     int int_t;
@@ -31,10 +32,11 @@
 %type <expr_lst> initializer_list
 %type <stmt_t> statement jump_statement expression_statement for_statement while_statement loop_statement else_statement selection_statement
 %type <stmt_t> block_statement statement_list
-%type <decl_t> direct_declarator declarator parameter_declaration abstract_declarator
+%type <decl_t> direct_declarator declarator parameter_declaration abstract_declarator declarator_init
 %type <params_t> parameter_list parameter_type_list
 %type <int_t> type
 %type <initializer_t> initializer
+%type <decl_lst> declarators_list
 
 %token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
 %token <str_t> TK_ID TK_STRING 
@@ -148,12 +150,12 @@ declaration_list: declaration
 declaration: type declarators_list ';'
 ;
 
-declarators_list: declarator_init
-                | declarators_list ',' declarator_init
+declarators_list: declarator_init { $$ = new declarator_list(); $$->add_declarator($1); }
+                | declarators_list ',' declarator_init { $$ = $1; $$->add_declarator($3); }
 ;
 
-declarator_init: declarator
-               | declarator '=' initializer
+declarator_init: declarator { $$ = $1; }
+               | declarator '=' initializer { $$ = $1; $$->init = $3; }
 ;
 
 initializer: expression { $$ = new initializer($1, NULL); }

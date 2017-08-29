@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include "../types.h"
+#include "initializer/initializer.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ private:
     int position;
 
 public:
+    initializer* init;
     bool pointer;
     int type;
 
@@ -24,6 +26,7 @@ protected:
     {
         this->position = position;
         pointer = false;
+        init = NULL;
     }
 };
 
