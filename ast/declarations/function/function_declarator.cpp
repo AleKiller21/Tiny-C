@@ -2,7 +2,7 @@
 
 string function_declarator::to_string()
 {
-    if(params != NULL) return decl->to_string() + "(" + params->to_string() + ")";
+    if(params != NULL) return id_expr->to_string() + "(" + params->to_string() + ")";
 
-    return decl->to_string() + "(" + ")";
+    return id_expr->to_string() + "(" + ")";
 }

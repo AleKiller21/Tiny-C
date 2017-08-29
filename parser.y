@@ -174,23 +174,20 @@ pointer: '*'
 ;
 
 direct_declarator: TK_ID { $$ = new simple_declarator(new id_expression($1, yylineno), yylineno); }
-                 | '(' declarator ')' { $$ = $2; }
-                 | direct_declarator '[' expression ']' { $$ = new array_declarator(yylineno, $1, $3); }
-                 | direct_declarator '[' ']' { $$ = new array_declarator(yylineno, $1, NULL); }
-                 | direct_declarator '(' parameter_type_list ')' { $$ = new function_declarator(yylineno, $1, $3); }
-                 | direct_declarator '(' ')' { $$ = new function_declarator(yylineno, $1, NULL); }
+                 | TK_ID '[' expression ']' { $$ = new array_declarator(yylineno, new id_expression($1, yylineno), $3); }
+                 | TK_ID '[' ']' { $$ = new array_declarator(yylineno, new id_expression($1, yylineno), NULL); }
+                 | TK_ID '(' parameter_type_list ')' { $$ = new function_declarator(yylineno, new id_expression($1, yylineno), $3); }
+                 | TK_ID '(' ')' { $$ = new function_declarator(yylineno, new id_expression($1, yylineno), NULL); }
 ;
 
 parameter_type_list: parameter_list { $$ = $1; }
 ;
 
-parameter_list: parameter_declaration { $$ = new parameter_list(); $$->add_param((parameter_declarator*)$1); }
-              | parameter_list ',' parameter_declaration { $$ = $1; $$->add_param((parameter_declarator*)$3); }
+parameter_list: parameter_declaration { $$ = new parameter_list(); $$->add_param($1); }
+              | parameter_list ',' parameter_declaration { $$ = $1; $$->add_param($3); }
 ;
 
-parameter_declaration: type declarator { $$ = new parameter_declarator($2, $1, yylineno); }
-                     | type abstract_declarator
-                     | type
+parameter_declaration: type declarator { $$ = $2; $$->type = $1; }
 ;
 
 type: RW_INT { $$ = $1; }

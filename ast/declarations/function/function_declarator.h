@@ -7,13 +7,11 @@
 class function_declarator : public declarator
 {
 private:
-    declarator* decl;
     parameter_list* params;
 
 public:
-    function_declarator(int position, declarator* decl, parameter_list* params) : declarator(position)
+    function_declarator(int position, id_expression* id, parameter_list* params) : declarator(id, position)
     {
-        this->decl = decl;
         this->params = params;
     }
 

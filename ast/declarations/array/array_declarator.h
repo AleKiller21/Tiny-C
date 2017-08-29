@@ -7,13 +7,11 @@
 class array_declarator : public declarator
 {
 private:
-    declarator* decl;
     expression* index_expr;
 
 public:
-    array_declarator(int position, declarator* decl, expression* index) : declarator(position)
+    array_declarator(int position, id_expression* id, expression* index) : declarator(id, position)
     {
-        this->decl = decl;
         index_expr = index;
     }
 

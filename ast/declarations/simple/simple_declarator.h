@@ -6,14 +6,8 @@
 
 class simple_declarator : public declarator
 {
-private:
-    id_expression* id_expr;
-
 public:
-    simple_declarator(id_expression* id, int position) : declarator(position)
-    {
-        id_expr = id;
-    }
+    simple_declarator(id_expression* id, int position) : declarator(id, position) {}
 
     string to_string();
     // stirng generate_mips();

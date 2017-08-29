@@ -1,7 +1,7 @@
 #ifndef PARAMETER_LIST
 #define PARAMETER_LIST
 
-#include "../parameter/parameter_declarator.h"
+#include "../declarator.h"
 #include <list>
 
 using namespace std;
@@ -9,11 +9,11 @@ using namespace std;
 class parameter_list
 {
 private:
-    list<parameter_declarator*> params;
+    list<declarator*> params;
 
 public:
     string to_string();
-    void add_param(parameter_declarator* param);
+    void add_param(declarator* param);
     // string generate_mips();
     // void validate_semantic();
 };
