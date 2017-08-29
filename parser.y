@@ -97,10 +97,10 @@ expression_statement: expression ';' { $$ = new expression_statement(yylineno, $
                     | ';' { $$ = new expression_statement(yylineno, NULL); }
 ;
 
-block_statement: '{' declaration_list '}'
-               | '{' statement_list '}'
-               | '{' declaration_list statement_list '}'
-               | '{' '}'
+block_statement: '{' declaration_list '}' { $$ = new block_statement(NULL, $2); }
+               | '{' statement_list '}' { $$ = new block_statement($2, NULL); }
+               | '{' declaration_list statement_list '}' { $$ = new block_statement($3, $2); }
+               | '{' '}' { $$ = new block_statement(NULL, NULL); }
 ;
 
 selection_statement: RW_IF '(' expression ')' statement else_statement { $$ = new if_statement(yylineno, $3, $5, $6); }

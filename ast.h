@@ -57,6 +57,7 @@
 #include "ast/statements/while/while_statement.h"
 #include "ast/statements/if/if_statement.h"
 #include "ast/statements/list/statement_list.h"
+#include "ast/statements/block/block_statement.h"
 #include "ast/declarations/simple/simple_declarator.h"
 #include "ast/declarations/array/array_declarator.h"
 #include "ast/declarations/function/function_declarator.h"
