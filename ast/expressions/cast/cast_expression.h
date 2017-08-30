@@ -2,13 +2,24 @@
 #define CAST_EXPRESSION
 
 #include "../expression.h"
+#include "../../declarations/abstract_declarator.h"
 
 class cast_expression : public expression
 {
 private:
     expression* expr;
-    string type;
-    //TODO: Terminar despues de haber creado nodo para type_name produdction
+    abstract_declarator* type;
+
+public:
+    cast_expression(abstract_declarator* type, expression* expr, int position) : expression(position)
+    {
+        this->expr = expr;
+        this->type = type;
+    }
+
+    string to_string();
+    // string get_type();
+    // string generate_mips();
 };
 
 #endif // CAST_EXPRESSION

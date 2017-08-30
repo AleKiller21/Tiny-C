@@ -27,6 +27,7 @@
     declaration* declaration_t;
     external_declaration* external_decl_t;
     declarator* decl_t;
+    abstract_declarator* abstract_decl_t;
     declarator_list* decl_lst;
     declaration_list* declaration_lst;
     parameter_list* params_t;
@@ -42,7 +43,8 @@
 %type <expr_lst> initializer_list
 %type <stmt_t> statement jump_statement expression_statement for_statement while_statement loop_statement else_statement selection_statement
 %type <stmt_t> block_statement statement_list
-%type <decl_t> direct_declarator declarator parameter_declaration abstract_declarator declarator_init
+%type <decl_t> direct_declarator declarator parameter_declaration declarator_init
+%type <abstract_decl_t> type_name
 %type <params_t> parameter_list parameter_type_list
 %type <int_t> type
 %type <initializer_t> initializer
@@ -137,24 +139,8 @@ jump_statement: RW_CONTINUE ';' { $$ = new continue_statement(yylineno); }
               | RW_RETURN ';' { $$ = new return_statement(yylineno, NULL); }
 ;
 
-type_name: type
-         | type abstract_declarator
-;
-
-abstract_declarator: pointer
-                   | pointer direct_abstract_declarator
-                   | direct_abstract_declarator
-;
-
-direct_abstract_declarator: '(' abstract_declarator ')'
-                          | direct_abstract_declarator '[' conditional_expression ']'
-                          | direct_abstract_declarator '[' ']'
-                          | '[' conditional_expression ']'
-                          | '[' ']'
-                          | direct_abstract_declarator '(' parameter_type_list ')'
-                          | direct_abstract_declarator '(' ')'
-                          | '(' parameter_type_list ')'
-                          | '(' ')'
+type_name: type { $$ = new abstract_declarator($1, false); }
+         | type pointer { $$ = new abstract_declarator($1, true); }
 ;
 
 declaration_list: declaration { $$ = new declaration_list(); $$->add_declaration($1); }
@@ -278,7 +264,7 @@ multiplicative_expression: multiplicative_expression '*' cast_expression { $$ = 
                          | cast_expression { $$ = $1; }
 ;
 
-cast_expression: '(' type_name ')' cast_expression { $$ = NULL; /* TODO: Implementar despues de haber terminado type_name production*/ }
+cast_expression: '(' type_name ')' cast_expression { $$ = new cast_expression($2, $4, yylineno); }
                | unary_expression { $$ = $1; }
 ;
 
