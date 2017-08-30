@@ -45,6 +45,7 @@ OCTAL       0[0-7]*
 "return"                    { return RW_RETURN; }
 "continue"                  { return RW_CONTINUE; }
 "break"                     { return RW_BREAK; }
+"sizeof"                    { return RW_SIZEOF; }
 {ID}                        { yylval.str_t = new string(yytext); return TK_ID; }
 {HEXADECIMAL}               { BEGIN(hex); }
 {OCTAL}                     { yylval.int_t = atoi(yytext); return TK_OCT; }

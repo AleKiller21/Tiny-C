@@ -54,7 +54,7 @@
 %type <funct_t> function_definition
 %type <external_decl_t> external_declaration
 
-%token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE
+%token RW_PRINTF RW_SCANF RW_IF RW_ELSE RW_WHILE RW_FOR RW_RETURN RW_BREAK RW_CONTINUE RW_SIZEOF
 %token <str_t> TK_ID TK_STRING 
 %token <int_t> TK_DEC TK_OCT TK_HEX RW_INT RW_CHAR RW_VOID
 %token <char_t> TK_CHAR
@@ -276,6 +276,8 @@ unary_expression: "++" unary_expression { $$ = new pre_increment_expression($2, 
                 | '-' cast_expression { $$ = new negative_expression($2, yylineno); }
                 | '~' cast_expression { $$ = new two_complement_expression($2, yylineno); }
                 | '!' cast_expression { $$ = new negation_expression($2, yylineno); }
+                | RW_SIZEOF unary_expression { $$ = new sizeof_expression($2, NULL, yylineno); }
+                | RW_SIZEOF '(' type_name ')' { $$ = new sizeof_expression(NULL, $3, yylineno); }
                 | postfix_expression { $$ = $1; }
 ;
 
