@@ -278,6 +278,8 @@ unary_expression: "++" unary_expression { $$ = new pre_increment_expression($2, 
                 | '!' cast_expression { $$ = new negation_expression($2, yylineno); }
                 | RW_SIZEOF unary_expression { $$ = new sizeof_expression($2, NULL, yylineno); }
                 | RW_SIZEOF '(' type_name ')' { $$ = new sizeof_expression(NULL, $3, yylineno); }
+                | RW_PRINTF '(' argument_list ')' { $$ = new printf_expression($3, yylineno); }
+                | RW_SCANF '(' argument_list ')' { $$ = new scanf_expression($3, yylineno); }
                 | postfix_expression { $$ = $1; }
 ;
 

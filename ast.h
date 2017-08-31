@@ -71,5 +71,7 @@
 #include "ast/functions/function_definition.h"
 #include "ast/declarations/external_declaration.h"
 #include "ast/declarations/abstract_declarator.h"
+#include "ast/expressions/unary/printf/printf_expression.h"
+#include "ast/expressions/unary/scanf/scanf_expression.h"
 
 #endif // AST_H
