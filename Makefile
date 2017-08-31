@@ -234,7 +234,7 @@ parser.o: parser.cpp $(PURE_HEADER) $(HEADER)
 lexer.o: lexer.cpp tokens.h $(PURE_HEADER) $(HEADER)
 	g++ -std=c++11 -c -o $@ $<
 
-main.o: main.cpp
+main.o: main.cpp $(PURE_HEADER) $(HEADER)
 	g++ -std=c++11 -c -o $@ $<
 
 ##################################################################
@@ -242,7 +242,7 @@ main.o: main.cpp
 
 
 run: $(TARGET)
-	./$(TARGET) < ./samples/quicksort.c
+	./$(TARGET) < ./samples/dijkstra.c
 
 test: $(TARGET)
 	./$(TARGET) < ./samples/if_test.cpp

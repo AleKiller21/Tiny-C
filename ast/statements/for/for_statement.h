@@ -17,6 +17,7 @@ public:
         this->expr1 = expr1;
         this->expr2 = expr2;
         this->expr3 = expr3;
+        this->stmt = stmt;
     }
 
     string to_string();

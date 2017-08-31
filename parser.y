@@ -16,7 +16,7 @@
 %code
 {
     #include <list>
-    std::list<external_declaration*> source;
+    extern std::list<external_declaration*> source;
 }
 
 %union {
@@ -283,13 +283,13 @@ unary_expression: "++" unary_expression { $$ = new pre_increment_expression($2, 
 
 postfix_expression: postfix_expression '[' expression ']' { $$ = new array_expression($1, $3, yylineno); }
                   | postfix_expression '(' argument_list ')' { $$ = new function_expression($1, $3, yylineno); }
+                  | postfix_expression '(' ')' { $$ = new function_expression($1, NULL, yylineno); }
                   | postfix_expression "++" { $$ = new post_increment_expression($1, yylineno); }
                   | postfix_expression "--" { $$ = new post_decrement_expression($1, yylineno); }
                   | primary_expression { $$ = $1; }
 ;
 
 argument_list: expression_list { $$ = $1; }
-             | %empty { $$ = NULL; }
 ;
 
 expression_list: expression { $$ = new expression_list(yylineno); ((expression_list*)$$)->add_expression($1); }

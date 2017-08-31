@@ -8,7 +8,6 @@
 class function_definition : public external_declaration
 {
 private:
-    int type;
     declarator* decl;
     statement* stmt;
 
