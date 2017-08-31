@@ -2,5 +2,5 @@
 
 string string_expression::to_string()
 {
-    return value + " ";
+    return + "\"" + value + "\"" + + " ";
 }

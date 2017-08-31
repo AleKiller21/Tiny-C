@@ -2,5 +2,5 @@
 
 string char_expression::to_string()
 {
-    return string(&value) + " ";
+    return "'" + string(&value) + "'" + " ";
 }

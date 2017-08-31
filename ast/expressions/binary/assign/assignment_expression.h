@@ -10,7 +10,8 @@ public:
     {
         //TODO: inicializar las reglas
     }
-
+    string to_string();
+    //string generate_mips();
     //string get_type();
 };
 

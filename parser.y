@@ -199,17 +199,17 @@ expression: conditional_expression { $$ = $1; }
           | assign_expression { $$ = $1; }
 ;
 
-assign_expression: unary_expression '=' expression { $$ = new assign_equal_expression($1, $3, yylineno); }
-                 | unary_expression "*=" expression { $$ = new mult_equal_expression($1, new mult_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "/=" expression { $$ = new div_equal_expression($1, new div_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "%=" expression { $$ = new mod_equal_expression($1, new mod_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "+=" expression { $$ = new sum_equal_expression($1, new sum_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "-=" expression { $$ = new sub_equal_expression($1, new sub_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "<<=" expression { $$ = new lshift_equal_expression($1, new lshift_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression ">>=" expression { $$ = new rshift_equal_expression($1, new rshift_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "&=" expression { $$ = new and_equal_expression($1, new and_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "^=" expression { $$ = new xor_equal_expression($1, new xor_expression($1, $3, yylineno), yylineno); }
-                 | unary_expression "|=" expression { $$ = new or_equal_expression($1, new or_expression($1, $3, yylineno), yylineno); }
+assign_expression: unary_expression '=' expression { $$ = new assignment_expression($1, $3, yylineno); }
+                 | unary_expression "*=" expression { $$ = new assignment_expression($1, new mult_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "/=" expression { $$ = new assignment_expression($1, new div_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "%=" expression { $$ = new assignment_expression($1, new mod_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "+=" expression { $$ = new assignment_expression($1, new sum_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "-=" expression { $$ = new assignment_expression($1, new sub_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "<<=" expression { $$ = new assignment_expression($1, new lshift_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression ">>=" expression { $$ = new assignment_expression($1, new rshift_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "&=" expression { $$ = new assignment_expression($1, new and_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "^=" expression { $$ = new assignment_expression($1, new xor_expression($1, $3, yylineno), yylineno); }
+                 | unary_expression "|=" expression { $$ = new assignment_expression($1, new or_expression($1, $3, yylineno), yylineno); }
 ;
 
 conditional_expression: logical_or_expression '?' expression ':' conditional_expression { $$ = new conditional_expression($1, $3, $5, yylineno); }
