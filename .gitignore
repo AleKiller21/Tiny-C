@@ -6,4 +6,5 @@ tokens.h
 *.o
 *.txt
 *.output
+*.d
 Tiny
