@@ -17,8 +17,8 @@ public:
     }
 
     string to_string();
-    // string generate_mips();
-    // void validate_semantic();
+    //string generate_mips();
+    void validate_semantic();
 };
 
 #endif // DECLARATION

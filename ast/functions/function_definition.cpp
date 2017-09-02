@@ -18,3 +18,8 @@ string function_definition::to_string()
 
     return str + decl->to_string() + "\n" + stmt->to_string();
 }
+
+void function_definition::validate_semantic()
+{
+    
+}

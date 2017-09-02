@@ -15,8 +15,8 @@ protected:
 
 public:
     virtual string to_string() = 0;
-    // string generate_mips();
-    // void validate_semantic();
+    //string generate_mips() = 0;
+    virtual void validate_semantic() = 0;
 };
 
 #endif // EXTERNAL_DECLARATION

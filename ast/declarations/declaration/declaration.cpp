@@ -18,3 +18,8 @@ string declaration::to_string()
 
     return str + declarators->to_string() + ";\n";
 }
+
+void declaration::validate_semantic()
+{
+    declarators->validate_semantic();
+}

@@ -5,8 +5,11 @@
 #include "../types.h"
 #include "initializer/initializer.h"
 #include "../expressions/primary/id/id_expression.h"
+#include "../../symbol_table/symbol_table.h"
 
 using namespace std;
+
+extern symbol_table sym_table;
 
 class declarator
 {
@@ -19,18 +22,18 @@ public:
     bool pointer;
     int type;
 
+    //virtual string generate_mips() = 0;
+    virtual void validate_semantic() = 0;
+
     virtual string to_string() 
     {
         if(init != NULL) return " = " + init->to_string();
         return "";
     }
-    
-    virtual string generate_mips() { throw "function not yet implemented"; }
-    virtual void validate_semantic() { throw "function not yet implemented"; }
 
-    void show_error(const char* msg)
+    void show_error(string msg)
     {
-        fprintf(stderr, "Line %d: error: %s", position, msg);
+        fprintf(stderr, "Line %d: error: %s", position, msg.c_str());
     }
 
 protected:
@@ -41,6 +44,9 @@ protected:
         pointer = false;
         init = NULL;
     }
+
+    string get_id() { return id_expr->get_lexeme(); }
+    int get_position() { return position; }
 };
 
 #endif // DECLARATOR

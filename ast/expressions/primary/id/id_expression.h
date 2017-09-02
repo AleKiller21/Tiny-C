@@ -16,6 +16,7 @@ public:
     }
     
     string to_string();
+    string get_lexeme();
 
     // string get_type();
     // string generate_mips();

@@ -7,3 +7,8 @@ string array_declarator::to_string()
 
         return id_expr->to_string() + "[" + "]" + declarator::to_string();
 }
+
+void array_declarator::validate_semantic()
+{
+    
+}

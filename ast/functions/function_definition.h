@@ -20,7 +20,7 @@ public:
     
     string to_string();
     // string generate_mips();
-    // void validate_semantic();
+    void validate_semantic();
 };
 
 #endif // FUNCTION_DEFINITION

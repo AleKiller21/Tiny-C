@@ -7,7 +7,10 @@ compiler::compiler(list<external_declaration*> source_code)
 
 void compiler::validate_semantic()
 {
-
+    for(list<external_declaration*>::iterator it = source_code.begin(); it != source_code.end(); it++)
+    {
+        (*it)->validate_semantic();
+    }
 }
 
 string compiler::generate_code()

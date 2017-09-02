@@ -6,3 +6,8 @@ string function_declarator::to_string()
 
     return id_expr->to_string() + "(" + ")" + declarator::to_string();
 }
+
+void function_declarator::validate_semantic()
+{
+    
+}

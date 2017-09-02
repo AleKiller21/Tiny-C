@@ -3,15 +3,20 @@
 
 #include "../declarator.h"
 #include "../../expressions/primary/id/id_expression.h"
+#include <iostream>
 
 class simple_declarator : public declarator
 {
+private:
+    bool validate_existance();
+    bool validate_initialization();
+
 public:
     simple_declarator(id_expression* id, int position) : declarator(id, position) {}
 
     string to_string();
     // stirng generate_mips();
-    // void validate_semantic();
+    void validate_semantic();
 };
 
 #endif // SIMPLE_DECLARATOR

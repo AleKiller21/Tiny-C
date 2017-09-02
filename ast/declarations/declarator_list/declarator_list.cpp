@@ -13,6 +13,14 @@ void declarator_list::set_type(int type)
     }
 }
 
+void declarator_list::validate_semantic()
+{
+    for(list<declarator*>::iterator it = declarators.begin(); it != declarators.end(); it++)
+    {
+        (*it)->validate_semantic();
+    }
+}
+
 string declarator_list::to_string()
 {
     string str;

@@ -52,7 +52,7 @@ parser.cpp: parser.y
 -include $(SOURCE:%.cpp=%.d)
 
 run: $(TARGET)
-	./$(TARGET) < ./samples/interpolation_search.c
+	./$(TARGET) < ./samples/sample.cpp
 
 test: $(TARGET)
 	./$(TARGET) < ./samples/if_test.cpp

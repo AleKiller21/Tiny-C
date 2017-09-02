@@ -25,15 +25,16 @@ int symbol_table::get_scope_level()
     return scope_level;
 }
 
-int symbol_table::exist_symbol_in_current_scope(string id)
+symbol* symbol_table::exist_symbol_in_current_scope(string id)
 {
-    try { scope_ptr->symbols.at(id); return true; }
-    catch(out_of_range) { return false; } 
+    try { return scope_ptr->symbols.at(id); }
+    catch(out_of_range) { return NULL; } 
 }
 
 int symbol_table::add_symbol(string id, symbol* sym)
 {
     scope_ptr->symbols[id] = sym;
+    return 0;
 }
 
 void symbol_table::push_scope()

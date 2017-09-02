@@ -11,7 +11,8 @@ using namespace std;
 struct symbol
 {
     int type;
-    bool lvalue;
+    int lineno;
+    bool is_initialized;
 };
 
 struct scope
@@ -29,8 +30,8 @@ private:
 public:
     symbol_table();
     symbol* get_symbol(string id);
+    symbol* exist_symbol_in_current_scope(string id);
     int get_scope_level();
-    int exist_symbol_in_current_scope(string id);
     int add_symbol(string id, symbol* sym);
     void push_scope();
     void pop_scope();
