@@ -4,6 +4,9 @@
 #include "../declarator.h"
 #include "../../expressions/primary/id/id_expression.h"
 #include <iostream>
+#include <list>
+
+using namespace std;
 
 class simple_declarator : public declarator
 {

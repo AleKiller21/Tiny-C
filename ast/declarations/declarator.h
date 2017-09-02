@@ -31,9 +31,9 @@ public:
         return "";
     }
 
-    void show_error(string msg)
+    void show_message(string type, string msg)
     {
-        fprintf(stderr, "Line %d: error: %s\n", position, msg.c_str());
+        fprintf(stderr, "Line %d: %s: %s\n", position, type.c_str(), msg.c_str());
     }
 
 protected:
@@ -51,13 +51,13 @@ protected:
     
         if(sym->is_initialized && init != NULL)
         {
-            show_error("Redefinition of '" + id + "'\nprevious definition was found at line " + std::to_string(sym->lineno));
+            show_message("error", "Redefinition of '" + id + "'\nprevious definition was found at line " + std::to_string(sym->lineno));
             return false;
         }
     
         if(sym_table.get_scope_level() > 0)
         {
-            show_error("Redeclaration of '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
+            show_message("error", "Redeclaration of '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
             return false;
         }
     

@@ -13,7 +13,7 @@ void simple_declarator::validate_semantic()
 
     if(type == VOID)
     {
-        show_error("variable or field '" + id + "' declared void");
+        show_message("error", "variable or field '" + id + "' declared void");
         return;
     }
     
@@ -27,6 +27,26 @@ void simple_declarator::validate_semantic()
 bool simple_declarator::validate_initialization()
 {
     if(init == NULL) return true;
-    //TODO: Mandar a llamar el get_type de init y compararlo con el tipo del declarador
+    if(init->list_expr != NULL)
+    {
+        list<expression*> expressions = init->list_expr->get_list();
+        if(expressions.size() > 1)
+        {
+            show_message("warning", "excess elements in scalar initializer");
+            init->single_expr = expressions.front();
+            for(list<expression*>::iterator it = ++expressions.begin(); it != expressions.end(); it++) delete *it;
+            delete init->list_expr;
+            init->list_expr = NULL;
+        }
+
+        else
+        {
+            init->single_expr = expressions.front();
+            delete init->list_expr;
+            init->list_expr = NULL;
+        }
+    }
+
+    //TODO: Mandar a llamar el get_type de init->single_expr y compararlo con el tipo del declarador
     return true;    
 }
