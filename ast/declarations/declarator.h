@@ -6,11 +6,7 @@
 #include "initializer/initializer.h"
 #include "../expressions/primary/id/id_expression.h"
 #include "../../symbol_table/symbol_table.h"
-
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+#include "../colors.h"
 
 using namespace std;
 
@@ -39,9 +35,9 @@ public:
     void show_message(string type, string msg)
     {
         if(type == "error")
-            fprintf(stderr, "Line %d: " ANSI_COLOR_RED "%s:" ANSI_COLOR_RESET " %s\n", position, type.c_str(), msg.c_str());
+            fprintf(stderr, "Line %d: " RED "%s:" RESET " %s\n", position, type.c_str(), msg.c_str());
         else if(type == "warning")
-            fprintf(stderr, "Line %d: " ANSI_COLOR_YELLOW "%s:" ANSI_COLOR_RESET " %s\n", position, type.c_str(), msg.c_str());
+            fprintf(stderr, "Line %d: " YELLOW "%s:" RESET " %s\n", position, type.c_str(), msg.c_str());
     }
 
 protected:

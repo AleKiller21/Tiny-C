@@ -18,4 +18,10 @@ void array_declarator::validate_semantic()
         show_message("error", "declaration of '" + id + "' as array of voids");
         return;
     }
+
+    if(pointer)
+    {
+        show_message("error", "declaration of array of pointers is not allowed in TinyC");
+        return;
+    }
 }
