@@ -45,6 +45,26 @@ protected:
         init = NULL;
     }
 
+    bool validate_existance(string id, symbol* sym)
+    {
+        if(sym == NULL) return true;
+    
+        if(sym->is_initialized && init != NULL)
+        {
+            show_error("Redefinition of '" + id + "'\nprevious definition was found at line " + std::to_string(sym->lineno));
+            return false;
+        }
+    
+        if(sym_table.get_scope_level() > 0)
+        {
+            show_error("Redeclaration of '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
+            return false;
+        }
+    
+        if(sym_table.get_scope_level() == 0 && init == NULL) return true;
+        return true;
+    }
+
     string get_id() { return id_expr->get_lexeme(); }
     int get_position() { return position; }
 };

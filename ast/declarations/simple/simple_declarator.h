@@ -8,7 +8,6 @@
 class simple_declarator : public declarator
 {
 private:
-    bool validate_existance(string id, symbol* sym);
     bool validate_initialization();
 
 public:

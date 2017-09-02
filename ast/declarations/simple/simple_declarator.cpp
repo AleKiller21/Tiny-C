@@ -21,27 +21,7 @@ void simple_declarator::validate_semantic()
     if(!validate_initialization()) return;
 
     if(sym == NULL) sym_table.add_symbol(id, new symbol {type, get_position(), init != NULL ? true : false } );
-    if(init != NULL) sym->is_initialized = true;
-}
-
-bool simple_declarator::validate_existance(string id, symbol* sym)
-{
-    if(sym == NULL) return true;
-
-    if(sym->is_initialized && init != NULL)
-    {
-        show_error("Redefinition of '" + id + "'\nprevious definition was found at line " + std::to_string(sym->lineno));
-        return false;
-    }
-
-    if(sym_table.get_scope_level() > 0)
-    {
-        show_error("Redeclaration of '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
-        return false;
-    }
-
-    if(sym_table.get_scope_level() == 0 && init == NULL) return true;
-    return true;
+    else if(init != NULL) sym->is_initialized = true;
 }
 
 bool simple_declarator::validate_initialization()
