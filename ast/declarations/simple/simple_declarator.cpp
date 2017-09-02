@@ -2,8 +2,8 @@
 
 string simple_declarator::to_string()
 {
-    if(pointer) return "*" + id_expr->to_string() + declarator::to_string();
-    return id_expr->to_string() + declarator::to_string();
+    if(pointer) return "*" + get_id() + declarator::to_string();
+    return get_id() + declarator::to_string();
 }
 
 void simple_declarator::validate_semantic()
