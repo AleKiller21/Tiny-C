@@ -8,6 +8,11 @@ string simple_declarator::to_string()
 
 void simple_declarator::validate_semantic()
 {
+    if(type == VOID)
+    {
+        show_error("variable or field '" + get_id() + "' declared void");
+        return;
+    }
     
     if(!validate_existance()) return;
     //if(!validate_initialization()) return;
@@ -22,13 +27,13 @@ bool simple_declarator::validate_existance()
 
     if(symbol->is_initialized && init != NULL)
     {
-        show_error("Redefinition of '" + id + "'\nprevious definition was found at line " + std::to_string(symbol->lineno) + "\n");
+        show_error("Redefinition of '" + id + "'\nprevious definition was found at line " + std::to_string(symbol->lineno));
         return false;
     }
 
     if(sym_table.get_scope_level() > 0)
     {
-        show_error("Redeclaration of '" + id + "'\nprevious declaration was found at line " + std::to_string(symbol->lineno) + "\n");
+        show_error("Redeclaration of '" + id + "'\nprevious declaration was found at line " + std::to_string(symbol->lineno));
         return false;
     }
 

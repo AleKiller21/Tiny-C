@@ -33,7 +33,7 @@ public:
 
     void show_error(string msg)
     {
-        fprintf(stderr, "Line %d: error: %s", position, msg.c_str());
+        fprintf(stderr, "Line %d: error: %s\n", position, msg.c_str());
     }
 
 protected:
