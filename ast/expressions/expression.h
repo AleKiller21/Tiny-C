@@ -14,9 +14,7 @@ private:
     int position;
 
 public:
-    bool lvalue;
-
-    expression(int position) { lvalue = false; this->position = position; }
+    expression(int position) { this->position = position; }
     
     virtual string get_type() { throw "Function has not been implemented"; }
     virtual string generate_mips() { throw "Function has not been implemented"; }
