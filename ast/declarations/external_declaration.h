@@ -2,6 +2,9 @@
 #define EXTERNAL_DECLARATION
 
 #include "../types.h"
+#include <string>
+
+using namespace std;
 
 class external_declaration
 {
