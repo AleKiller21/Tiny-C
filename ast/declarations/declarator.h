@@ -45,7 +45,7 @@ protected:
         init = NULL;
     }
 
-    bool validate_existance(string id, symbol* sym)
+    virtual bool validate_existance(string id, symbol* sym, int attribute)
     {
         if(sym == NULL) return true;
     
@@ -55,7 +55,7 @@ protected:
             return false;
         }
 
-        if(sym->type != type)
+        if(sym->type != type || sym->pointer != pointer || sym->attribute != attribute)
         {
             show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
             return false;

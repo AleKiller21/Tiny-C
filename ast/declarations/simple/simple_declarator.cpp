@@ -17,10 +17,10 @@ void simple_declarator::validate_semantic()
         return;
     }
     
-    if(!validate_existance(id, sym)) return;
+    if(!validate_existance(id, sym, SIMPLE)) return;
     if(!validate_initialization()) return;
 
-    if(sym == NULL) sym_table.add_symbol(id, new symbol {type, get_position(), init != NULL ? true : false } );
+    if(sym == NULL) sym_table.add_symbol(id, new symbol {type, get_position(), init != NULL ? true : false, pointer, SIMPLE} );
     else if(init != NULL) sym->is_initialized = true;
 }
 

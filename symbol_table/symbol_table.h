@@ -6,6 +6,10 @@
 #include <stdexcept>
 #include "../ast/types.h"
 
+#define FUNCTION    1
+#define ARRAY       2    
+#define SIMPLE      3    
+
 using namespace std;
 
 struct symbol
@@ -13,6 +17,8 @@ struct symbol
     int type;
     int lineno;
     bool is_initialized;
+    bool pointer;
+    int attribute;
 };
 
 struct scope
