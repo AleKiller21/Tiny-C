@@ -54,6 +54,12 @@ protected:
             show_message("error", "Redefinition of '" + id + "'\nprevious definition was found at line " + std::to_string(sym->lineno));
             return false;
         }
+
+        if(sym->type != type)
+        {
+            show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
+            return false;
+        }
     
         if(sym_table.get_scope_level() > 0)
         {
