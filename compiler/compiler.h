@@ -4,6 +4,7 @@
 #include <list>
 #include <iostream>
 #include <string>
+#include <map>
 #include "../ast/declarations/external_declaration.h"
 
 using namespace std;
