@@ -36,6 +36,12 @@ void array_declarator::validate_semantic()
         return;
     }
 
+    if(has_range() && index_expr->get_kind() == STRING_EXPR)
+    {
+        show_message("error", "size of '" + id + "' has non-integer type");
+        return;
+    }
+
     if(!validate_existance(id, sym, ARRAY)) return;
     if(!validate_initialization()) return;
     
