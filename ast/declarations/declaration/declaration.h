@@ -10,7 +10,7 @@ private:
     declarator_list* declarators;
 
 public:
-    declaration(declarator_list* decls, int type) : external_declaration(type)
+    declaration(declarator_list* decls, int type) : external_declaration(type, DECL)
     {
         declarators = decls;
         declarators->set_type(type);

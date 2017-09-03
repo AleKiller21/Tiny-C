@@ -12,7 +12,7 @@ private:
     statement* stmt;
 
 public:
-    function_definition(int type, declarator* decl, statement* stmt) : external_declaration(type)
+    function_definition(int type, declarator* decl, statement* stmt) : external_declaration(type, FUNC_DEF)
     {
         this->decl = decl;
         this->stmt = stmt;

@@ -15,6 +15,19 @@ void compiler::validate_semantic()
     }
 }
 
+void compiler::remove_unnecessary_nodes()
+{
+    //TODO: Considerar la idea de borrar todos esos nodos de declaraciones redundantes
+    // for(map<string, list<redundant_declaration>* >::iterator it = redundant_declarations.begin(); it != redundant_declarations.end(); it++)
+    // {
+    //     list<redundant_declaration>* decls = it->second;
+    //     for(list<redundant_declaration>::iterator it2 = decls.begin(); it2 != decls.end(); it2++)
+    //     {
+    //         redundant_declaration entry = *it;
+    //     }
+    // }
+}
+
 string compiler::generate_code()
 {
     string code;

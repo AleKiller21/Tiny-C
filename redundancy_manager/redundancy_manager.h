@@ -1,7 +1,6 @@
 #ifndef REDUNDANCY_MANAGER
 #define REDUNDANCY_MANAGER
 
-//#include "../ast/declarations/declarator.h"
 #include <list>
 #include <stdexcept>
 #include <map>
@@ -21,10 +20,10 @@ struct redundant_declaration
 
 class redundancy_manager
 {
-private:
-    map<string, list<redundant_declaration>* > redundant_declarations;
 
 public:
+    map<string, list<redundant_declaration>* > redundant_declarations;
+    
     void push_declaration(string key, redundant_declaration decl);
     void make_all_removable(string key);
 };
