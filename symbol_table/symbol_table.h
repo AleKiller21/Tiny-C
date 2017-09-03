@@ -12,6 +12,8 @@
 
 using namespace std;
 
+class declarator;
+
 struct symbol
 {
     int type;
@@ -19,6 +21,7 @@ struct symbol
     bool is_initialized;
     bool pointer;
     int category;
+    declarator* decl_ptr;
 };
 
 struct scope

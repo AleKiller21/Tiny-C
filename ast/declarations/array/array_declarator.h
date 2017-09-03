@@ -18,6 +18,7 @@ public:
 
     string to_string();
     // string generate_mips();
+    bool has_range();
     void validate_semantic();
 };
 

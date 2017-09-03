@@ -2,10 +2,15 @@
 
 string array_declarator::to_string()
 {
-    if(index_expr != NULL)
+    if(has_range())
         return get_id() + "[" + index_expr->to_string() + "]" + declarator::to_string();
 
         return get_id() + "[" + "]" + declarator::to_string();
+}
+
+bool array_declarator::has_range()
+{
+    return index_expr != NULL;
 }
 
 void array_declarator::validate_semantic()
@@ -25,7 +30,7 @@ void array_declarator::validate_semantic()
         return;
     }
 
-    if(sym_table.get_scope_level() > 0 && index_expr == NULL)
+    if(sym_table.get_scope_level() > 0 && !has_range())
     {
         show_message("error", "array size missing in '" + id + "'");
         return;
@@ -34,8 +39,29 @@ void array_declarator::validate_semantic()
     if(!validate_existance(id, sym, ARRAY)) return;
     if(!validate_initialization()) return;
     
+    if(sym == NULL)
+    {
+        bool is_initialized = init != NULL ? true : false;
+        sym_table.add_symbol(id, new symbol { type, get_position(), is_initialized , pointer, ARRAY, this } );
+        if(!is_initialized) redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
+    }
 
-    sym_table.add_symbol(id, new symbol {type, get_position(), init != NULL ? true : false, pointer, ARRAY} );
+    else if(init != NULL)
+    {
+        sym_table.remove_symbol(id);
+        sym_table.add_symbol(id, new symbol { type, get_position(), true, pointer, ARRAY, this });
+        redund_manager.make_all_removable(id);
+    }
+
+    else if((has_range() && !((array_declarator*)sym->decl_ptr)->has_range()) && !sym->is_initialized)
+    {
+        sym_table.remove_symbol(id);
+        sym_table.add_symbol(id, new symbol { type, get_position(), false, pointer, ARRAY, this });
+        redund_manager.make_all_removable(id);
+        redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
+    }
+
+    else redund_manager.push_declaration(id, { declaration_pos, declarator_pos, true, this });
 }
 
 bool array_declarator::validate_initialization()
@@ -47,4 +73,6 @@ bool array_declarator::validate_initialization()
         show_message("error", "invalid initializer");
         return false;
     }
+
+    return true;
 }
