@@ -8,6 +8,7 @@ class array_declarator : public declarator
 {
 private:
     expression* index_expr;
+    bool validate_initialization();
 
 public:
     array_declarator(int position, id_expression* id, expression* index) : declarator(id, position)

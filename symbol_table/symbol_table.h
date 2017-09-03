@@ -18,7 +18,7 @@ struct symbol
     int lineno;
     bool is_initialized;
     bool pointer;
-    int attribute;
+    int category;
 };
 
 struct scope
