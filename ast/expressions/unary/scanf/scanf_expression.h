@@ -8,6 +8,7 @@ class scanf_expression : public unary_expression
 public:
     scanf_expression(expression* args, int position) : unary_expression(args, position) {}
     string to_string();
+    int get_kind();
     // string generate_mips();
     // string get_type();
 };

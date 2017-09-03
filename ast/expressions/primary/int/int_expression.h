@@ -18,6 +18,7 @@ public:
     
     char get_format();
     string to_string();
+    int get_kind();
     // string get_type();
     // string generate_mips();
 };

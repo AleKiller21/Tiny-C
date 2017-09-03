@@ -9,3 +9,8 @@ string int_expression::to_string()
 {
     return std::to_string(value) + " ";
 }
+
+int int_expression::get_kind()
+{
+    return INT_EXPR;
+}

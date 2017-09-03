@@ -6,3 +6,8 @@ string sizeof_expression::to_string()
 
     return "sizeof(" + type->to_string() + ")";
 }
+
+int sizeof_expression::get_kind()
+{
+    return SIZEOF_EXPR;
+}

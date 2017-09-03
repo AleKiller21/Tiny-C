@@ -17,6 +17,7 @@ public:
     }
     
     string to_string();
+    int get_kind();
     // string generate_mips();
     // string get_type();
 };

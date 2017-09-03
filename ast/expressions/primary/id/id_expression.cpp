@@ -9,3 +9,8 @@ string id_expression::get_lexeme()
 {
     return lexeme;
 }
+
+int id_expression::get_kind()
+{
+    return ID_EXPR;
+}

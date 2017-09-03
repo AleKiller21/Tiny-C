@@ -16,6 +16,7 @@ public:
     
     void add_expression(expression* expr);
     string to_string();
+    int get_kind();
     list<expression*> get_list();
     // string get_type();
     // string generate_mips();

@@ -8,6 +8,7 @@ class pointer_expression : public unary_expression
 public:
     pointer_expression(expression* expr, int position) : unary_expression(expr, position) {}
     string to_string();
+    int get_kind();
     // string get_type();
     // string generate_mips();
 };

@@ -4,3 +4,8 @@ string pre_decrement_expression::to_string()
 {
     return "--" + expr->to_string();
 }
+
+int pre_decrement_expression::get_kind()
+{
+    return PRE_DEC_EXPR;
+}

@@ -17,6 +17,7 @@ public:
     
     string to_string();
     string get_lexeme();
+    int get_kind();
 
     // string get_type();
     // string generate_mips();

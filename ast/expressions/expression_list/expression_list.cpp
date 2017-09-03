@@ -17,6 +17,11 @@ string expression_list::to_string()
     return source;
 }
 
+int expression_list::get_kind()
+{
+    return LIST_EXPR;
+}
+
 list<expression*> expression_list::get_list()
 {
     return expressions;
