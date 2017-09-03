@@ -18,6 +18,7 @@ void declarator_list::validate_semantic()
     for(list<declarator*>::iterator it = declarators.begin(); it != declarators.end(); it++)
     {
         (*it)->validate_semantic();
+        declarator_pos++;
     }
 }
 

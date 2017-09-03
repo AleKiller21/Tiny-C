@@ -6,11 +6,15 @@
 #include "initializer/initializer.h"
 #include "../expressions/primary/id/id_expression.h"
 #include "../../symbol_table/symbol_table.h"
+#include "../../redundancy_manager/redundancy_manager.h"
 #include "../colors.h"
 
 using namespace std;
 
 extern symbol_table sym_table;
+extern redundancy_manager redund_manager;
+extern int declaration_pos;
+extern int declarator_pos;
 
 class declarator
 {
@@ -79,6 +83,7 @@ protected:
 
     string get_id() { return id; }
     int get_position() { return position; }
+    int get_default_value() { return 0;}
 };
 
 #endif // DECLARATOR

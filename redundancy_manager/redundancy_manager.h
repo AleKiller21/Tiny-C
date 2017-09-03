@@ -1,9 +1,15 @@
 #ifndef REDUNDANCY_MANAGER
 #define REDUNDANCY_MANAGER
 
-#include "../ast/declarations/declarator.h"
+//#include "../ast/declarations/declarator.h"
 #include <list>
 #include <stdexcept>
+#include <map>
+#include <string>
+
+using namespace std;
+
+class declarator;
 
 struct redundant_declaration
 {

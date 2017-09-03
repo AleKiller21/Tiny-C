@@ -6,6 +6,8 @@
 
 using namespace std;
 
+extern int declarator_pos;
+
 class declarator_list
 {
 private:

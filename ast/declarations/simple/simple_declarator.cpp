@@ -20,8 +20,22 @@ void simple_declarator::validate_semantic()
     if(!validate_existance(id, sym, SIMPLE)) return;
     if(!validate_initialization()) return;
 
-    if(sym == NULL) sym_table.add_symbol(id, new symbol {type, get_position(), init != NULL ? true : false, pointer, SIMPLE} );
-    else if(init != NULL) sym->is_initialized = true;
+    if(sym == NULL)
+    {
+        bool is_initialized = init != NULL ? true : false;
+        sym_table.add_symbol(id, new symbol {type, get_position(), is_initialized , pointer, SIMPLE} );
+        if(!is_initialized) redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
+    }
+
+    else if(init != NULL)
+    {
+        sym_table.remove_symbol(id);
+        sym_table.add_symbol(id, new symbol { type, get_position(), true, pointer, SIMPLE });
+        redund_manager.make_all_removable(id);
+    }
+
+    else if(init == NULL)
+        redund_manager.push_declaration(id, { declaration_pos, declarator_pos, true, this });
 }
 
 bool simple_declarator::validate_initialization()

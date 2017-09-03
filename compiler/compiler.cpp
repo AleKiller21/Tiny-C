@@ -10,6 +10,8 @@ void compiler::validate_semantic()
     for(list<external_declaration*>::iterator it = source_code.begin(); it != source_code.end(); it++)
     {
         (*it)->validate_semantic();
+        declaration_pos++;
+        declarator_pos = 0;
     }
 }
 

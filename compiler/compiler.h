@@ -9,6 +9,9 @@
 
 using namespace std;
 
+extern int declaration_pos;
+extern int declarator_pos;
+
 class compiler
 {
 private:
