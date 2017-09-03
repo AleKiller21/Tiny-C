@@ -7,3 +7,8 @@ string for_statement::to_string()
 
     return "for(" + expr1->to_string() + " " + expr2->to_string() + ")\n" + stmt->to_string();
 }
+
+int for_statement::get_kind()
+{
+    return FOR_STMT;
+}

@@ -6,3 +6,8 @@ string expression_statement::to_string()
 
     return expr->to_string() + ";\n";
 }
+
+int expression_statement::get_kind()
+{
+    return EXPRESSION_STMT;
+}

@@ -12,6 +12,11 @@ string statement_list::to_string()
     return str;
 }
 
+int statement_list::get_kind()
+{
+    return LIST_STMT;
+}
+
 void statement_list::add_statement(statement* stmt)
 {
     statements.push_back(stmt);

@@ -8,3 +8,8 @@ string if_statement::to_string()
     return "if( " + condition->to_string() + ")\n" + true_block->to_string() + "else\n" +
         false_block->to_string();
 }
+
+int if_statement::get_kind()
+{
+    return IF_STMT;
+}

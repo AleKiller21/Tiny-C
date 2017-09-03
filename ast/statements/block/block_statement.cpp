@@ -9,3 +9,8 @@ string block_statement::to_string()
     if(stmt_list != NULL && decl_list == NULL) return "{\n" + stmt_list->to_string() + "\n" + "}\n\n";
     return "{\n }\n\n";
 }
+
+int block_statement::get_kind()
+{
+    return BLOCK_STMT;
+}

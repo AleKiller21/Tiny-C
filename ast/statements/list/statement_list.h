@@ -13,6 +13,7 @@ public:
     statement_list(int position) : statement(position) {}
 
     string to_string();
+    int get_kind();
     void add_statement(statement* stmt);
     // string generate_mips();
     // void validate_semantic();
