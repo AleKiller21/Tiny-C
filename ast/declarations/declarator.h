@@ -16,7 +16,7 @@ class declarator
 {
 private:
     int position;
-    id_expression* id_expr;
+    string id;
 
 public:
     initializer* init;
@@ -41,12 +41,14 @@ public:
     }
 
 protected:
-    declarator(id_expression* id, int position)
+    declarator(string* id, int position)
     {
         this->position = position;
-        id_expr = id;
+        this->id = *id;
         pointer = false;
         init = NULL;
+
+        delete id;
     }
 
     virtual bool validate_existance(string id, symbol* sym, int category)
@@ -75,7 +77,7 @@ protected:
         return true;
     }
 
-    string get_id() { return id_expr->get_lexeme(); }
+    string get_id() { return id; }
     int get_position() { return position; }
 };
 

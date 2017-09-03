@@ -10,7 +10,7 @@ private:
     parameter_list* params;
 
 public:
-    function_declarator(int position, id_expression* id, parameter_list* params) : declarator(id, position)
+    function_declarator(int position, string* id, parameter_list* params) : declarator(id, position)
     {
         this->params = params;
     }

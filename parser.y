@@ -173,11 +173,11 @@ declarator: pointer direct_declarator { $$ = $2; $$->pointer = true; }
 pointer: '*'
 ;
 
-direct_declarator: TK_ID { $$ = new simple_declarator(new id_expression($1, yylineno), yylineno); }
-                 | TK_ID '[' expression ']' { $$ = new array_declarator(yylineno, new id_expression($1, yylineno), $3); }
-                 | TK_ID '[' ']' { $$ = new array_declarator(yylineno, new id_expression($1, yylineno), NULL); }
-                 | TK_ID '(' parameter_type_list ')' { $$ = new function_declarator(yylineno, new id_expression($1, yylineno), $3); }
-                 | TK_ID '(' ')' { $$ = new function_declarator(yylineno, new id_expression($1, yylineno), NULL); }
+direct_declarator: TK_ID { $$ = new simple_declarator($1, yylineno); }
+                 | TK_ID '[' expression ']' { $$ = new array_declarator(yylineno, $1, $3); }
+                 | TK_ID '[' ']' { $$ = new array_declarator(yylineno, $1, NULL); }
+                 | TK_ID '(' parameter_type_list ')' { $$ = new function_declarator(yylineno, $1, $3); }
+                 | TK_ID '(' ')' { $$ = new function_declarator(yylineno, $1, NULL); }
 ;
 
 parameter_type_list: parameter_list { $$ = $1; }
