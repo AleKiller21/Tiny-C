@@ -30,10 +30,26 @@ void function_definition::validate_semantic()
         return;
     }
 
-    // if(sym == NULL)
-    // {
-    //     sym_table.add_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl } );
-    //     redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, decl });
-    //     return;
-    // }
+    if(sym == NULL)
+    {
+        sym_table.add_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl } );
+        //redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, decl });
+        //TODO: Validar semanticamente el bloque de la funcion
+        return;
+    }
+
+    if(sym->category != decl->get_kind())
+    {
+        decl->show_message("error", "'" + id + "' redeclared as different kind of symbol");
+        return;
+    }
+
+    if(sym->is_initialized)
+    {
+        decl->show_message("error", "redefinition of '" + id + "'");
+        return;
+    }
+
+    sym->is_initialized = true;
+    //TODO: Validar semanticamente el bloque de la funcion
 }
