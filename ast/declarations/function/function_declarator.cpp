@@ -22,12 +22,12 @@ void function_declarator::validate_semantic()
 
     if(sym == NULL)
     {
-        sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, FUNCTION, this } );
+        sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, get_kind(), this } );
         redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
         return;
     }
 
-    if(sym->category != FUNCTION)
+    if(sym->category != get_kind())
     {
         show_message("error", "'" + id + "' redeclared as different kind of symbol");
         return;

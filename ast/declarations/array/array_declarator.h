@@ -11,7 +11,7 @@ private:
     bool validate_initialization();
 
 public:
-    array_declarator(int position, string* id, expression* index) : declarator(id, position)
+    array_declarator(int position, string* id, expression* index) : declarator(id, position, ARRAY)
     {
         index_expr = index;
     }

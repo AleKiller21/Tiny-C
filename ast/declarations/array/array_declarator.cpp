@@ -42,27 +42,27 @@ void array_declarator::validate_semantic()
         return;
     }
 
-    if(!validate_existance(id, sym, ARRAY)) return;
+    if(!validate_existance(id, sym, get_kind())) return;
     if(!validate_initialization()) return;
     
     if(sym == NULL)
     {
         bool is_initialized = init != NULL ? true : false;
-        sym_table.add_symbol(id, new symbol { type, get_position(), is_initialized , pointer, ARRAY, this } );
+        sym_table.add_symbol(id, new symbol { type, get_position(), is_initialized , pointer, get_kind(), this } );
         if(!is_initialized) redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
     }
 
     else if(init != NULL)
     {
         sym_table.remove_symbol(id);
-        sym_table.add_symbol(id, new symbol { type, get_position(), true, pointer, ARRAY, this });
+        sym_table.add_symbol(id, new symbol { type, get_position(), true, pointer, get_kind(), this });
         redund_manager.make_all_removable(id);
     }
 
     else if((has_range() && !((array_declarator*)sym->decl_ptr)->has_range()) && !sym->is_initialized)
     {
         sym_table.remove_symbol(id);
-        sym_table.add_symbol(id, new symbol { type, get_position(), false, pointer, ARRAY, this });
+        sym_table.add_symbol(id, new symbol { type, get_position(), false, pointer, get_kind(), this });
         redund_manager.make_all_removable(id);
         redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
     }

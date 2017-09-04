@@ -9,6 +9,10 @@
 #include "../../redundancy_manager/redundancy_manager.h"
 #include "../colors.h"
 
+#define FUNCTION    1
+#define ARRAY       2    
+#define SIMPLE      3  
+
 using namespace std;
 
 extern symbol_table sym_table;
@@ -20,6 +24,7 @@ class declarator
 {
 private:
     int position;
+    int kind;
     string id;
 
 public:
@@ -44,11 +49,17 @@ public:
             fprintf(stderr, "Line %d: " YELLOW "%s:" RESET " %s\n", position, type.c_str(), msg.c_str());
     }
 
+    string get_id() { return id; }
+    int get_position() { return position; }
+    int get_default_value() { return 0; }
+    int get_kind() { return kind; }
+
 protected:
-    declarator(string* id, int position)
+    declarator(string* id, int position, int kind)
     {
         this->position = position;
         this->id = *id;
+        this->kind = kind;
         pointer = false;
         init = NULL;
 
@@ -86,10 +97,6 @@ protected:
         if(sym_table.get_scope_level() == 0 && init == NULL) return true;
         return true;
     }
-
-    string get_id() { return id; }
-    int get_position() { return position; }
-    int get_default_value() { return 0;}
 };
 
 #endif // DECLARATOR

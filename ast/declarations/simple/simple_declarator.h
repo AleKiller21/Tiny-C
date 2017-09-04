@@ -14,7 +14,7 @@ private:
     bool validate_initialization();
 
 public:
-    simple_declarator(string* id, int position) : declarator(id, position) {}
+    simple_declarator(string* id, int position) : declarator(id, position, SIMPLE) {}
 
     string to_string();
     // stirng generate_mips();
