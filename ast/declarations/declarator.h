@@ -65,7 +65,13 @@ protected:
             return false;
         }
 
-        if(sym->type != type || sym->pointer != pointer || sym->category != category)
+        if(sym->category != category)
+        {
+            show_message("error", "'" + id + "' redeclared as different kind of symbol");
+            return false;
+        }
+
+        if(sym->type != type || sym->pointer != pointer)
         {
             show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
             return false;

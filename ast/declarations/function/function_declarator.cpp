@@ -2,9 +2,11 @@
 
 string function_declarator::to_string()
 {
-    if(params != NULL) return get_id() + "(" + params->to_string() + ")" + declarator::to_string();
+    string ptr = pointer ? "*" : "";
 
-    return get_id() + "(" + ")" + declarator::to_string();
+    if(params != NULL) return ptr + get_id() + "(" + params->to_string() + ")" + declarator::to_string();
+
+    return ptr + get_id() + "(" + ")" + declarator::to_string();
 }
 
 void function_declarator::validate_semantic()
@@ -18,7 +20,20 @@ void function_declarator::validate_semantic()
         return;
     }
 
-    if(sym->type != type || sym->pointer != pointer || sym->category != category)
+    if(sym == NULL)
+    {
+        sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, FUNCTION, this } );
+        redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
+        return;
+    }
+
+    if(sym->category != FUNCTION)
+    {
+        show_message("error", "'" + id + "' redeclared as different kind of symbol");
+        return;
+    }
+
+    if(sym->type != type || sym->pointer != pointer)
     {
         show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
         return;
