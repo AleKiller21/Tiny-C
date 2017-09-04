@@ -18,5 +18,9 @@ void function_declarator::validate_semantic()
         return;
     }
 
-    
+    if(sym->type != type || sym->pointer != pointer || sym->category != category)
+    {
+        show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
+        return;
+    }
 }
