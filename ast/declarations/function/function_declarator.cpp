@@ -9,5 +9,14 @@ string function_declarator::to_string()
 
 void function_declarator::validate_semantic()
 {
+    string id = get_id();
+    symbol* sym = sym_table.exist_symbol_in_current_scope(id);
+
+    if(init != NULL)
+    {
+        show_message("error", "function '" + id + "' is initialized like a variable");
+        return;
+    }
+
     
 }

@@ -80,5 +80,6 @@ bool array_declarator::validate_initialization()
         return false;
     }
 
+    //TODO: Obtener el tipo de las expresiones en el inicializador y en el rango
     return true;
 }
