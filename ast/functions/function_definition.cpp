@@ -33,16 +33,11 @@ void function_definition::validate_semantic()
     if(sym == NULL)
     {
         sym_table.add_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl } );
-        //redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, decl });
-        //TODO: Validar semanticamente el bloque de la funcion
+        validate_block_semantic();
         return;
     }
 
-    if(sym->category != decl->get_kind())
-    {
-        decl->show_message("error", "'" + id + "' redeclared as different kind of symbol");
-        return;
-    }
+    if(!((function_declarator*)decl)->compare_existing_symbol(id, sym)) return;
 
     if(sym->is_initialized)
     {
@@ -50,6 +45,12 @@ void function_definition::validate_semantic()
         return;
     }
 
-    sym->is_initialized = true;
-    //TODO: Validar semanticamente el bloque de la funcion
+    sym_table.replace_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl });
+    redund_manager.make_all_removable(id);
+    validate_block_semantic();
+}
+
+void function_definition::validate_block_semantic()
+{
+
 }

@@ -2,7 +2,7 @@
 #define PARAMETER_LIST
 
 #include "../declarator.h"
-#include <list>
+#include <vector>
 #include <iostream>
 
 using namespace std;
@@ -14,6 +14,7 @@ private:
 
 public:
     string to_string();
+    vector<string> get_types();
     void add_param(declarator* param);
     // string generate_mips();
     // void validate_semantic();

@@ -29,8 +29,7 @@ void simple_declarator::validate_semantic()
 
     else if(init != NULL)
     {
-        sym_table.remove_symbol(id);
-        sym_table.add_symbol(id, new symbol { type, get_position(), true, pointer, get_kind(), this });
+        sym_table.replace_symbol(id, new symbol { type, get_position(), true, pointer, get_kind(), this });
         redund_manager.make_all_removable(id);
     }
 

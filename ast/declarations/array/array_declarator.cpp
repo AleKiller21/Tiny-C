@@ -54,15 +54,13 @@ void array_declarator::validate_semantic()
 
     else if(init != NULL)
     {
-        sym_table.remove_symbol(id);
-        sym_table.add_symbol(id, new symbol { type, get_position(), true, pointer, get_kind(), this });
+        sym_table.replace_symbol(id, new symbol { type, get_position(), true, pointer, get_kind(), this });
         redund_manager.make_all_removable(id);
     }
 
     else if((has_range() && !((array_declarator*)sym->decl_ptr)->has_range()) && !sym->is_initialized)
     {
-        sym_table.remove_symbol(id);
-        sym_table.add_symbol(id, new symbol { type, get_position(), false, pointer, get_kind(), this });
+        sym_table.replace_symbol(id, new symbol { type, get_position(), false, pointer, get_kind(), this });
         redund_manager.make_all_removable(id);
         redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
     }

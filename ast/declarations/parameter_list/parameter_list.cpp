@@ -24,6 +24,45 @@ string parameter_list::to_string()
     return str;
 }
 
+vector<string> parameter_list::get_types()
+{
+    vector<string> types;
+    string str;
+
+    for(list<declarator*>::iterator it = params.begin(); it != params.end(); it++)
+    {
+        switch((*it)->type)
+        {
+            case INT:
+                str = "int";
+                break;
+            case CHAR:
+                str = "char";
+                break;
+            case VOID:
+                str = "void";
+                break;
+        }
+        str = (*it)->pointer ? str + "p" : str;
+        switch((*it)->get_kind())
+        {
+            case SIMPLE:
+                str += "s";
+                break;
+            case ARRAY:
+                str += "a";
+                break;
+            case FUNCTION:
+                str += "f";
+                break;
+        }
+
+        types.push_back(str);
+    }
+
+    return types;
+}
+
 void parameter_list::add_param(declarator* param)
 {
     params.push_back(param);

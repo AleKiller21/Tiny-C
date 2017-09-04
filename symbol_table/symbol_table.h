@@ -42,7 +42,7 @@ public:
     symbol* exist_symbol_in_current_scope(string id);
     int get_scope_level();
     int add_symbol(string id, symbol* sym);
-    int remove_symbol(string id);
+    void replace_symbol(string id, symbol* sym);
     void push_scope();
     void pop_scope();
 };

@@ -37,9 +37,10 @@ int symbol_table::add_symbol(string id, symbol* sym)
     return 0;
 }
 
-int symbol_table::remove_symbol(string id)
+void symbol_table::replace_symbol(string id, symbol* sym)
 {
     scope_ptr->symbols.erase(id);
+    add_symbol(id, sym);
 }
 
 void symbol_table::push_scope()
