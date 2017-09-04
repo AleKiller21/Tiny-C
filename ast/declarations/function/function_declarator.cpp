@@ -9,9 +9,9 @@ string function_declarator::to_string()
     return ptr + get_id() + "(" + ")" + declarator::to_string();
 }
 
-vector<string> function_declarator::get_param_types()
+vector<parameter_details> function_declarator::get_param_types()
 {
-    if(params == NULL) return vector<string>();
+    if(params == NULL) return vector<parameter_details>();
     return params->get_types();
 }
 
@@ -50,8 +50,8 @@ bool function_declarator::compare_existing_symbol(string id, symbol* sym)
         return false;
     }
 
-    vector<string> prev_decl_param_types = ((function_declarator*)sym->decl_ptr)->get_param_types();
-    vector<string> curr_decl_param_types = get_param_types();
+    vector<parameter_details> prev_decl_param_types = ((function_declarator*)sym->decl_ptr)->get_param_types();
+    vector<parameter_details> curr_decl_param_types = get_param_types();
 
     if(!compare_param_types(prev_decl_param_types, curr_decl_param_types))
     {
@@ -62,13 +62,21 @@ bool function_declarator::compare_existing_symbol(string id, symbol* sym)
     return true;
 }
 
-bool function_declarator::compare_param_types(vector<string> prev_decl, vector<string> curr_decl)
+bool function_declarator::compare_param_types(vector<parameter_details> prev_decl, vector<parameter_details> curr_decl)
 {
     if(prev_decl.size() != curr_decl.size()) return false;
 
     for(int i = 0; i < prev_decl.size(); i++)
     {
-        if(prev_decl[i].compare(curr_decl[i]) != 0) return false;
+        if(prev_decl[i].type != curr_decl[i].type) return false;
+        if(prev_decl[i].kind != curr_decl[i].kind)
+        {
+            if(prev_decl[i].kind == ARRAY && curr_decl[i].pointer) continue;
+            if(curr_decl[i].kind == ARRAY && prev_decl[i].pointer) continue;
+            return false;
+        }
+
+        if(prev_decl[i].pointer != curr_decl[i].pointer) return false;
     }
 
     return true;
