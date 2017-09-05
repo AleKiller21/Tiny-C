@@ -13,7 +13,7 @@ void simple_declarator::validate_semantic()
 
     if(type == VOID)
     {
-        show_message("error", "variable or field '" + id + "' declared void");
+        comp_utils::show_message("error", "variable or field '" + id + "' declared void", get_position());
         return;
     }
     
@@ -45,7 +45,7 @@ bool simple_declarator::validate_initialization()
         list<expression*> expressions = init->list_expr->get_list();
         if(expressions.size() > 1)
         {
-            show_message("warning", "excess elements in scalar initializer");
+            comp_utils::show_message("warning", "excess elements in scalar initializer", get_position());
             init->single_expr = expressions.front();
             for(list<expression*>::iterator it = ++expressions.begin(); it != expressions.end(); it++) delete *it;
             delete init->list_expr;

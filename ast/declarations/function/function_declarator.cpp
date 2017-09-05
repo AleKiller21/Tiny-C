@@ -22,31 +22,34 @@ void function_declarator::validate_semantic()
 
     if(init != NULL)
     {
-        show_message("error", "function '" + id + "' is initialized like a variable");
+        comp_utils::show_message("error", "function '" + id + "' is initialized like a variable", get_position());
         return;
     }
 
     if(sym == NULL)
     {
+        if(params != NULL) validate_params();
         sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, get_kind(), this } );
         redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
         return;
     }
 
     if(!compare_existing_symbol(id, sym)) return;
+    if(!validate_params()) return;
 }
 
 bool function_declarator::compare_existing_symbol(string id, symbol* sym)
 {
     if(sym->category != FUNCTION)
     {
-        show_message("error", "'" + id + "' redeclared as different kind of symbol");
+        comp_utils::show_message("error", "'" + id + "' redeclared as different kind of symbol", get_position());
         return false;
     }
 
     if(sym->type != type || sym->pointer != pointer)
     {
-        show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
+        comp_utils::show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " +
+            std::to_string(sym->lineno), get_position());
         return false;
     }
 
@@ -55,7 +58,8 @@ bool function_declarator::compare_existing_symbol(string id, symbol* sym)
 
     if(!compare_param_types(prev_decl_param_types, curr_decl_param_types))
     {
-        show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " + std::to_string(sym->lineno));
+        comp_utils::show_message("error", "conflicting types for '" + id + "'\nprevious declaration was found at line " +
+            std::to_string(sym->lineno), get_position());
         return false;
     }
 
@@ -80,4 +84,12 @@ bool function_declarator::compare_param_types(vector<parameter_details> prev_dec
     }
 
     return true;
+}
+
+bool function_declarator::validate_params()
+{
+    sym_table.push_scope();
+    bool result = params->validate_semantic();
+    sym_table.pop_scope();
+    return result;
 }

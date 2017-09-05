@@ -26,7 +26,13 @@ void function_definition::validate_semantic()
 
     if(decl->get_kind() != FUNCTION)
     {
-        decl->show_message("error", "Wrong definition of function '" + id + "'");
+        comp_utils::show_message("error", "Wrong definition of function '" + id + "'", decl->get_position());
+        return;
+    }
+
+    if(sym_table.get_scope_level() > 0)
+    {
+        comp_utils::show_message("error", "function definitions can only go in global context", decl->get_position());
         return;
     }
 
@@ -41,7 +47,7 @@ void function_definition::validate_semantic()
 
     if(sym->is_initialized)
     {
-        decl->show_message("error", "redefinition of '" + id + "'");
+        comp_utils::show_message("error", "redefinition of '" + id + "'", decl->get_position());
         return;
     }
 
@@ -52,5 +58,8 @@ void function_definition::validate_semantic()
 
 void function_definition::validate_block_semantic()
 {
-
+    sym_table.push_scope();
+    if(!((function_declarator*)decl)->validate_params()) return;
+    //TODO: Validate block statement
+    sym_table.pop_scope(); //TODO: pop the scope at the end of the block statement
 }

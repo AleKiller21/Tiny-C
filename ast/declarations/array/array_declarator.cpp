@@ -18,30 +18,7 @@ void array_declarator::validate_semantic()
     string id = get_id();
     symbol* sym = sym_table.exist_symbol_in_current_scope(id);
 
-    if(type == VOID)
-    {
-        show_message("error", "declaration of '" + id + "' as array of voids");
-        return;
-    }
-
-    if(pointer)
-    {
-        show_message("error", "declaration of array of pointers is not allowed in TinyC");
-        return;
-    }
-
-    if(sym_table.get_scope_level() > 0 && !has_range())
-    {
-        show_message("error", "array size missing in '" + id + "'");
-        return;
-    }
-
-    if(has_range() && index_expr->get_kind() == STRING_EXPR)
-    {
-        show_message("error", "size of '" + id + "' has non-integer type");
-        return;
-    }
-
+    if(!validate_type(id) || !validate_pointer(id) || !validate_range(id)) return;
     if(!validate_existance(id, sym, get_kind())) return;
     if(!validate_initialization()) return;
     
@@ -74,10 +51,60 @@ bool array_declarator::validate_initialization()
 
     if(init->list_expr == NULL)
     {
-        show_message("error", "invalid initializer");
+        comp_utils::show_message("error", "invalid initializer", get_position());
         return false;
     }
 
     //TODO: Obtener el tipo de las expresiones en el inicializador y en el rango
+    return true;
+}
+
+bool array_declarator::validate_type(string id)
+{
+    if(type == VOID)
+    {
+        comp_utils::show_message("error", "declaration of '" + id + "' as array of voids", get_position());
+        return false;
+    }
+
+    return true;
+}
+
+bool array_declarator::validate_pointer(string id)
+{
+    if(pointer)
+    {
+        comp_utils::show_message("error", "declaration of array of pointers is not allowed in TinyC", get_position());
+        return false;
+    }
+
+    return true;
+}
+
+bool array_declarator::validate_range(string id)
+{
+    if(!validate_block_scope_range(id) || !validate_range_type(id)) return false;   
+    return true;
+}
+
+bool array_declarator::validate_block_scope_range(string id)
+{
+    if(sym_table.get_scope_level() > 0 && !has_range())
+    {
+        comp_utils::show_message("error", "array size missing in '" + id + "'", get_position());
+        return false;
+    }
+
+    return true;
+}
+
+bool array_declarator::validate_range_type(string id)
+{
+    if(has_range() && index_expr->get_kind() == STRING_EXPR)
+    {
+        comp_utils::show_message("error", "size of '" + id + "' has non-integer type", get_position());
+        return false;
+    }
+
     return true;
 }
