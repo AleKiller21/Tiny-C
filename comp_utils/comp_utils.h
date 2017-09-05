@@ -7,6 +7,8 @@
 
 using namespace std;
 
+extern int semantic_errors;
+
 class comp_utils
 {
 public:
