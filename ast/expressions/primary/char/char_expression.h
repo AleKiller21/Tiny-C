@@ -12,12 +12,13 @@ public:
     char_expression(char value, int position) : expression(position)
     {
         this->value = value;
+        lvalue = false;
     }
     
     string to_string();
     int get_kind();
 
-    // string get_type();
+    string get_type();
     // string generate_mips();
 };
 

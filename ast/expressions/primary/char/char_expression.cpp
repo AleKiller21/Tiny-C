@@ -9,3 +9,8 @@ int char_expression::get_kind()
 {
     return CHAR_EXPR;
 }
+
+string char_expression::get_type()
+{
+    return "char";
+}

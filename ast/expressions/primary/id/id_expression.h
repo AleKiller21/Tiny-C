@@ -2,8 +2,6 @@
 #define ID
 
 #include "../../expression.h"
-#include "../../../../comp_utils/comp_utils.h"
-#include "../../../../symbol_table/symbol_table.h"
 
 extern symbol_table sym_table;
 

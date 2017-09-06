@@ -8,10 +8,7 @@
 #include "../../symbol_table/symbol_table.h"
 #include "../../redundancy_manager/redundancy_manager.h"
 #include "../../comp_utils/comp_utils.h"
-
-#define FUNCTION    1
-#define ARRAY       2    
-#define SIMPLE      3  
+#include "../id_kind.h"
 
 using namespace std;
 

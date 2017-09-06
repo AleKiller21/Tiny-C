@@ -14,3 +14,8 @@ int int_expression::get_kind()
 {
     return INT_EXPR;
 }
+
+string int_expression::get_type()
+{
+    return "int";
+}

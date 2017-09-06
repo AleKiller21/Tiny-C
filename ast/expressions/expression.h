@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <iostream>
 #include "../../comp_utils/comp_utils.h"
+#include "../../symbol_table/symbol_table.h"
 
 #define ID_EXPR         1
 #define CHAR_EXPR       2

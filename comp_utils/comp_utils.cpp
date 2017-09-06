@@ -11,15 +11,21 @@ void comp_utils::show_message(string type, string msg, int position)
         fprintf(stderr, "Line %d: " YELLOW "%s:" RESET " %s\n", position, type.c_str(), msg.c_str());
 }
 
-string comp_utils::get_type_lexeme(int type)
+string comp_utils::get_id_attrs(id_attributes attrs)
 {
-    switch(type)
+    string result;
+
+    switch(attrs.type)
     {
         case INT:
-            return "int";
+            result = "int";
         case CHAR:
-            return "char";
+            result = "char";
         case VOID:
-            return "void";
+            result = "void";
     }
+
+    if(attrs.kind == ARRAY || attrs.pointer) result += "*";
+    if(attrs.kind == FUNCTION) result += "f";
+    return result;
 }

@@ -12,12 +12,13 @@ public:
     string_expression(string* value, int position) : expression(position)
     {
         this->value = *value;
+        lvalue = false;
         delete value;
     }
     
     string to_string();
     int get_kind();
-    // string get_type();
+    string get_type();
     // string generate_mips();
 };
 

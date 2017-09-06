@@ -14,12 +14,13 @@ public:
     {
         this->value = value;
         this->format = format;
+        lvalue = false;
     }
     
     char get_format();
     string to_string();
     int get_kind();
-    // string get_type();
+    string get_type();
     // string generate_mips();
 };
 

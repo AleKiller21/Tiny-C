@@ -16,10 +16,10 @@ string id_expression::get_type()
     if(sym == NULL)
     {
         comp_utils::show_message("error", "'" + lexeme + "' undeclared (first use in this function)", position);
-        return "";
+        return "-1";
     }
 
-    return comp_utils::get_type_lexeme(sym->type);
+    return comp_utils::get_id_attrs(sym->type);
 }
 
 int id_expression::get_kind()

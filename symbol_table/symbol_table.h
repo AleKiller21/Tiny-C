@@ -5,10 +5,7 @@
 #include <string>
 #include <stdexcept>
 #include "../ast/types.h"
-
-#define FUNCTION    1
-#define ARRAY       2    
-#define SIMPLE      3    
+#include "../ast/id_kind.h"
 
 using namespace std;
 

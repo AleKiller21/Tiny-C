@@ -5,6 +5,8 @@
 #include <string>
 #include "colors.h"
 #include "../ast/types.h"
+#include "../ast/id_attributes.h"
+#include "../ast/id_kind.h"
 
 using namespace std;
 
@@ -14,7 +16,7 @@ class comp_utils
 {
 public:
     void static show_message(string type, string msg, int position);
-    string static get_type_lexeme(int type);
+    string static get_id_attrs(id_attributes attrs);
 };
 
 #endif // COMP_UTILS
