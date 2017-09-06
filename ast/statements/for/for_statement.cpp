@@ -12,3 +12,8 @@ int for_statement::get_kind()
 {
     return FOR_STMT;
 }
+
+void for_statement::validate_semantic()
+{
+    
+}

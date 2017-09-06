@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <stdexcept>
 #include <iostream>
+#include "../../comp_utils/comp_utils.h"
 
 #define ID_EXPR         1
 #define CHAR_EXPR       2
@@ -52,23 +53,18 @@ using namespace std;
 
 class expression
 {
-private:
+protected:
     int position;
-
-public:
     bool lvalue;
 
-    expression(int position) { this->position = position; lvalue = false;}
+public:
+    expression(int position) { this->position = position; }
     
-    virtual string get_type() { throw "Function has not been implemented"; }
-    virtual string generate_mips() { throw "Function has not been implemented"; }
+    virtual string get_type() { throw "not implemented exception"; }
+    //virtual string generate_mips() = 0;
     virtual string to_string() = 0;
     virtual int get_kind() = 0;
-
-    void show_error(const char* msg)
-    {
-        fprintf(stderr, "Line %d: error: %s", position, msg);
-    }
+    bool get_lvalue() { return lvalue; }
 };
 
 #endif // EXPRESSION

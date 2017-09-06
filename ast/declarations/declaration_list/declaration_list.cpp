@@ -15,3 +15,11 @@ string declaration_list::to_string()
 
     return str;
 }
+
+void declaration_list::validate_semantic()
+{
+    for(list<declaration*>::iterator it = declarations.begin(); it != declarations.end(); it++)
+    {
+        (*it)->validate_semantic();
+    }
+}

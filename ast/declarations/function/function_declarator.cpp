@@ -28,14 +28,28 @@ void function_declarator::validate_semantic()
 
     if(sym == NULL)
     {
-        if(params != NULL) validate_params();
+        if(params != NULL)
+        {
+            sym_table.push_scope();
+            validate_params();
+            sym_table.pop_scope();
+        }
+
         sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, get_kind(), this } );
         redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
         return;
     }
 
     if(!compare_existing_symbol(id, sym)) return;
-    if(!validate_params()) return;
+
+    if(params != NULL)
+    {
+        sym_table.push_scope();
+        validate_params();
+        sym_table.pop_scope();
+    }
+
+    redund_manager.push_declaration(id, { declaration_pos, declarator_pos, true, this });
 }
 
 bool function_declarator::compare_existing_symbol(string id, symbol* sym)
@@ -88,8 +102,5 @@ bool function_declarator::compare_param_types(vector<parameter_details> prev_dec
 
 bool function_declarator::validate_params()
 {
-    sym_table.push_scope();
-    bool result = params->validate_semantic();
-    sym_table.pop_scope();
-    return result;
+    return params->validate_semantic();
 }

@@ -4,6 +4,9 @@
 #include <cstdio>
 #include <stdexcept>
 #include <string>
+#include "../../symbol_table/symbol_table.h"
+
+extern symbol_table sym_table;
 
 #define BLOCK_STMT      1
 #define BREAK_STMT      2
@@ -25,7 +28,7 @@ private:
 public:
     statement(int position) { this->position = position; }
 
-    virtual void validate_semantic() { throw "function not yet implemented."; }
+    virtual void validate_semantic() = 0;
     virtual string generate_mips() { throw "function not yet implemented. "; }
     virtual string to_string() = 0;
     virtual int get_kind() = 0;

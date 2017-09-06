@@ -3,7 +3,7 @@
 
 #include "../declarations/declarator.h"
 #include "../declarations/function/function_declarator.h"
-#include "../statements/statement.h"
+#include "../statements/block/block_statement.h"
 #include "../declarations/external_declaration.h"
 #include "../../comp_utils/comp_utils.h"
 #include <vector>
@@ -17,7 +17,7 @@ class function_definition : public external_declaration
 {
 private:
     declarator* decl;
-    statement* stmt;
+    block_statement* stmt;
 
     void validate_block_semantic();
 
@@ -26,7 +26,8 @@ public:
     {
         this->decl = decl;
         this->decl->type = type;
-        this->stmt = stmt;
+        this->stmt = (block_statement*)stmt;
+        this->stmt->first_class_block = true;
     }
     
     string to_string();

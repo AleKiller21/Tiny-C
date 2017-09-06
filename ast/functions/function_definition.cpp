@@ -30,20 +30,18 @@ void function_definition::validate_semantic()
         return;
     }
 
-    if(sym_table.get_scope_level() > 0)
+    if(sym == NULL)
     {
-        comp_utils::show_message("error", "function definitions can only go in global context", decl->get_position());
+        validate_block_semantic();
+        sym_table.add_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl } );
         return;
     }
 
-    if(sym == NULL)
+    if(!((function_declarator*)decl)->compare_existing_symbol(id, sym))
     {
-        sym_table.add_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl } );
         validate_block_semantic();
         return;
     }
-
-    if(!((function_declarator*)decl)->compare_existing_symbol(id, sym)) return;
 
     if(sym->is_initialized)
     {
@@ -59,7 +57,6 @@ void function_definition::validate_semantic()
 void function_definition::validate_block_semantic()
 {
     sym_table.push_scope();
-    if(!((function_declarator*)decl)->validate_params()) return;
-    //TODO: Validate block statement
-    sym_table.pop_scope(); //TODO: pop the scope at the end of the block statement
+    ((function_declarator*)decl)->validate_params();
+    stmt->validate_semantic();
 }

@@ -14,3 +14,13 @@ int block_statement::get_kind()
 {
     return BLOCK_STMT;
 }
+
+void block_statement::validate_semantic()
+{
+    if(!first_class_block) sym_table.push_scope();
+
+    if(decl_list != NULL) decl_list->validate_semantic();
+    if(stmt_list != NULL) stmt_list->validate_semantic();
+
+    sym_table.pop_scope();
+}

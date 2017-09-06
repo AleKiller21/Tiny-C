@@ -9,3 +9,8 @@ int while_statement::get_kind()
 {
     return WHILE_STMT;
 }
+
+void while_statement::validate_semantic()
+{
+    
+}

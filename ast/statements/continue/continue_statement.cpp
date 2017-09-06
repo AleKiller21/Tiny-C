@@ -9,3 +9,8 @@ int continue_statement::get_kind()
 {
     return CONTINUE_STMT;
 }
+
+void continue_statement::validate_semantic()
+{
+    
+}

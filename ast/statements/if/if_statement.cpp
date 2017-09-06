@@ -13,3 +13,8 @@ int if_statement::get_kind()
 {
     return IF_STMT;
 }
+
+void if_statement::validate_semantic()
+{
+    
+}

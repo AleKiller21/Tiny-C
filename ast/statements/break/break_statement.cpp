@@ -9,3 +9,8 @@ int break_statement::get_kind()
 {
     return BREAK_STMT;
 }
+
+void break_statement::validate_semantic()
+{
+    
+}

@@ -11,3 +11,8 @@ int expression_statement::get_kind()
 {
     return EXPRESSION_STMT;
 }
+
+void expression_statement::validate_semantic()
+{
+    expr->get_type();
+}

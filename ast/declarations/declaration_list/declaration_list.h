@@ -13,7 +13,7 @@ private:
 
 public:
     void add_declaration(declaration* decl);
-    // void validate_semantic();
+    void validate_semantic();
     // string generate_mips();
     string to_string();
 };
