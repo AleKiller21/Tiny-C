@@ -10,19 +10,19 @@ string id_expression::get_lexeme()
     return lexeme;
 }
 
-id_attributes* id_expression::get_type()
+id_attributes id_expression::get_type()
 {
     symbol *sym = sym_table.get_symbol(lexeme);
     if(sym == NULL)
     {
         comp_utils::show_message("error", "'" + lexeme + "' undeclared (first use in this function)", position);
-        return NULL;
+        return { 0, 0, 0, true };
     }
 
     if(sym->category != ARRAY) lvalue = true;
     else lvalue = false;
 
-    return new id_attributes { sym->type, sym->pointer, sym->category };
+    return { sym->type, sym->pointer, sym->category, false };
 }
 
 int id_expression::get_kind()

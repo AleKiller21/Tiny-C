@@ -55,6 +55,8 @@
 
 using namespace std;
 
+extern symbol_table sym_table;
+
 class expression
 {
 protected:
@@ -64,7 +66,7 @@ protected:
 public:
     expression(int position) { this->position = position; }
     
-    virtual id_attributes* get_type() { throw "not implemented exception"; }
+    virtual id_attributes get_type() { throw "not implemented exception"; }
     //virtual string generate_mips() = 0;
     virtual string to_string() = 0;
     virtual int get_kind() = 0;

@@ -3,8 +3,6 @@
 
 #include "../../expression.h"
 
-extern symbol_table sym_table;
-
 class id_expression : public expression
 {
 private:
@@ -19,7 +17,7 @@ public:
     
     string to_string();
     string get_lexeme();
-    id_attributes* get_type();
+    id_attributes get_type();
     int get_kind();
     // string generate_mips();
 };
