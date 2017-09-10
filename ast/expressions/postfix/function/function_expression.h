@@ -19,7 +19,7 @@ public:
     string to_string();
     int get_kind();
     // string generate_mips();
-    // string get_type();
+    id_attributes* get_type();
 };
 
 #endif // FUNCTION_EXPRESSION

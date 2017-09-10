@@ -102,8 +102,3 @@ bool function_declarator::validate_params()
     if(params == NULL) return true;
     return params->validate_semantic();
 }
-
-// bool function_declarator::is_params_null()
-// {
-//     return params == NULL;
-// }
