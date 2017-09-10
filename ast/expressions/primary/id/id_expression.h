@@ -14,13 +14,12 @@ public:
     id_expression(string* lexeme, int position) : expression(position)
     {
         this->lexeme = *lexeme;
-        lvalue = true;
         delete lexeme;
     }
     
     string to_string();
     string get_lexeme();
-    string get_type();
+    id_attributes* get_type();
     int get_kind();
     // string generate_mips();
 };

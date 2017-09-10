@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <string>
+#include <iostream>
 #include "colors.h"
 #include "../ast/types.h"
 #include "../ast/id_attributes.h"
@@ -15,8 +16,13 @@ extern int semantic_errors;
 class comp_utils
 {
 public:
-    void static show_message(string type, string msg, int position);
-    string static get_id_attrs(id_attributes attrs);
+    static void show_message(string type, string msg, int position);
+    static string id_attrs_to_string(id_attributes attrs);
+    static bool is_type_int(id_attributes attrs);
+    static bool is_type_char(id_attributes attrs);
+    static bool is_type_void(id_attributes attrs);
+    static bool is_pointer(id_attributes attrs);
+    static id_attributes string_to_id_attrs(string attrs);
 };
 
 #endif // COMP_UTILS

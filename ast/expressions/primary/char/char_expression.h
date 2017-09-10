@@ -18,7 +18,7 @@ public:
     string to_string();
     int get_kind();
 
-    string get_type();
+    id_attributes* get_type();
     // string generate_mips();
 };
 

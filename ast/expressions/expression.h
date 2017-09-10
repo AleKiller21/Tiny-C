@@ -7,6 +7,9 @@
 #include <iostream>
 #include "../../comp_utils/comp_utils.h"
 #include "../../symbol_table/symbol_table.h"
+#include "../id_attributes.h"
+#include "../id_kind.h"
+#include "../types.h"
 
 #define ID_EXPR         1
 #define CHAR_EXPR       2
@@ -61,7 +64,7 @@ protected:
 public:
     expression(int position) { this->position = position; }
     
-    virtual string get_type() { throw "not implemented exception"; }
+    virtual id_attributes* get_type() { throw "not implemented exception"; }
     //virtual string generate_mips() = 0;
     virtual string to_string() = 0;
     virtual int get_kind() = 0;

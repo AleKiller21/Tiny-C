@@ -21,6 +21,7 @@ string function_definition::to_string()
 
 void function_definition::validate_semantic()
 {
+    //TODO: Considerar validar que no pueda devolver void*
     string id = decl->get_id();
     symbol* sym = sym_table.exist_symbol_in_current_scope(id);
 
