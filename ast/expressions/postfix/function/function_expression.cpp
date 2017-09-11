@@ -57,6 +57,5 @@ id_attributes function_expression::get_type()
         }
     }
 
-    lvalue = false;
-    return { id_type.type, id_type.pointer, SIMPLE };
+    return { id_type.type, id_type.pointer, SIMPLE, false };
 }

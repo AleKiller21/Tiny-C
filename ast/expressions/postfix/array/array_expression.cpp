@@ -32,5 +32,5 @@ id_attributes array_expression::get_type()
         return { 0, 0, 0, true};
     }
     
-    return { expr_type.type, false, SIMPLE };
+    return { expr_type.type, false, SIMPLE, false };
 }

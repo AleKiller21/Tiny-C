@@ -18,6 +18,7 @@ public:
     {
         this->id = id;
         this->arguments = arguments;
+        lvalue = false;
     }
     
     string to_string();

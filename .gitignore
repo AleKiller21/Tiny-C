@@ -8,3 +8,5 @@ tokens.h
 *.output
 *.d
 Tiny
+test.c
+test

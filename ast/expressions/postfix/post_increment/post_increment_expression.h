@@ -12,11 +12,12 @@ public:
     post_increment_expression(expression* expr, int position) : expression(position)
     {
         this->expr = expr;
+        lvalue = false;
     }
     
     string to_string();
     int get_kind();
-    // string get_type();
+    id_attributes get_type();
     // string generate_mips();
 };
 
