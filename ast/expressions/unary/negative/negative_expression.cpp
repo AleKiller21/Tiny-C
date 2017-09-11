@@ -9,3 +9,17 @@ int negative_expression::get_kind()
 {
     return NEGATIVE_EXPR;
 }
+
+id_attributes negative_expression::get_type()
+{
+    id_attributes expr_type = expr->get_type();
+    
+    if(expr_type.semantic_fail) return expr_type;
+    if(expr_type.pointer || expr_type.kind == ARRAY)
+    {
+        comp_utils::show_message("error", "wrong type argument to unary minus", position);
+        return { 0, 0, 0, true };
+    }
+
+    return { expr_type.type, false, SIMPLE, false };
+}
