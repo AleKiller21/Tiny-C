@@ -6,10 +6,10 @@
 class pointer_expression : public unary_expression
 {
 public:
-    pointer_expression(expression* expr, int position) : unary_expression(expr, position) {}
+    pointer_expression(expression* expr, int position) : unary_expression(expr, position) { lvalue = true; }
     string to_string();
     int get_kind();
-    // string get_type();
+    id_attributes get_type();
     // string generate_mips();
 };
 

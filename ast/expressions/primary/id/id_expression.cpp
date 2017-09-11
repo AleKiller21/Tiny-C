@@ -19,9 +19,6 @@ id_attributes id_expression::get_type()
         return { 0, 0, 0, true };
     }
 
-    if(sym->category != ARRAY) lvalue = true;
-    else lvalue = false;
-
     return { sym->type, sym->pointer, sym->category, false };
 }
 

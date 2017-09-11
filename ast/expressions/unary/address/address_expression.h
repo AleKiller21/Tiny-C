@@ -6,10 +6,10 @@
 class address_expression : public unary_expression
 {
 public:
-    address_expression(expression* expr, int position) : unary_expression(expr, position) {}
+    address_expression(expression* expr, int position) : unary_expression(expr, position) { lvalue = false; }
     string to_string();
     int get_kind();
-    // string get_type();
+    id_attributes get_type();
     // string generate_mips();
 };
 

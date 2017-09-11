@@ -13,6 +13,7 @@ public:
     {
         this->lexeme = *lexeme;
         delete lexeme;
+        lvalue = true;
     }
     
     string to_string();
