@@ -6,7 +6,7 @@
 class or_expression : public binary_expression
 {
 public:
-    or_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position)
+    or_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, "|")
     {
         //TODO: inicializar las reglas
     }

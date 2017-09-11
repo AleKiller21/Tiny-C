@@ -1,6 +1,7 @@
 #ifndef MULT_EXPRESSION
 #define MULT_EXPRESSION
 
+#include "../binary_expression.h"
 #include "../multiplicative_expression.h"
 
 class mult_expression : public multiplicative_expression

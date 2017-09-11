@@ -6,7 +6,7 @@
 class rshift_expression : public binary_expression
 {
 public:
-    rshift_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position)
+    rshift_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, ">>")
     {
         //TODO: inicializar las reglas
     }

@@ -6,7 +6,7 @@
 class and_expression : public binary_expression
 {
 public:
-    and_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position)
+    and_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, "&")
     {
         //TODO: inicializar las reglas
     }

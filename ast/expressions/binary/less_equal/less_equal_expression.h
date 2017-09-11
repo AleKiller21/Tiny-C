@@ -6,7 +6,7 @@
 class less_equal_expression : public binary_expression
 {
 public:
-    less_equal_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position)
+    less_equal_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, "<=")
     {
         //TODO: inicializar las reglas
     }

@@ -6,7 +6,7 @@
 class equal_expression : public binary_expression
 {
 public:
-    equal_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position)
+    equal_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, "==")
     {
         //TODO: inicializar las reglas
     }

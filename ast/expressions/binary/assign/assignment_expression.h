@@ -6,7 +6,7 @@
 class assignment_expression : public binary_expression
 {
 public:
-    assignment_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position)
+    assignment_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, "=")
     {
         //TODO: inicializar las reglas
     }
