@@ -17,7 +17,7 @@ id_attributes post_decrement_expression::get_type()
     if(expr_type.semantic_fail) return expr_type;
     if(!expr->get_lvalue())
     {
-        comp_utils::show_message("error", "lvalue required as increment operand", position);
+        comp_utils::show_message("error", "lvalue required as decrement operand", position);
         return { 0, 0, 0, true };
     }
 
