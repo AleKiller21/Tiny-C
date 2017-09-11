@@ -1,19 +1,15 @@
 #ifndef LSHIFT_EXPRESSION
 #define LSHIFT_EXPRESSION
 
-#include "../binary_expression.h"
+#include "../shift_expression.h"
 
-class lshift_expression : public binary_expression
+class lshift_expression : public shift_expression
 {
 public:
-    lshift_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, "<<")
-    {
-        //TODO: inicializar las reglas
-    }
+    lshift_expression(expression* expr1, expression* expr2, int position) : shift_expression(expr1, expr2, position, "<<") {}
 
     string to_string();
     int get_kind();
-    // string get_type();
     // string generate_mips();
 };
 

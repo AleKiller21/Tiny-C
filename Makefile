@@ -52,7 +52,7 @@ parser.cpp: parser.y
 -include $(SOURCE:%.cpp=%.d)
 
 run: $(TARGET)
-	./$(TARGET) < ./samples/sample.cpp
+	./$(TARGET) < ./samples/sample.c
 
 test: $(TARGET)
 	./$(TARGET) < ./samples/if_test.cpp

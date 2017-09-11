@@ -19,8 +19,8 @@ public:
         rules["char*,int"]      =   { CHAR, true, SIMPLE, false };
         rules["char*,char"]     =   { CHAR, true, SIMPLE, false };
 
-        rules["int*,int*"]      =   { INT, true, SIMPLE, false };
-        rules["char*,char*"]    =   { CHAR, true, SIMPLE, false };
+        rules["int*,int*"]      =   { INT, false, SIMPLE, false };
+        rules["char*,char*"]    =   { INT, false, SIMPLE, false };
     }
 
     string to_string();
