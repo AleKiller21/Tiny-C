@@ -15,7 +15,7 @@ id_attributes pre_increment_expression::get_type()
     id_attributes expr_type = expr->get_type();
     
     if(expr_type.semantic_fail) return expr_type;
-    if(!expr->get_lvalue())
+    if(!expr->get_lvalue() || expr_type.kind == ARRAY)
     {
         comp_utils::show_message("error", "lvalue required as increment operand", position);
         return { 0, 0, 0, true };
