@@ -18,6 +18,7 @@ class comp_utils
 public:
     static void show_message(string type, string msg, int position);
     static string id_attrs_to_string(id_attributes attrs);
+    static string type_to_string(int type);
     static bool is_type_int(id_attributes attrs);
     static bool is_type_char(id_attributes attrs);
     static bool is_type_void(id_attributes attrs);

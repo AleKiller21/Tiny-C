@@ -1,19 +1,15 @@
 #ifndef MOD_EXPRESSION
 #define MOD_EXPRESSION
 
-#include "../binary_expression.h"
+#include "../multiplicative_expression.h"
 
-class mod_expression : public binary_expression
+class mod_expression : public multiplicative_expression
 {
 public:
-    mod_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position)
-    {
-        //TODO: inicializar las reglas
-    }
+    mod_expression(expression* expr1, expression* expr2, int position) : multiplicative_expression(expr1, expr2, position, "%") {}
 
     string to_string();
     int get_kind();
-    // string get_type();
     // string generate_mips();
 };
 

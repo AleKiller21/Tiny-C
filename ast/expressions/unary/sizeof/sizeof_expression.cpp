@@ -23,20 +23,7 @@ id_attributes sizeof_expression::get_type()
     symbol *arr_symbol = sym_table.get_symbol(((id_expression*)expr)->get_lexeme());
     if(!arr_symbol->is_initialized && !((array_declarator*)arr_symbol->decl_ptr)->has_range())
     {
-        string result;        
-        switch(expr_type.type)
-        {
-            case INT:
-                result = "int";
-                break;
-            case CHAR:
-                result = "char";
-                break;
-            case VOID:
-                result = "void";
-                break;
-        }
-        
+        string result = comp_utils::type_to_string(expr_type.type);        
         comp_utils::show_message("error", "invalid application of ‘sizeof’ to incomplete type " + result + "[]", position);
         return { 0, 0, 0, true };
     }

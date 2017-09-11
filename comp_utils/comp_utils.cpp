@@ -13,24 +13,24 @@ void comp_utils::show_message(string type, string msg, int position)
 
 string comp_utils::id_attrs_to_string(id_attributes attrs)
 {
-    string result;
-
-    switch(attrs.type)
-    {
-        case INT:
-            result = "int";
-            break;
-        case CHAR:
-            result = "char";
-            break;
-        case VOID:
-            result = "void";
-            break;
-    }
+    string result = comp_utils::type_to_string(attrs.type);
 
     if(attrs.kind == ARRAY || attrs.pointer) result += "*";
     if(attrs.kind == FUNCTION) result += "f";
     return result;
+}
+
+string comp_utils::type_to_string(int type)
+{
+    switch(type)
+    {
+        case INT:
+            return "int";
+        case CHAR:
+            return "char";
+        case VOID:
+            return "void";
+    }
 }
 
 bool comp_utils::is_type_int(id_attributes attrs)
