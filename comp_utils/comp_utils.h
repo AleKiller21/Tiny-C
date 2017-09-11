@@ -22,7 +22,6 @@ public:
     static bool is_type_char(id_attributes attrs);
     static bool is_type_void(id_attributes attrs);
     static bool is_pointer(id_attributes attrs);
-    static id_attributes string_to_id_attrs(string attrs);
 };
 
 #endif // COMP_UTILS

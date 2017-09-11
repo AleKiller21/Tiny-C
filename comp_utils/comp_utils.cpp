@@ -47,19 +47,3 @@ bool comp_utils::is_type_void(id_attributes attrs)
 {
     return attrs.type == VOID;
 }
-
-id_attributes comp_utils::string_to_id_attrs(string attrs)
-{
-    cout << attrs << endl;
-    id_attributes result;
-    int size = attrs.size();
-    if(attrs[size - 1] == 'f') result.kind = FUNCTION;
-    result.pointer = attrs[size - 2] == '*';
-    
-    string str_type = attrs.substr(0, size - 2);
-    if(!str_type.compare("int")) result.type = INT;
-    else if(!str_type.compare("char")) result.type = CHAR;
-    else result.type = VOID;
-
-    return result;
-}
