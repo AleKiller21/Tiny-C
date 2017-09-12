@@ -16,9 +16,10 @@ protected:
         this->expr1 = expr1;
         this->expr2 = expr2;
         this->op = op;
+        lvalue = false;
     }
 
-    id_attributes get_type()
+    virtual id_attributes get_type()
     {
         id_attributes expr1_type = expr1->get_type();
         id_attributes expr2_type = expr2->get_type();
