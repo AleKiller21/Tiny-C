@@ -10,7 +10,8 @@ int break_statement::get_kind()
     return BREAK_STMT;
 }
 
-void break_statement::validate_semantic()
+void break_statement::validate_semantic(bool is_loop_statement)
 {
-    
+    if(is_loop_statement) return;
+    comp_utils::show_message("error", "break statement not within a loop", position);
 }

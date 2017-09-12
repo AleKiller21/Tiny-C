@@ -22,10 +22,10 @@ void statement_list::add_statement(statement* stmt)
     statements.push_back(stmt);
 }
 
-void statement_list::validate_semantic()
+void statement_list::validate_semantic(bool is_loop_statement)
 {
     for(list<statement*>::iterator it = statements.begin(); it != statements.end(); it++)
     {
-        (*it)->validate_semantic();
+        (*it)->validate_semantic(is_loop_statement);
     }
 }

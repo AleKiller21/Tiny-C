@@ -14,9 +14,9 @@ int if_statement::get_kind()
     return IF_STMT;
 }
 
-void if_statement::validate_semantic()
+void if_statement::validate_semantic(bool is_loop_statement)
 {
     condition->get_type();
-    true_block->validate_semantic();
-    if(false_block != NULL) false_block->validate_semantic();
+    true_block->validate_semantic(is_loop_statement);
+    if(false_block != NULL) false_block->validate_semantic(is_loop_statement);
 }

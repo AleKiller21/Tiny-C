@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include "../../symbol_table/symbol_table.h"
+#include "../../comp_utils/comp_utils.h"
 
 extern symbol_table sym_table;
 
@@ -22,21 +23,16 @@ using namespace std;
 
 class statement
 {
-private:
+protected:
     int position;
 
 public:
     statement(int position) { this->position = position; }
 
-    virtual void validate_semantic() = 0;
+    virtual void validate_semantic(bool is_loop_statement) = 0;
     virtual string generate_mips() { throw "function not yet implemented. "; }
     virtual string to_string() = 0;
     virtual int get_kind() = 0;
-
-    void show_error(const char* msg)
-    {
-        fprintf(stderr, "Line %d: error: %s", position, msg);
-    }
 };
 
 #endif // STATEMENT

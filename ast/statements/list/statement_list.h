@@ -16,7 +16,7 @@ public:
     int get_kind();
     void add_statement(statement* stmt);
     // string generate_mips();
-    void validate_semantic();
+    void validate_semantic(bool is_loop_statement);
 };
 
 #endif // STATEMENT_LIST

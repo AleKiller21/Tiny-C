@@ -59,5 +59,5 @@ void function_definition::validate_block_semantic()
 {
     sym_table.push_scope();
     ((function_declarator*)decl)->validate_params();
-    stmt->validate_semantic();
+    stmt->validate_semantic(false);
 }

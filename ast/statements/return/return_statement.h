@@ -10,15 +10,12 @@ private:
     expression* expr;
 
 public:
-    return_statement(int position, expression* expr) : statement(position)
-    {
-        this->expr = expr;
-    }
+    return_statement(int position, expression* expr) : statement(position) { this->expr = expr; }
 
     string to_string();
     int get_kind();
     // string generate_mips();
-    void validate_semantic();
+    void validate_semantic(bool is_loop_statement);
 };
 
 #endif // RETURN_STATEMENT
