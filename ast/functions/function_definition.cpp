@@ -33,8 +33,8 @@ void function_definition::validate_semantic()
 
     if(sym == NULL)
     {
-        validate_block_semantic();
         sym_table.add_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl } );
+        validate_block_semantic();
         return;
     }
 
