@@ -90,7 +90,7 @@ bool array_declarator::validate_range(string id)
 
 bool array_declarator::validate_block_scope_range(string id)
 {
-    if(sym_table.get_scope_level() > 0 && !has_range())
+    if(sym_table.get_scope_level() > 0 && !has_range() && init == NULL)
     {
         comp_utils::show_message("error", "array size missing in '" + id + "'", get_position());
         return false;

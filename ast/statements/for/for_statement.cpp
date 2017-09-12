@@ -15,5 +15,8 @@ int for_statement::get_kind()
 
 void for_statement::validate_semantic()
 {
-    
+    expr1->validate_semantic();
+    expr2->validate_semantic();
+    stmt->validate_semantic();
+    if(expr3 != NULL) expr3->get_type();
 }

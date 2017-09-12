@@ -12,5 +12,6 @@ int while_statement::get_kind()
 
 void while_statement::validate_semantic()
 {
-    
+    condition->get_type();
+    stmt->validate_semantic();
 }

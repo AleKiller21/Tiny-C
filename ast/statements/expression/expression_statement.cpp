@@ -14,5 +14,5 @@ int expression_statement::get_kind()
 
 void expression_statement::validate_semantic()
 {
-    expr->get_type();
+    if(expr != NULL) expr->get_type();
 }
