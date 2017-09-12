@@ -12,6 +12,7 @@ using namespace std;
 
 extern symbol_table sym_table;
 extern redundancy_manager redund_manager;
+extern bool main_flag;
 
 class function_definition : public external_declaration
 {

@@ -1,6 +1,7 @@
 #include "compiler/compiler.h"
 #include "symbol_table/symbol_table.h"
 #include "redundancy_manager/redundancy_manager.h"
+#include "comp_utils/comp_utils.h"
 #include <iostream>
 
 extern int yydebug;
@@ -12,6 +13,7 @@ redundancy_manager redund_manager;
 int declaration_pos = 0;
 int declarator_pos = 0;
 int semantic_errors = 0;
+bool main_flag = false;
 
 int main()
 {
@@ -19,5 +21,6 @@ int main()
     yyparse();
     compiler comp(source);
     comp.validate_semantic();
-    //if(semantic_errors == 0) comp.generate_code();
+    if(!main_flag) comp_utils::show_message("error", "undefined reference to main", 0);
+    //else if(semantic_errors == 0) comp.generate_code();
 }
