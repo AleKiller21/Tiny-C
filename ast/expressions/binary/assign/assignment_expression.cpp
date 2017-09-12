@@ -10,6 +10,11 @@ int assignment_expression::get_kind()
     return ASSIGN_EXPR;
 }
 
+map<string, id_attributes> assignment_expression::get_rules()
+{
+    return rules;
+}
+
 id_attributes assignment_expression::get_type()
 {
     id_attributes expr1_type = expr1->get_type();

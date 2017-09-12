@@ -19,6 +19,7 @@ public:
     string to_string();
     int get_kind();
     id_attributes get_type();
+    map<string, id_attributes> get_rules();
     //string generate_mips();
 };
 

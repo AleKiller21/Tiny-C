@@ -12,6 +12,7 @@ public:
         rules["int,char"]   =   { INT, false, SIMPLE, false };
         rules["char,int"]   =   { INT, false, SIMPLE, false };
         rules["char,char"]  =   { INT, false, SIMPLE, false };
+        lvalue = false;
     }
 };
 

@@ -3,8 +3,10 @@
 
 #include "../declarator.h"
 #include "../../expressions/primary/id/id_expression.h"
+#include "../../expressions/binary/assign/assignment_expression.h"
 #include <iostream>
 #include <list>
+#include <map>
 
 using namespace std;
 

@@ -60,6 +60,33 @@ bool simple_declarator::validate_initialization()
         }
     }
 
-    //TODO: Mandar a llamar el get_type de init->single_expr y compararlo con el tipo del declarador
-    return true;    
+    if(sym_table.get_scope_level() == 0 && init->single_expr->get_lvalue())
+    {
+        comp_utils::show_message("error", "initializer element is not constant", get_position());
+        return false;
+    }
+
+    id_attributes decl_type = { type, pointer, SIMPLE, false };
+    assignment_expression *assign_expr = new assignment_expression(NULL, NULL, 0);
+    map<string, id_attributes> rules = assign_expr->get_rules();
+    bool success = false;
+
+    string op1 = comp_utils::id_attrs_to_string(decl_type);
+    string op2 = comp_utils::id_attrs_to_string(init->single_expr->get_type());
+    
+    try
+    {
+        string entry = op1 + "," + op2;
+        rules.at(entry);
+        success = true;
+    }
+
+    catch(out_of_range)
+    {
+        string entries = " (have '" + op1 + "' and '" + op2 + "')"; 
+        comp_utils::show_message("error", "invalid operands to binary =" + entries, get_position());
+    }
+    
+    delete assign_expr;
+    return success;    
 }

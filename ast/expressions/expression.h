@@ -64,7 +64,7 @@ protected:
     bool lvalue;
 
 public:
-    expression(int position) { this->position = position; }
+    expression(int position) { this->position = position; lvalue = false; }
     
     virtual id_attributes get_type() { throw "not implemented exception"; }
     //virtual string generate_mips() = 0;
