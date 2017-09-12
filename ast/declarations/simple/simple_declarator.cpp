@@ -59,20 +59,27 @@ bool simple_declarator::validate_initialization()
             init->list_expr = NULL;
         }
     }
+    
+    return simple_declarator::validate_init_expression({ type, pointer, SIMPLE, false }, init->single_expr, get_position());
+}
 
-    if(sym_table.get_scope_level() == 0 && init->single_expr->get_lvalue())
+bool simple_declarator::validate_init_expression(id_attributes decl_type, expression* expr, int decl_position)
+{
+    if(sym_table.get_scope_level() == 0 && expr->get_lvalue())
     {
-        comp_utils::show_message("error", "initializer element is not constant", get_position());
+        comp_utils::show_message("error", "initializer element is not constant", decl_position);
         return false;
     }
 
-    id_attributes decl_type = { type, pointer, SIMPLE, false };
+    id_attributes expr_type = expr->get_type();
+    if(expr_type.semantic_fail) return false;
+
     assignment_expression *assign_expr = new assignment_expression(NULL, NULL, 0);
     map<string, id_attributes> rules = assign_expr->get_rules();
     bool success = false;
 
     string op1 = comp_utils::id_attrs_to_string(decl_type);
-    string op2 = comp_utils::id_attrs_to_string(init->single_expr->get_type());
+    string op2 = comp_utils::id_attrs_to_string(expr_type);
     
     try
     {
@@ -84,7 +91,7 @@ bool simple_declarator::validate_initialization()
     catch(out_of_range)
     {
         string entries = " (have '" + op1 + "' and '" + op2 + "')"; 
-        comp_utils::show_message("error", "invalid operands to binary =" + entries, get_position());
+        comp_utils::show_message("error", "invalid operands to binary =" + entries, decl_position);
     }
     
     delete assign_expr;

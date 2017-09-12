@@ -3,6 +3,8 @@
 
 #include "../declarator.h"
 #include "../../expressions/expression.h"
+#include "../simple/simple_declarator.h"
+#include <list>
 
 class array_declarator : public declarator
 {

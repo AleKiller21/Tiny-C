@@ -56,7 +56,15 @@ bool array_declarator::validate_initialization()
         return false;
     }
 
-    //TODO: Obtener el tipo de las expresiones en el inicializador y en el rango
+    list<expression*> init_exprs = init->list_expr->get_list();
+    id_attributes decl_type = { type, false, SIMPLE, false };
+    for(list<expression*>::iterator it = init_exprs.begin(); it != init_exprs.end(); it++)
+    {
+        if(!simple_declarator::validate_init_expression(decl_type, *it, get_position())) return false;
+    }
+
+    //TODO: asignar el numero de elementos en el inicializador como rango en caso de que el arreglo no tengo un rango definido
+
     return true;
 }
 
@@ -101,7 +109,12 @@ bool array_declarator::validate_block_scope_range(string id)
 
 bool array_declarator::validate_range_type(string id)
 {
-    if(has_range() && index_expr->get_kind() == STRING_EXPR)
+    if(!has_range()) return true;
+    
+    id_attributes index_type = index_expr->get_type();
+    if(index_type.semantic_fail) return false;
+
+    if((index_type.type != INT && index_type.type != CHAR) || index_type.pointer)
     {
         comp_utils::show_message("error", "size of '" + id + "' has non-integer type", get_position());
         return false;

@@ -21,6 +21,7 @@ public:
     string to_string();
     // stirng generate_mips();
     void validate_semantic();
+    static bool validate_init_expression(id_attributes decl_type, expression* expr, int decl_position);
 };
 
 #endif // SIMPLE_DECLARATOR
