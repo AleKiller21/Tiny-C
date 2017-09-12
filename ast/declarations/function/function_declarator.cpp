@@ -28,12 +28,9 @@ void function_declarator::validate_semantic()
 
     if(sym == NULL)
     {
-        if(params != NULL)
-        {
-            sym_table.push_scope();
-            validate_params();
-            sym_table.pop_scope();
-        }
+        sym_table.push_scope();
+        validate_params();
+        sym_table.pop_scope();
 
         sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, get_kind(), this } );
         redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
@@ -100,5 +97,11 @@ bool function_declarator::compare_param_types(vector<id_attributes> prev_decl, v
 bool function_declarator::validate_params()
 {
     if(params == NULL) return true;
+    if(params->get_params_amount() > 4)
+    {
+        comp_utils::show_message("error", "TinyC does not allows functions with more than four parameters", get_position());
+        return false;
+    }
+    
     return params->validate_semantic();
 }

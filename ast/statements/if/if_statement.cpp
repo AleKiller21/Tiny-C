@@ -16,5 +16,7 @@ int if_statement::get_kind()
 
 void if_statement::validate_semantic()
 {
-    
+    condition->get_type();
+    true_block->validate_semantic();
+    if(false_block != NULL) false_block->validate_semantic();
 }

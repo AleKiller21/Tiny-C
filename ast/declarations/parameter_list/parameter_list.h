@@ -23,6 +23,7 @@ public:
     void add_param(declarator* param);
     // string generate_mips();
     bool validate_semantic();
+    int get_params_amount();
 };
 
 #endif // PARAMETER_LIST

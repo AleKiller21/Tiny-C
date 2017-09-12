@@ -79,3 +79,8 @@ bool parameter_list::validate_semantic()
 
     return true;
 }
+
+int parameter_list::get_params_amount()
+{
+    return params.size();
+}
