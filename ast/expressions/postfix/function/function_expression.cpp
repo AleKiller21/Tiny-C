@@ -13,7 +13,6 @@ int function_expression::get_kind()
 
 id_attributes function_expression::get_type()
 {
-    //TODO: No se puede mandar a llamar la funcion en la que nos encontramos recursivamente porque aun no ha sido agregado a la tabla de simbolos
     id_attributes id_type = id->get_type();
     id_attributes arg_types;
     id_attributes type;

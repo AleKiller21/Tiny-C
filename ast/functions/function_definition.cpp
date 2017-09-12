@@ -21,13 +21,18 @@ string function_definition::to_string()
 
 void function_definition::validate_semantic()
 {
-    //TODO: Considerar validar que no pueda devolver void*
     string id = decl->get_id();
     symbol* sym = sym_table.exist_symbol_in_current_scope(id);
 
     if(decl->get_kind() != FUNCTION)
     {
         comp_utils::show_message("error", "Wrong definition of function '" + id + "'", decl->get_position());
+        return;
+    }
+
+    if(decl->type == VOID && decl->pointer)
+    {
+        comp_utils::show_message("error", "TinyC does not allows the use of functions returning void*", decl->get_position());
         return;
     }
 
