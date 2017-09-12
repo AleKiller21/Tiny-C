@@ -1,19 +1,15 @@
 #ifndef OR_EXPRESSION
 #define OR_EXPRESSION
 
-#include "../binary_expression.h"
+#include "../bit_operator.h"
 
-class or_expression : public binary_expression
+class or_expression : public bit_operator
 {
 public:
-    or_expression(expression* expr1, expression* expr2, int position) : binary_expression(expr1, expr2, position, "|")
-    {
-        //TODO: inicializar las reglas
-    }
+    or_expression(expression* expr1, expression* expr2, int position) : bit_operator(expr1, expr2, position, "|") {}
 
     string to_string();
     int get_kind();
-    // string get_type();
     // string generate_mips();
 };
 
