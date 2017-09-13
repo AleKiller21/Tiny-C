@@ -58,6 +58,7 @@ bool array_declarator::validate_initialization()
 
     list<expression*> init_exprs = init->list_expr->get_list();
     id_attributes decl_type = { type, false, SIMPLE, false };
+    
     for(list<expression*>::iterator it = init_exprs.begin(); it != init_exprs.end(); it++)
     {
         if(!simple_declarator::validate_init_expression(decl_type, *it, get_position())) return false;

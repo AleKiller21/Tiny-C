@@ -15,17 +15,24 @@ void compiler::validate_semantic()
     }
 }
 
-void compiler::remove_unnecessary_nodes()
+void compiler::mark_unnecessary_nodes()
 {
-    //TODO: Considerar la idea de borrar todos esos nodos de declaraciones redundantes
-    // for(map<string, list<redundant_declaration>* >::iterator it = redundant_declarations.begin(); it != redundant_declarations.end(); it++)
-    // {
-    //     list<redundant_declaration>* decls = it->second;
-    //     for(list<redundant_declaration>::iterator it2 = decls.begin(); it2 != decls.end(); it2++)
-    //     {
-    //         redundant_declaration entry = *it;
-    //     }
-    // }
+    int counter = 0;
+    for(map<string, list<redundant_declaration>* >::iterator it = redund_manager.redundant_declarations.begin(); it != redund_manager.redundant_declarations.end(); it++)
+    {
+        list<redundant_declaration>* decls = it->second;
+        for(list<redundant_declaration>::iterator it2 = decls->begin(); it2 != decls->end(); it2++)
+        {
+            redundant_declaration entry = *it2;
+            if(entry.removable)
+            {
+                ((declarator*)entry.decl_ptr)->redund_declaration = true;
+                counter++;
+            }
+        }
+    }
+
+    cout << counter << endl;
 }
 
 string compiler::generate_code()

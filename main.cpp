@@ -22,5 +22,9 @@ int main()
     compiler comp(source);
     comp.validate_semantic();
     if(!main_flag) comp_utils::show_message("error", "undefined reference to main", 0);
-    //else if(semantic_errors == 0) comp.generate_code();
+    else if(semantic_errors == 0)
+    {
+        comp.mark_unnecessary_nodes();
+        //comp.generate_code();
+    }
 }

@@ -27,6 +27,7 @@ private:
 public:
     initializer* init;
     bool pointer;
+    bool redund_declaration;
     int type;
 
     //virtual string generate_mips() = 0;
@@ -50,6 +51,7 @@ protected:
         this->id = *id;
         this->kind = kind;
         pointer = false;
+        redund_declaration = false;
         init = NULL;
 
         delete id;

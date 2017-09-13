@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 #include "../ast/declarations/external_declaration.h"
+#include "../ast/declarations/declarator.h"
 #include "../redundancy_manager/redundancy_manager.h"
 
 using namespace std;
@@ -22,7 +23,7 @@ private:
 public:
     compiler(list<external_declaration*> source_code);
     void validate_semantic();
-    void remove_unnecessary_nodes();
+    void mark_unnecessary_nodes();
     string generate_code();
 };
 
