@@ -33,6 +33,7 @@ void array_declarator::validate_semantic()
     {
         sym_table.replace_symbol(id, new symbol { type, get_position(), true, pointer, get_kind(), this });
         redund_manager.make_all_removable(id);
+        use_default_value = false;
     }
 
     else if((has_range() && !((array_declarator*)sym->decl_ptr)->has_range()) && !sym->is_initialized)
