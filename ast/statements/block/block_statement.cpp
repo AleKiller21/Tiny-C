@@ -15,12 +15,17 @@ int block_statement::get_kind()
     return BLOCK_STMT;
 }
 
-void block_statement::validate_semantic(bool is_loop_statement)
+void block_statement::validate_semantic(bool is_loop_statement, bool *has_return)
 {
     if(!first_class_block) sym_table.push_scope();
 
     if(decl_list != NULL) decl_list->validate_semantic();
-    if(stmt_list != NULL) stmt_list->validate_semantic(is_loop_statement);
+    if(stmt_list != NULL) stmt_list->validate_semantic(is_loop_statement, has_return);
 
     sym_table.pop_scope();
+}
+
+void block_statement::push_statement(statement *stmt)
+{
+    ((statement_list*)stmt_list)->add_statement(stmt);
 }

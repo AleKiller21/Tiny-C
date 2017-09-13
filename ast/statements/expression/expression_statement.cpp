@@ -12,7 +12,7 @@ int expression_statement::get_kind()
     return EXPRESSION_STMT;
 }
 
-void expression_statement::validate_semantic(bool is_loop_statement)
+void expression_statement::validate_semantic(bool is_loop_statement, bool *has_return)
 {
     if(expr != NULL) expr->get_type();
 }

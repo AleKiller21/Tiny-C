@@ -13,10 +13,10 @@ int for_statement::get_kind()
     return FOR_STMT;
 }
 
-void for_statement::validate_semantic(bool is_loop_statement)
+void for_statement::validate_semantic(bool is_loop_statement, bool *has_return)
 {
-    expr1->validate_semantic(true);
-    expr2->validate_semantic(true);
-    stmt->validate_semantic(true);
+    expr1->validate_semantic(true, has_return);
+    expr2->validate_semantic(true, has_return);
+    stmt->validate_semantic(true, NULL);
     if(expr3 != NULL) expr3->get_type();
 }

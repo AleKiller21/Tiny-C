@@ -10,8 +10,8 @@ int while_statement::get_kind()
     return WHILE_STMT;
 }
 
-void while_statement::validate_semantic(bool is_loop_statement)
+void while_statement::validate_semantic(bool is_loop_statement, bool *has_return)
 {
     condition->get_type();
-    stmt->validate_semantic(true);
+    stmt->validate_semantic(true, NULL);
 }

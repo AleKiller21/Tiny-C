@@ -2,6 +2,7 @@
 #define BLOCK_STATEMENT
 
 #include "../statement.h"
+#include "../list/statement_list.h"
 #include "../../declarations/declaration_list/declaration_list.h"
 
 class block_statement : public statement
@@ -23,7 +24,8 @@ public:
     string to_string();
     int get_kind();
     // string generate_mips();
-    void validate_semantic(bool is_loop_statement);
+    void validate_semantic(bool is_loop_statement, bool *has_return);
+    void push_statement(statement* stmt);
 };
 
 #endif // BLOCK_STATEMENT

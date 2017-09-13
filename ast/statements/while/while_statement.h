@@ -20,7 +20,7 @@ public:
     string to_string();
     int get_kind();
     // string generate_mips();
-    void validate_semantic(bool is_loop_statement);
+    void validate_semantic(bool is_loop_statement, bool *has_return);
 };
 
 #endif // WHILE_STATEMENT

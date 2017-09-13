@@ -12,7 +12,8 @@ int return_statement::get_kind()
     return RETURN_STMT;
 }
 
-void return_statement::validate_semantic(bool is_loop_statement)
+void return_statement::validate_semantic(bool is_loop_statement, bool *has_return)
 {
     if(expr != NULL) expr->get_type();
+    if(has_return != NULL) *has_return = true;
 }

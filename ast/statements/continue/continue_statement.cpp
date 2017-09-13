@@ -10,7 +10,7 @@ int continue_statement::get_kind()
     return CONTINUE_STMT;
 }
 
-void continue_statement::validate_semantic(bool is_loop_statement)
+void continue_statement::validate_semantic(bool is_loop_statement, bool *has_return)
 {
     if(is_loop_statement) return;
     comp_utils::show_message("error", "continue statement not within a loop", position);
