@@ -18,7 +18,7 @@ class function_definition : public external_declaration
 {
 private:
     declarator* decl;
-    block_statement* stmt;
+    block_statement* block;
 
     void validate_block_semantic();
 
@@ -27,8 +27,8 @@ public:
     {
         this->decl = decl;
         this->decl->type = type;
-        this->stmt = (block_statement*)stmt;
-        this->stmt->first_class_block = true;
+        this->block = (block_statement*)stmt;
+        this->block->first_class_block = true;
     }
     
     string to_string();

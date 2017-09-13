@@ -16,7 +16,7 @@ string function_definition::to_string()
             break;
     }
 
-    return str + decl->to_string() + "\n" + stmt->to_string();
+    return str + decl->to_string() + "\n" + block->to_string();
 }
 
 void function_definition::validate_semantic()
@@ -66,5 +66,5 @@ void function_definition::validate_block_semantic()
 {
     sym_table.push_scope();
     ((function_declarator*)decl)->validate_params();
-    stmt->validate_semantic(false);
+    block->validate_semantic(false);
 }

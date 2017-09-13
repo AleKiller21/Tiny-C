@@ -2,14 +2,18 @@
 
 register_manager::register_manager()
 {
-    regs = { {"$t0", true}, {"$t1", true}, {"$t2", true}, {"$t3", true}, 
+    temp_regs = { {"$t0", true}, {"$t1", true}, {"$t2", true}, {"$t3", true}, 
     {"$t4", true}, {"$t5", true}, {"$t6", true}, {"$t7", true},
     {"$t8", true}, {"$t9", true} };
+
+    saved_regs = { 0 };
 }
 
-string register_manager::get_free_register()
+string register_manager::get_free_register(bool preserved)
 {
-    for(map<string, bool>::iterator it = regs.begin(); it != regs.end(); it++)
+    if(preserved) return "$s" + to_string(saved_regs[saved_regs.size() - 1]++);
+
+    for(map<string, bool>::iterator it = temp_regs.begin(); it != temp_regs.end(); it++)
     {
         if(it->second)
         {
@@ -21,8 +25,23 @@ string register_manager::get_free_register()
     return "empty";
 }
 
+int register_manager::get_sregs_used()
+{
+    return saved_regs.back();
+}
+
 void register_manager::free_register(string reg)
 {
-    try { regs.at(reg) = true; }
+    try { temp_regs.at(reg) = true; }
     catch(out_of_range) {}
+}
+
+void register_manager::push_sregs()
+{
+    saved_regs.push_back(0);
+}
+
+void register_manager::pop_sregs()
+{
+    saved_regs.pop_back();
 }
