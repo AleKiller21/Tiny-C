@@ -29,6 +29,7 @@ public:
     bool pointer;
     bool redund_declaration;
     bool use_default_value;
+    bool is_global;
     int type;
 
     //virtual string generate_mips() = 0;
@@ -54,6 +55,7 @@ protected:
         pointer = false;
         redund_declaration = false;
         use_default_value = true;
+        is_global = false;
         init = NULL;
 
         delete id;

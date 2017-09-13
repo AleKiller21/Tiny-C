@@ -1,6 +1,8 @@
 #include "compiler/compiler.h"
 #include "symbol_table/symbol_table.h"
 #include "redundancy_manager/redundancy_manager.h"
+#include "register_manager/register_manager.h"
+#include "label_manager/label_manager.h"
 #include "comp_utils/comp_utils.h"
 #include <iostream>
 
@@ -10,6 +12,8 @@ extern int yyparse();
 list<external_declaration*> source;
 symbol_table sym_table;
 redundancy_manager redund_manager;
+register_manager reg_manager;
+label_manager lbl_manager;
 int declaration_pos = 0;
 int declarator_pos = 0;
 int semantic_errors = 0;

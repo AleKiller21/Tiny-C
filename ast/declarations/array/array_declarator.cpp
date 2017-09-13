@@ -17,6 +17,7 @@ void array_declarator::validate_semantic()
 {
     string id = get_id();
     symbol* sym = sym_table.exist_symbol_in_current_scope(id);
+    is_global = sym_table.get_scope_level() == 0;
 
     if(!validate_type(id) || !validate_pointer(id) || !validate_range(id)) return;
     if(!validate_existance(id, sym, get_kind())) return;
@@ -64,8 +65,6 @@ bool array_declarator::validate_initialization()
         if(!simple_declarator::validate_init_expression(decl_type, *it, get_position())) return false;
     }
 
-    //TODO: asignar el numero de elementos en el inicializador como rango en caso de que el arreglo no tengo un rango definido
-
     return true;
 }
 
@@ -99,7 +98,7 @@ bool array_declarator::validate_range(string id)
 
 bool array_declarator::validate_block_scope_range(string id)
 {
-    if(sym_table.get_scope_level() > 0 && !has_range() && init == NULL)
+    if(!is_global && !has_range() && init == NULL)
     {
         comp_utils::show_message("error", "array size missing in '" + id + "'", get_position());
         return false;

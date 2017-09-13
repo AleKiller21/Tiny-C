@@ -17,7 +17,6 @@ void compiler::validate_semantic()
 
 void compiler::mark_unnecessary_nodes()
 {
-    int counter = 0;
     for(map<string, list<redundant_declaration>* >::iterator it = redund_manager.redundant_declarations.begin(); it != redund_manager.redundant_declarations.end(); it++)
     {
         list<redundant_declaration>* decls = it->second;
@@ -25,14 +24,9 @@ void compiler::mark_unnecessary_nodes()
         {
             redundant_declaration entry = *it2;
             if(entry.removable)
-            {
                 ((declarator*)entry.decl_ptr)->redund_declaration = true;
-                counter++;
-            }
         }
     }
-
-    cout << counter << endl;
 }
 
 string compiler::generate_code()

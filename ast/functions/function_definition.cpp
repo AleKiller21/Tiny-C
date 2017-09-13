@@ -70,10 +70,5 @@ void function_definition::validate_block_semantic()
     ((function_declarator*)decl)->validate_params();
     block->validate_semantic(false, &has_return_stmt);
 
-    if(has_return_stmt) cout << decl->get_id() + " has return\n" << endl;
-    if(!has_return_stmt)
-    {
-        block->push_statement(new return_statement(0, NULL));
-        cout << "return statement added to function " + decl->get_id() + "\n" << endl;
-    }
+    if(!has_return_stmt) block->push_statement(new return_statement(0, NULL));
 }
