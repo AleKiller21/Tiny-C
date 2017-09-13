@@ -44,7 +44,6 @@ void array_declarator::validate_semantic()
     }
 
     else redund_manager.push_declaration(id, { declaration_pos, declarator_pos, true, this });
-    //TODO: Validar que para todos los declaradores globales, si estos no tienen valor asignado o rango(arreglos) entonces asignarle default value, 0
 }
 
 bool array_declarator::validate_initialization()
