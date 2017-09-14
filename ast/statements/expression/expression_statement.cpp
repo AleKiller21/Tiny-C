@@ -16,3 +16,8 @@ void expression_statement::validate_semantic(bool is_loop_statement, bool *has_r
 {
     if(expr != NULL) expr->get_type();
 }
+
+string* expression_statement::generate_code()
+{
+    throw "expression_statement generate_code not implemented";
+}

@@ -22,6 +22,7 @@ public:
 
     string to_string();
     string *generate_code();
+    int calculate_stack_displacement();
     void validate_semantic();
     static bool validate_init_expression(id_attributes decl_type, expression* expr, int decl_position);
 };

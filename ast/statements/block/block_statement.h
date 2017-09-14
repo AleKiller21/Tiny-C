@@ -23,7 +23,7 @@ public:
 
     string to_string();
     int get_kind();
-    // string generate_mips();
+    string *generate_code();
     void validate_semantic(bool is_loop_statement, bool *has_return);
     void push_statement(statement* stmt);
 };

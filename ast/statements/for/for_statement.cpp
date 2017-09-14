@@ -20,3 +20,8 @@ void for_statement::validate_semantic(bool is_loop_statement, bool *has_return)
     stmt->validate_semantic(true, NULL);
     if(expr3 != NULL) expr3->get_type();
 }
+
+string* for_statement::generate_code()
+{
+    throw "for_statement generate_code not implemented";
+}

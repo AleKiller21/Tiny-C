@@ -34,3 +34,24 @@ void block_statement::push_statement(statement *stmt)
         ((statement_list*)stmt_list)->add_statement(stmt);
     }
 }
+
+string* block_statement::generate_code()
+{
+    string code;
+
+    if(decl_list != NULL)
+    {
+        string *declarations_code = decl_list->generate_code();
+        code += *declarations_code;
+        delete declarations_code;
+    }
+
+    if(stmt_list != NULL)
+    {
+        string *statements_code = stmt_list->generate_code();
+        code += *statements_code;
+        delete statements_code;
+    }
+
+    return new string(code);
+}

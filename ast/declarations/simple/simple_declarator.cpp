@@ -112,7 +112,8 @@ string* simple_declarator::generate_code()
         generate_global_code();
         return new string();
     }
-    else return generate_local_code();
+    
+    return generate_local_code();
 }
 
 string* simple_declarator::generate_local_code()
@@ -139,4 +140,10 @@ void simple_declarator::generate_global_code()
     {
         //TODO: agregarlo a data pero con el resultado del generate_code de la expresion del inicializador
     }
+}
+
+int simple_declarator::calculate_stack_displacement()
+{
+    if(pointer || type == INT) return 4;
+    if(type == CHAR) return 1;
 }

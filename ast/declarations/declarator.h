@@ -39,6 +39,7 @@ public:
 
     virtual string *generate_code() = 0;
     virtual void validate_semantic() = 0;
+    virtual int calculate_stack_displacement() { return 0; }
 
     virtual string to_string() 
     {

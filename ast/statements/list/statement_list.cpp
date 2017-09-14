@@ -29,3 +29,18 @@ void statement_list::validate_semantic(bool is_loop_statement, bool *has_return)
         (*it)->validate_semantic(is_loop_statement, has_return);
     }
 }
+
+string* statement_list::generate_code()
+{
+    string code;
+
+    for(list<statement*>::iterator it = statements.begin(); it != statements.end(); it++)
+    {
+        string *stmt_code = (*it)->generate_code();
+        code += "\t" + *stmt_code;
+        
+        delete stmt_code;
+    }
+
+    return new string(code + "\n");
+}

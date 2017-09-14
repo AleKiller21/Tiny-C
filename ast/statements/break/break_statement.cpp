@@ -15,3 +15,8 @@ void break_statement::validate_semantic(bool is_loop_statement, bool *has_return
     if(is_loop_statement) return;
     comp_utils::show_message("error", "break statement not within a loop", position);
 }
+
+string* break_statement::generate_code()
+{
+    throw "break_Statement generate_code not implemented";
+}

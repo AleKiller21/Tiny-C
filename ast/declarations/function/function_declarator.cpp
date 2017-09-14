@@ -19,6 +19,7 @@ void function_declarator::validate_semantic()
 {
     string id = get_id();
     symbol* sym = sym_table.exist_symbol_in_current_scope(id);
+    is_global = sym_table.get_scope_level() == 0;
 
     if(init != NULL)
     {

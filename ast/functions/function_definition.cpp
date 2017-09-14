@@ -74,18 +74,16 @@ void function_definition::validate_block_semantic()
 }
 
 string* function_definition::generate_code()
-{
-    //TODO: Mandar a llamar el generate_code de blockStatement. block->generate_code()
-    
-    string main_prologue = "\tli $a0, BRIGHT_WHITE\n\tli $a1, BLACK\n\tjal set_color\n\tjal clear_screen\n";
+{    
+    string main_prologue = "\tli $a0, BRIGHT_WHITE\n\tli $a1, BLACK\n\tjal set_color\n\tjal clear_screen\n\n";
     string *decl_code = decl->generate_code();
     string code;
-    //string *block_code = block->generate_code();
+    string *block_code = block->generate_code();
 
-    if(!decl->get_id().compare("main")) code = *decl_code + main_prologue /*+ *block_code*/;
-    else code = *decl_code /*+ *block_code*/;
+    if(!decl->get_id().compare("main")) code = *decl_code + main_prologue + *block_code;
+    else code = *decl_code + *block_code;
 
     delete decl_code;
-    //delete block_code;
+    delete block_code;
     return new string(code);
 }

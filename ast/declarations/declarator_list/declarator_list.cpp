@@ -49,3 +49,14 @@ string* declarator_list::generate_code()
 
     return new string(code);
 }
+
+int declarator_list::calculate_stack_displacement()
+{
+    int displacement = 0;
+    list<declarator*>::iterator it = declarators.begin();
+
+    if((*it)->is_global) return 0;
+    for(; it != declarators.end(); it++) displacement += (*it)->calculate_stack_displacement();
+
+    return displacement;
+}

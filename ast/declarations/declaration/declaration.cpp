@@ -28,3 +28,8 @@ string* declaration::generate_code()
 {
     return declarators->generate_code();
 }
+
+int declaration::calculate_declarators_stack_displacement()
+{
+    return declarators->calculate_stack_displacement();
+}

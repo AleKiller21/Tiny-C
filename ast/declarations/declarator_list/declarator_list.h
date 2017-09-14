@@ -16,9 +16,10 @@ private:
 public:
     void add_declarator(declarator* decl);
     void validate_semantic();
+    void set_type(int type);
     string *generate_code();
     string to_string();
-    void set_type(int type);
+    int calculate_stack_displacement();
 };
 
 #endif // DECLARATOR_LIST

@@ -130,5 +130,12 @@ bool array_declarator::validate_range_type(string id)
 
 string* array_declarator::generate_code()
 {
+    //TODO: Generar codigo para declaraciones globales y locales
     return new string("");
+}
+
+int array_declarator::calculate_stack_displacement()
+{
+    //TODO: calcular el desplazamiento requerido por un arreglo
+    return 0;
 }

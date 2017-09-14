@@ -17,3 +17,10 @@ void return_statement::validate_semantic(bool is_loop_statement, bool *has_retur
     if(expr != NULL) expr->get_type();
     if(has_return != NULL) *has_return = true;
 }
+
+string* return_statement::generate_code()
+{
+    if(expr != NULL) return new string(); //TODO: devolver la expresion en caso de que tenga
+
+    return new string("jr $ra\n");
+}

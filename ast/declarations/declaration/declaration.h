@@ -18,6 +18,7 @@ public:
 
     string to_string();
     string *generate_code();
+    int calculate_declarators_stack_displacement();
     void validate_semantic();
 };
 

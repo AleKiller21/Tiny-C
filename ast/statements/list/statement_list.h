@@ -15,7 +15,7 @@ public:
     string to_string();
     int get_kind();
     void add_statement(statement* stmt);
-    // string generate_mips();
+    string *generate_code();
     void validate_semantic(bool is_loop_statement, bool *has_return);
 };
 
