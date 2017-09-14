@@ -113,6 +113,11 @@ bool array_declarator::validate_range_type(string id)
     
     id_attributes index_type = index_expr->get_type();
     if(index_type.semantic_fail) return false;
+    if(index_expr->get_lvalue() && is_global)
+    {
+        comp_utils::show_message("error", "variably modified '" + get_id() + "' at file scope", get_position());
+        return false;
+    }
 
     if((index_type.type != INT && index_type.type != CHAR) || index_type.pointer)
     {
