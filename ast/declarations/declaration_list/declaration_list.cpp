@@ -23,3 +23,8 @@ void declaration_list::validate_semantic()
         (*it)->validate_semantic();
     }
 }
+
+string* declaration_list::generate_code()
+{
+    return new string("");
+}

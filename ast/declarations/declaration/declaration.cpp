@@ -23,3 +23,8 @@ void declaration::validate_semantic()
 {
     declarators->validate_semantic();
 }
+
+string* declaration::generate_code()
+{
+    return declarators->generate_code();
+}

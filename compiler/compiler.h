@@ -13,6 +13,7 @@ using namespace std;
 
 extern int declaration_pos;
 extern int declarator_pos;
+extern string data_section;
 extern redundancy_manager redund_manager;
 
 class compiler
@@ -24,7 +25,8 @@ public:
     compiler(list<external_declaration*> source_code);
     void validate_semantic();
     void mark_unnecessary_nodes();
-    string generate_code();
+    static void add_data_section(string label, string type, string value);
+    void generate_code();
 };
 
 #endif // COMPILER

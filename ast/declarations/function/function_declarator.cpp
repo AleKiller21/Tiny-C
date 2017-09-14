@@ -105,3 +105,8 @@ bool function_declarator::validate_params()
     
     return params->validate_semantic();
 }
+
+string* function_declarator::generate_code()
+{
+    return new string("");
+}

@@ -8,12 +8,17 @@
 #include "../../symbol_table/symbol_table.h"
 #include "../../redundancy_manager/redundancy_manager.h"
 #include "../../comp_utils/comp_utils.h"
+#include "../../compiler/compiler.h"
 #include "../id_kind.h"
+#include "../../register_manager/register_manager.h"
+#include "../../label_manager/label_manager.h"
 
 using namespace std;
 
 extern symbol_table sym_table;
 extern redundancy_manager redund_manager;
+extern register_manager reg_manager;
+extern label_manager lbl_manager;
 extern int declaration_pos;
 extern int declarator_pos;
 
@@ -32,7 +37,7 @@ public:
     bool is_global;
     int type;
 
-    //virtual string generate_mips() = 0;
+    virtual string *generate_code() = 0;
     virtual void validate_semantic() = 0;
 
     virtual string to_string() 

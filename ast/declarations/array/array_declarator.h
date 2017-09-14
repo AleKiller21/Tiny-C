@@ -19,7 +19,7 @@ public:
     }
 
     string to_string();
-    // string generate_mips();
+    string *generate_code();
     bool has_range();
     void validate_semantic();
     bool validate_type(string id);

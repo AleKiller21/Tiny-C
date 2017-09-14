@@ -72,3 +72,8 @@ void function_definition::validate_block_semantic()
 
     if(!has_return_stmt) block->push_statement(new return_statement(0, NULL));
 }
+
+string* function_definition::generate_code()
+{
+    return new string("");
+}

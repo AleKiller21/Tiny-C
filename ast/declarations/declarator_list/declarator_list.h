@@ -16,7 +16,7 @@ private:
 public:
     void add_declarator(declarator* decl);
     void validate_semantic();
-    // string generate_mips();
+    string *generate_code();
     string to_string();
     void set_type(int type);
 };

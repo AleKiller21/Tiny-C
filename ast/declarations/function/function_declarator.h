@@ -26,7 +26,7 @@ public:
     bool compare_existing_symbol(string id, symbol* sym);
     bool compare_param_types(vector<id_attributes> prev_decl, vector<id_attributes> curr_decl);
     bool validate_params();
-    // string generate_mips();
+    string *generate_code();
     void validate_semantic();
 };
 

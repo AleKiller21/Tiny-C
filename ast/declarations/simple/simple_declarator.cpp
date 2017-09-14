@@ -67,6 +67,7 @@ bool simple_declarator::validate_initialization()
 
 bool simple_declarator::validate_init_expression(id_attributes decl_type, expression* expr, int decl_position)
 {
+    //TODO: validar que no acepte esto en el contexto global: int num1; int num2 = num2 = 5;
     if(sym_table.get_scope_level() == 0 && expr->get_lvalue())
     {
         comp_utils::show_message("error", "initializer element is not constant", decl_position);
@@ -98,4 +99,43 @@ bool simple_declarator::validate_init_expression(id_attributes decl_type, expres
     
     delete assign_expr;
     return success;    
+}
+
+string* simple_declarator::generate_code()
+{
+    string code;
+
+    if(redund_declaration) return new string();
+    if(is_global)
+    {
+        generate_global_code();
+        return new string("");
+    }
+    else return generate_local_code();
+}
+
+string* simple_declarator::generate_local_code()
+{
+    //TODO: Guardar las variables locales en el stack
+    if(use_default_value)
+    {
+        return new string("");
+    }
+
+    else
+    {
+        return new string();return new string("");
+    }
+}
+
+void simple_declarator::generate_global_code()
+{
+    string asm_type = comp_utils::determine_asm_type(type, pointer);
+
+    if(use_default_value) compiler::add_data_section(get_id(), asm_type, "0");
+
+    else
+    {
+        //TODO: agregarlo a data pero con el resultado del generate_code de la expresion del inicializador
+    }
 }

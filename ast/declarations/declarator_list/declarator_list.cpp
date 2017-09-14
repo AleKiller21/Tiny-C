@@ -35,3 +35,17 @@ string declarator_list::to_string()
 
     return str;
 }
+
+string* declarator_list::generate_code()
+{
+    string code;
+
+    for(list<declarator*>::iterator it = declarators.begin(); it != declarators.end(); it++)
+    {
+        string *decl_code = (*it)->generate_code();
+        code += *decl_code;
+        delete decl_code;
+    }
+
+    return new string(code);
+}

@@ -122,3 +122,8 @@ bool array_declarator::validate_range_type(string id)
 
     return true;
 }
+
+string* array_declarator::generate_code()
+{
+    return new string("");
+}

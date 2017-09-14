@@ -5,9 +5,14 @@
 #define FUNC_DEF    2
 
 #include "../types.h"
+#include "../../label_manager/label_manager.h"
+#include "../../register_manager/register_manager.h"
 #include <string>
 
 using namespace std;
+
+extern register_manager reg_manager;
+extern label_manager lbl_manager;
 
 class external_declaration
 {
@@ -19,7 +24,7 @@ protected:
 
 public:
     virtual string to_string() = 0;
-    //string generate_mips() = 0;
+    virtual string *generate_code() = 0;
     virtual void validate_semantic() = 0;
 };
 

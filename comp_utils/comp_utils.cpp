@@ -33,6 +33,22 @@ string comp_utils::type_to_string(int type)
     }
 }
 
+string comp_utils::determine_asm_type(int type, bool pointer)
+{
+    //TODO: Averiguar como manejar apuntadores en la seccion de data
+    // if(type == INT && (!pointer || pointer)) return WORD;
+    // if(type == CHAR && !pointer) return BYTE;
+    // if(type == CHAR && pointer) return ASCIIZ;
+
+    switch(type)
+    {
+        case INT:
+            return WORD;
+        case CHAR:
+            return BYTE;
+    }
+}
+
 bool comp_utils::is_type_int(id_attributes attrs)
 {
     return attrs.type == INT;

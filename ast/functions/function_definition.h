@@ -34,7 +34,7 @@ public:
     }
     
     string to_string();
-    // string generate_mips();
+    string *generate_code();
     void validate_semantic();
 };
 

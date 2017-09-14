@@ -2,6 +2,7 @@
 #define DECLARATION_LIST
 
 #include "../declaration/declaration.h"
+#include "../../../asm_code/asm_code.h"
 #include <list>
 
 using namespace std;
@@ -14,7 +15,7 @@ private:
 public:
     void add_declaration(declaration* decl);
     void validate_semantic();
-    // string generate_mips();
+    string *generate_code();
     string to_string();
 };
 

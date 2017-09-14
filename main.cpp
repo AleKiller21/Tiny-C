@@ -14,6 +14,8 @@ symbol_table sym_table;
 redundancy_manager redund_manager;
 register_manager reg_manager;
 label_manager lbl_manager;
+string data_section = ".data\n";
+
 int declaration_pos = 0;
 int declarator_pos = 0;
 int semantic_errors = 0;
@@ -29,6 +31,6 @@ int main()
     else if(semantic_errors == 0)
     {
         comp.mark_unnecessary_nodes();
-        //comp.generate_code();
+        comp.generate_code();
     }
 }

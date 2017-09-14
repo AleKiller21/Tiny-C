@@ -14,12 +14,14 @@ class simple_declarator : public declarator
 {
 private:
     bool validate_initialization();
+    void generate_global_code();
+    string *generate_local_code();
 
 public:
     simple_declarator(string* id, int position) : declarator(id, position, SIMPLE) {}
 
     string to_string();
-    // stirng generate_mips();
+    string *generate_code();
     void validate_semantic();
     static bool validate_init_expression(id_attributes decl_type, expression* expr, int decl_position);
 };

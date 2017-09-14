@@ -27,5 +27,10 @@ void block_statement::validate_semantic(bool is_loop_statement, bool *has_return
 
 void block_statement::push_statement(statement *stmt)
 {
-    ((statement_list*)stmt_list)->add_statement(stmt);
+    if(stmt_list != NULL) ((statement_list*)stmt_list)->add_statement(stmt);
+    else
+    {
+        stmt_list = new statement_list(0);
+        ((statement_list*)stmt_list)->add_statement(stmt);
+    }
 }
