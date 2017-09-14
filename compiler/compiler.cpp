@@ -37,7 +37,7 @@ void compiler::mark_unnecessary_nodes()
 void compiler::generate_code()
 {
     string header = "#include \"screen.h\"\n#include \"system.h\"\n.global main\n\n";
-    string prologue = ".text\nmain:\nli $a0, BRIGHT_WHITE\nli $a1, BLACK\njal set_color\njal clear_screen\n";
+    string prologue = ".text\n";
     string code;
 
     for(list<external_declaration*>::iterator it = source_code.begin(); it != source_code.end(); it++)
@@ -48,6 +48,6 @@ void compiler::generate_code()
         delete fragment;
     }
 
-	code = header + data_section + "\n" + prologue + "\n" + code + "\n\njr $ra";
+	code = header + data_section + "\n" + prologue + "\n" + code;
 	cout << code << endl;
 }

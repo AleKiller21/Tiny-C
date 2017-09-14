@@ -33,7 +33,7 @@ void function_declarator::validate_semantic()
         sym_table.pop_scope();
 
         sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, get_kind(), this } );
-        redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
+        redund_manager.push_declaration(id, { declaration_pos, declarator_pos, true, this });
         return;
     }
 
@@ -108,5 +108,6 @@ bool function_declarator::validate_params()
 
 string* function_declarator::generate_code()
 {
-    return new string("");
+    if(redund_declaration) return new string();
+    return new string(get_id() + ":\n");
 }

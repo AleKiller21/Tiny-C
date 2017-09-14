@@ -103,13 +103,14 @@ bool simple_declarator::validate_init_expression(id_attributes decl_type, expres
 
 string* simple_declarator::generate_code()
 {
+    //TODO: averiguar como almacenar apuntadores en el data section
     string code;
 
     if(redund_declaration) return new string();
     if(is_global)
     {
         generate_global_code();
-        return new string("");
+        return new string();
     }
     else return generate_local_code();
 }
@@ -119,12 +120,12 @@ string* simple_declarator::generate_local_code()
     //TODO: Guardar las variables locales en el stack
     if(use_default_value)
     {
-        return new string("");
+        return new string();
     }
 
     else
     {
-        return new string();return new string("");
+        return new string();
     }
 }
 
