@@ -37,7 +37,7 @@ $(AST_DECLARATOR)/function/function_declarator.cpp $(AST_DECLARATOR)/initializer
 $(AST_DECLARATOR)/declaration/declaration.cpp $(AST_DECLARATOR)/declaration_list/declaration_list.cpp $(AST_STATEMENT)/block/block_statement.cpp \
 $(AST_FUNCTION)/function_definition.cpp $(UNARY_EXPRESSION)/printf/printf_expression.cpp $(UNARY_EXPRESSION)/scanf/scanf_expression.cpp \
 symbol_table/symbol_table.cpp redundancy_manager/redundancy_manager.cpp compiler/compiler.cpp comp_utils/comp_utils.cpp  \
-label_manager/label_manager.cpp register_manager/register_manager.cpp parser.cpp lexer.cpp main.cpp
+label_manager/label_manager.cpp register_manager/register_manager.cpp stack_manager/stack_manager.cpp parser.cpp lexer.cpp main.cpp
 
 .PHONY: clean
 

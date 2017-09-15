@@ -10,6 +10,9 @@ class id_expression : public expression
 {
 private:
     string lexeme;
+    bool is_global;
+
+    string choose_load_format(string type);
 
 public:
     id_expression(string* lexeme, int position) : expression(position)

@@ -19,6 +19,15 @@ void expression_statement::validate_semantic(bool is_loop_statement, bool *has_r
 
 string* expression_statement::generate_code(stack_manager *manager)
 {
-    printf("expression_statement generate_code not implemented\n");
-    throw "expression_statement generate_code not implemented";
+    if(expr != NULL)
+    {
+        asm_code *expr_code = expr->generate_code(manager);
+        reg_manager.free_register(expr_code->place);
+        string code = expr_code->code;
+
+        delete expr_code;
+        return new string(code);
+    }
+
+    return new string();
 }

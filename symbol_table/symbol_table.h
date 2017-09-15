@@ -19,6 +19,7 @@ struct symbol
     bool pointer;
     int category;
     declarator* decl_ptr;
+    bool is_global;
 };
 
 struct scope

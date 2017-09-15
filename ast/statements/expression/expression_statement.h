@@ -4,6 +4,8 @@
 #include "../statement.h"
 #include "../../expressions/expression.h"
 
+extern register_manager reg_manager;
+
 class expression_statement : public statement
 {
 private:

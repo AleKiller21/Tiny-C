@@ -49,6 +49,6 @@ void compiler::generate_code()
         delete fragment;
     }
 
-	code = header + data_section + "\n" + prologue + "\n" + code;
+	code = header + data_section_str + "\n" + prologue + "\n" + code;
 	cout << code << endl;
 }

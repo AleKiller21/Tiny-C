@@ -40,7 +40,6 @@ string* declaration_list::generate_code(stack_manager *manager)
         // delete decl_code;
 
         list<stack_entry> *decls = (*it)->create_stack_entries();
-        if(decls == NULL) continue;
 
         for(list<stack_entry>::iterator it = decls->begin(); it != decls->end(); it++)
         {
@@ -56,7 +55,7 @@ string* declaration_list::generate_code(stack_manager *manager)
             entries[id].byte_offset = stack_displacement;
             stack_displacement += size;
 
-            //cout << entries[id].var_id + " Offset: " + std::to_string(entries[id].byte_offset) << endl;
+            cout << entries[id].var_id + " Offset: " + std::to_string(entries[id].byte_offset) << endl;
         }
 
         decls->clear();
@@ -70,6 +69,7 @@ string* declaration_list::generate_code(stack_manager *manager)
     code = "\taddi $sp, $sp, -" + std::to_string(stack_displacement) + "\n" + code;
     code += "\tsw $fp, " + std::to_string(stack_displacement - 4) + "($sp)\n";
     code += "\tsw $ra, " + std::to_string(stack_displacement - 8) + "($sp)\n";
+    code += "\tmove $fp, $sp\n";
 
     return new string(code);
 }

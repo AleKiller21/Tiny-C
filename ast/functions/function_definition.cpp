@@ -57,7 +57,7 @@ void function_definition::validate_semantic()
         return;
     }
 
-    sym_table.replace_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl });
+    sym_table.replace_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl, true });
     //redund_manager.make_all_removable(id);
     validate_block_semantic();
 }
