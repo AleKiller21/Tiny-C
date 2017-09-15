@@ -13,8 +13,9 @@ using namespace std;
 
 extern int declaration_pos;
 extern int declarator_pos;
-extern string data_section;
+extern string data_section_str;
 extern redundancy_manager redund_manager;
+extern map<string, string> data_section;
 
 class compiler
 {

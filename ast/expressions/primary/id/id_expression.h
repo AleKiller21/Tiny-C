@@ -2,6 +2,9 @@
 #define ID
 
 #include "../../expression.h"
+#include <map>
+
+extern map<string, string> data_section;
 
 class id_expression : public expression
 {
@@ -14,13 +17,14 @@ public:
         this->lexeme = *lexeme;
         delete lexeme;
         lvalue = true;
+        is_code = true;
     }
     
     string to_string();
     string get_lexeme();
     id_attributes get_type();
     int get_kind();
-    // string generate_mips();
+    asm_code *generate_code(stack_manager *manager);
 };
 
 #endif // ID

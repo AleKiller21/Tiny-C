@@ -17,7 +17,8 @@ void compiler::validate_semantic()
 
 void compiler::add_data_section(string label, string type, string value)
 {
-    data_section += "\t" + label + ": " + type + " " + value + "\n";
+    data_section[label] = type;
+    data_section_str += "\t" + label + ": " + type + " " + value + "\n";
 }
 
 void compiler::mark_unnecessary_nodes()

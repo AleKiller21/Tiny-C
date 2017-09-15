@@ -19,5 +19,6 @@ void expression_statement::validate_semantic(bool is_loop_statement, bool *has_r
 
 string* expression_statement::generate_code(stack_manager *manager)
 {
+    printf("expression_statement generate_code not implemented\n");
     throw "expression_statement generate_code not implemented";
 }

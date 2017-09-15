@@ -7,6 +7,9 @@
 #include <iostream>
 #include "../../comp_utils/comp_utils.h"
 #include "../../symbol_table/symbol_table.h"
+#include "../../asm_code/asm_code.h"
+#include "../../stack_manager/stack_manager.h"
+#include "../../register_manager/register_manager.h"
 #include "../id_attributes.h"
 #include "../id_kind.h"
 #include "../types.h"
@@ -56,6 +59,7 @@
 using namespace std;
 
 extern symbol_table sym_table;
+extern register_manager reg_manager;
 
 class expression
 {
@@ -64,10 +68,12 @@ protected:
     bool lvalue;
 
 public:
+    bool is_code;
+
     expression(int position) { this->position = position; lvalue = false; }
-    
+        
     virtual id_attributes get_type() { throw "not implemented exception"; }
-    //virtual string generate_mips() = 0;
+    virtual asm_code *generate_code(stack_manager *manager) { printf("expression generate_code not implemented."); return NULL; }
     virtual string to_string() = 0;
     virtual int get_kind() = 0;
     bool get_lvalue() { return lvalue; }

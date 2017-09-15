@@ -26,3 +26,8 @@ int id_expression::get_kind()
 {
     return ID_EXPR;
 }
+
+asm_code* id_expression::generate_code(stack_manager *manager)
+{
+    string reg = reg_manager.get_free_register(false);
+}
