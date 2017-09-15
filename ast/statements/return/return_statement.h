@@ -3,6 +3,9 @@
 
 #include "../statement.h"
 #include "../../expressions/expression.h"
+#include "../../../register_manager/register_manager.h"
+
+extern register_manager reg_manager;
 
 class return_statement : public statement
 {

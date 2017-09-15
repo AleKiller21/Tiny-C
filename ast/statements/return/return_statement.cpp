@@ -20,7 +20,20 @@ void return_statement::validate_semantic(bool is_loop_statement, bool *has_retur
 
 string* return_statement::generate_code(stack_manager *manager)
 {
-    if(expr != NULL) return new string(); //TODO: devolver la expresion en caso de que tenga
+    string code;
 
-    return new string("jr $ra\n");
+    if(expr != NULL) return new string(); //TODO: devolver la expresion en caso de que tenga
+    
+    for(int sregs_used = reg_manager.get_sregs_used(); sregs_used > 0; sregs_used--)
+    {
+        code += "\tlw $s" + std::to_string(sregs_used - 1) + ", " + "($sp)\n";
+        code += "\taddi $sp, $sp, 4\n";
+    }
+
+    code += "\tlw $fp, " + std::to_string(manager->displacement - 4) + "($sp)\n";
+    code += "\tlw $ra, " + std::to_string(manager->displacement - 8) + "($sp)\n";
+    code += "\taddi $sp, $sp, " + std::to_string(manager->displacement) + "\n";
+    code += "\tjr $ra\n";
+
+    return new string(code);
 }

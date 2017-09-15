@@ -66,6 +66,8 @@ string* declaration_list::generate_code(stack_manager *manager)
 
     manager->vars = entries;
     stack_displacement += 8;
+    manager->displacement = stack_displacement;
+    
     code = "\taddi $sp, $sp, -" + std::to_string(stack_displacement) + "\n" + code;
     code += "\tsw $fp, " + std::to_string(stack_displacement - 4) + "($sp)\n";
     code += "\tsw $ra, " + std::to_string(stack_displacement - 8) + "($sp)\n";

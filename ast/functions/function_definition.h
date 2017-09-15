@@ -8,6 +8,7 @@
 #include "../declarations/external_declaration.h"
 #include "../../comp_utils/comp_utils.h"
 #include "../../stack_manager/stack_manager.h"
+#include "../../register_manager/register_manager.h"
 #include <vector>
 #include <iostream>
 
@@ -15,6 +16,7 @@ using namespace std;
 
 extern symbol_table sym_table;
 extern redundancy_manager redund_manager;
+extern register_manager reg_manager;
 extern bool main_flag;
 
 class function_definition : public external_declaration

@@ -5,8 +5,6 @@ register_manager::register_manager()
     temp_regs = { {"$t0", true}, {"$t1", true}, {"$t2", true}, {"$t3", true}, 
     {"$t4", true}, {"$t5", true}, {"$t6", true}, {"$t7", true},
     {"$t8", true}, {"$t9", true} };
-
-    saved_regs = { 0 };
 }
 
 string register_manager::get_free_register(bool preserved)

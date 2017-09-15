@@ -75,6 +75,8 @@ void function_definition::validate_block_semantic()
 
 string* function_definition::generate_code()
 {    
+    reg_manager.push_sregs();
+
     string main_prologue = "\tli $a0, BRIGHT_WHITE\n\tli $a1, BLACK\n\tjal set_color\n\tjal clear_screen\n\n";
     string *func_header = decl->generate_code();
     string code;
