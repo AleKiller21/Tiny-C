@@ -4,6 +4,7 @@
 #include "../declaration/declaration.h"
 #include "../../../asm_code/asm_code.h"
 #include <list>
+#include <vector>
 
 using namespace std;
 

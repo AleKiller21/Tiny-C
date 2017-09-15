@@ -142,8 +142,12 @@ void simple_declarator::generate_global_code()
     }
 }
 
-int simple_declarator::calculate_stack_displacement()
+stack_entry* simple_declarator::create_stack_entry()
 {
-    if(pointer || type == INT) return 4;
-    if(type == CHAR) return 1;
+    string asm_type;
+    
+    if(pointer || type == INT) asm_type = WORD;
+    if(type == CHAR) asm_type = BYTE;
+
+    return new stack_entry { asm_type, get_id(), -1 };
 }

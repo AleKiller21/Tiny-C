@@ -2,6 +2,7 @@
 #define DECLARATOR
 
 #include <stdexcept>
+#include <vector>
 #include "../types.h"
 #include "initializer/initializer.h"
 #include "../expressions/primary/id/id_expression.h"
@@ -12,6 +13,7 @@
 #include "../id_kind.h"
 #include "../../register_manager/register_manager.h"
 #include "../../label_manager/label_manager.h"
+#include "../../asm_code/asm_code.h"
 
 using namespace std;
 
@@ -39,7 +41,7 @@ public:
 
     virtual string *generate_code() = 0;
     virtual void validate_semantic() = 0;
-    virtual int calculate_stack_displacement() { return 0; }
+    virtual stack_entry *create_stack_entry() { return NULL; }
 
     virtual string to_string() 
     {

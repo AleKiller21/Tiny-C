@@ -20,6 +20,7 @@ public:
 
     string to_string();
     string *generate_code();
+    stack_entry *create_stack_entry();
     void validate_semantic();
     bool has_range();
     bool validate_type(string id);
@@ -27,7 +28,6 @@ public:
     bool validate_range(string id);
     bool validate_block_scope_range(string id);
     bool validate_range_type(string id);
-    int calculate_stack_displacement();
 };
 
 #endif // ARRAY_DECLARATOR

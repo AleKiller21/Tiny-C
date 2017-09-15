@@ -29,7 +29,7 @@ string* declaration::generate_code()
     return declarators->generate_code();
 }
 
-int declaration::calculate_declarators_stack_displacement()
+list<stack_entry>* declaration::create_stack_entries()
 {
-    return declarators->calculate_stack_displacement();
+    return declarators->create_stack_entries();
 }

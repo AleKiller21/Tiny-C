@@ -16,4 +16,11 @@ struct asm_code
     int constant;
 };
 
+struct stack_entry
+{
+    string asm_type;
+    string var_id;
+    int byte_offset;
+};
+
 #endif // ASM_CODE

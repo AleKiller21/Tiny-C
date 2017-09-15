@@ -134,8 +134,8 @@ string* array_declarator::generate_code()
     return new string("");
 }
 
-int array_declarator::calculate_stack_displacement()
+stack_entry* array_declarator::create_stack_entry()
 {
-    //TODO: calcular el desplazamiento requerido por un arreglo
-    return 0;
+    //TODO: Calcular el size que ocupara el arreglo en el stack
+    return NULL;
 }

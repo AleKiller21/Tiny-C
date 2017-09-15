@@ -3,6 +3,7 @@
 
 #include "../declarator.h"
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ public:
     void set_type(int type);
     string *generate_code();
     string to_string();
-    int calculate_stack_displacement();
+    list<stack_entry> *create_stack_entries();
 };
 
 #endif // DECLARATOR_LIST

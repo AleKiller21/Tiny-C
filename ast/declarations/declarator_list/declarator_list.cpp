@@ -50,13 +50,26 @@ string* declarator_list::generate_code()
     return new string(code);
 }
 
-int declarator_list::calculate_stack_displacement()
+list<stack_entry>* declarator_list::create_stack_entries()
 {
-    int displacement = 0;
+    list<stack_entry> *decl_entries = new list<stack_entry>();
     list<declarator*>::iterator it = declarators.begin();
 
-    if((*it)->is_global) return 0;
-    for(; it != declarators.end(); it++) displacement += (*it)->calculate_stack_displacement();
+    if((*it)->is_global)
+    {
+        delete decl_entries;
+        return NULL;
+    }
+    
+    for(; it != declarators.end(); it++)
+    {
+        stack_entry *entry = (*it)->create_stack_entry();
+        if(entry != NULL)
+        {
+            decl_entries->push_back(*entry);
+            delete entry;
+        }
+    }
 
-    return displacement;
+    return decl_entries;
 }
