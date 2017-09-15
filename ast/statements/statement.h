@@ -6,6 +6,7 @@
 #include <string>
 #include "../../symbol_table/symbol_table.h"
 #include "../../comp_utils/comp_utils.h"
+#include "../../stack_manager/stack_manager.h"
 
 extern symbol_table sym_table;
 
@@ -30,7 +31,7 @@ public:
     statement(int position) { this->position = position; }
 
     virtual void validate_semantic(bool is_loop_statement, bool *has_return) = 0;
-    virtual string *generate_code() { throw "statement generate_code not implemented"; }
+    virtual string *generate_code(stack_manager *manager) { throw "statement generate_code not implemented"; }
     virtual string to_string() = 0;
     virtual int get_kind() = 0;
 };

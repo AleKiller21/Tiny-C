@@ -118,7 +118,7 @@ string* simple_declarator::generate_code()
 
 string* simple_declarator::generate_local_code()
 {
-    //TODO: Guardar las variables locales en el stack
+    //TODO: Guardar las variables locales en el stack con el valor de sus inicializadores
     if(use_default_value)
     {
         return new string();

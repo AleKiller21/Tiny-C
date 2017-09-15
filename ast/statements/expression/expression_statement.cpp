@@ -17,7 +17,7 @@ void expression_statement::validate_semantic(bool is_loop_statement, bool *has_r
     if(expr != NULL) expr->get_type();
 }
 
-string* expression_statement::generate_code()
+string* expression_statement::generate_code(stack_manager *manager)
 {
     throw "expression_statement generate_code not implemented";
 }

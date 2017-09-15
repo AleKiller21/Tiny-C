@@ -35,20 +35,20 @@ void block_statement::push_statement(statement *stmt)
     }
 }
 
-string* block_statement::generate_code()
+string* block_statement::generate_code(stack_manager *manager)
 {
     string code;
 
     if(decl_list != NULL)
     {
-        string *declarations_code = decl_list->generate_code();
+        string *declarations_code = decl_list->generate_code(manager);
         code += *declarations_code;
         delete declarations_code;
     }
 
     if(stmt_list != NULL)
     {
-        string *statements_code = stmt_list->generate_code();
+        string *statements_code = stmt_list->generate_code(manager);
         code += *statements_code;
         delete statements_code;
     }

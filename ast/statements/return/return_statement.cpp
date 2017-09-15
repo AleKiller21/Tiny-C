@@ -18,7 +18,7 @@ void return_statement::validate_semantic(bool is_loop_statement, bool *has_retur
     if(has_return != NULL) *has_return = true;
 }
 
-string* return_statement::generate_code()
+string* return_statement::generate_code(stack_manager *manager)
 {
     if(expr != NULL) return new string(); //TODO: devolver la expresion en caso de que tenga
 

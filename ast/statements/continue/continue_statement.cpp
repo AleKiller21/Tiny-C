@@ -16,7 +16,7 @@ void continue_statement::validate_semantic(bool is_loop_statement, bool *has_ret
     comp_utils::show_message("error", "continue statement not within a loop", position);
 }
 
-string* continue_statement::generate_code()
+string* continue_statement::generate_code(stack_manager *manager)
 {
     throw "continue_statement generate_code not implemented";
 }

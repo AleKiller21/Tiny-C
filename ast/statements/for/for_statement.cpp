@@ -21,7 +21,7 @@ void for_statement::validate_semantic(bool is_loop_statement, bool *has_return)
     if(expr3 != NULL) expr3->get_type();
 }
 
-string* for_statement::generate_code()
+string* for_statement::generate_code(stack_manager *manager)
 {
     throw "for_statement generate_code not implemented";
 }

@@ -30,13 +30,13 @@ void statement_list::validate_semantic(bool is_loop_statement, bool *has_return)
     }
 }
 
-string* statement_list::generate_code()
+string* statement_list::generate_code(stack_manager *manager)
 {
     string code;
 
     for(list<statement*>::iterator it = statements.begin(); it != statements.end(); it++)
     {
-        string *stmt_code = (*it)->generate_code();
+        string *stmt_code = (*it)->generate_code(manager);
         code += "\t" + *stmt_code;
         
         delete stmt_code;

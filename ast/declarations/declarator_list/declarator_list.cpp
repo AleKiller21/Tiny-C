@@ -54,12 +54,6 @@ list<stack_entry>* declarator_list::create_stack_entries()
 {
     list<stack_entry> *decl_entries = new list<stack_entry>();
     list<declarator*>::iterator it = declarators.begin();
-
-    if((*it)->is_global)
-    {
-        delete decl_entries;
-        return NULL;
-    }
     
     for(; it != declarators.end(); it++)
     {

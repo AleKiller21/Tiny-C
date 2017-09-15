@@ -10,7 +10,7 @@ public:
     
     string to_string();
     int get_kind();
-    string *generate_code();
+    string *generate_code(stack_manager *manager);
     void validate_semantic(bool is_loop_statement, bool *has_return);
 };
 

@@ -3,6 +3,7 @@
 
 #include "../declaration/declaration.h"
 #include "../../../asm_code/asm_code.h"
+#include "../../../stack_manager/stack_manager.h"
 #include <list>
 #include <vector>
 
@@ -16,7 +17,7 @@ private:
 public:
     void add_declaration(declaration* decl);
     void validate_semantic();
-    string *generate_code();
+    string *generate_code(stack_manager *manager);
     string to_string();
 };
 
