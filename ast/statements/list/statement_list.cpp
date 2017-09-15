@@ -37,6 +37,8 @@ string* statement_list::generate_code(stack_manager *manager)
     for(list<statement*>::iterator it = statements.begin(); it != statements.end(); it++)
     {
         string *stmt_code = (*it)->generate_code(manager);
+        if(stmt_code == NULL) continue;
+        
         code += "\t" + *stmt_code;
         
         delete stmt_code;

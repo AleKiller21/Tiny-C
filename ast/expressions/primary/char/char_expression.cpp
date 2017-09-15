@@ -14,3 +14,8 @@ id_attributes char_expression::get_type()
 {
     return { CHAR, false, SIMPLE, false };
 }
+
+asm_code *char_expression::generate_code(stack_manager *manager)
+{
+    return new asm_code { "", "", value };
+}

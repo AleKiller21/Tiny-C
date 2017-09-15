@@ -19,7 +19,7 @@ public:
     string to_string();
     int get_kind();
     id_attributes get_type();
-    // string generate_mips();
+    // string generate_mips(); TODO: generar codigo de strings
 };
 
 #endif // STRING_EXPRESSION

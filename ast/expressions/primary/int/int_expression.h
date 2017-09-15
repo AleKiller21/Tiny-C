@@ -15,13 +15,14 @@ public:
         this->value = value;
         this->format = format;
         lvalue = false;
+        is_code = false;
     }
     
     char get_format();
     string to_string();
     int get_kind();
     id_attributes get_type();
-    // string generate_mips();
+    asm_code *generate_code(stack_manager *manager);
 };
 
 #endif // INT_EXPRESSION
