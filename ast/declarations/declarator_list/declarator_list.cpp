@@ -36,13 +36,13 @@ string declarator_list::to_string()
     return str;
 }
 
-string* declarator_list::generate_code()
+string* declarator_list::generate_code(stack_manager *manager)
 {
     string code;
 
     for(list<declarator*>::iterator it = declarators.begin(); it != declarators.end(); it++)
     {
-        string *decl_code = (*it)->generate_code();
+        string *decl_code = (*it)->generate_code(manager);
         code += *decl_code;
         delete decl_code;
     }

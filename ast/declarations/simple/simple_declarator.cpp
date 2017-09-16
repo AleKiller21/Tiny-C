@@ -101,7 +101,7 @@ bool simple_declarator::validate_init_expression(id_attributes decl_type, expres
     return success;    
 }
 
-string* simple_declarator::generate_code()
+string* simple_declarator::generate_code(stack_manager *manager)
 {
     //TODO: averiguar como almacenar apuntadores en el data section
     string code;
@@ -113,21 +113,33 @@ string* simple_declarator::generate_code()
         return new string();
     }
     
-    return generate_local_code();
+    return generate_local_code(manager);
 }
 
-string* simple_declarator::generate_local_code()
+string* simple_declarator::generate_local_code(stack_manager *manager)
 {
-    //TODO: Guardar las variables locales en el stack con el valor de sus inicializadores
-    if(use_default_value)
+    if(init == NULL) return new string();
+    
+    asm_code *expr_init_code = init->single_expr->generate_code(manager);
+    string code;
+
+    if(!init->single_expr->is_code)
     {
-        return new string();
+        string treg = reg_manager.get_register(false);
+        code = "\tli " + treg + ", " + std::to_string(expr_init_code->constant) + "\n";
+        code += manager->store_into_var(treg, get_id());
+        reg_manager.free_register(treg);
+
+        delete expr_init_code;
+        return new string(code);
     }
 
-    else
-    {
-        return new string();
-    }
+    code = expr_init_code->code;
+    code += manager->store_into_var(expr_init_code->place, get_id());
+    reg_manager.free_register(expr_init_code->place);
+
+    delete expr_init_code;
+    return new string(code);
 }
 
 void simple_declarator::generate_global_code()
@@ -138,7 +150,10 @@ void simple_declarator::generate_global_code()
 
     else
     {
-        //TODO: agregarlo a data pero con el resultado del generate_code de la expresion del inicializador
+        asm_code *expr_init_code = init->single_expr->generate_code(NULL);
+        compiler::add_data_section(get_id(), asm_type, std::to_string(expr_init_code->constant));
+
+        delete expr_init_code;
     }
 }
 

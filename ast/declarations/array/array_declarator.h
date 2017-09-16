@@ -19,7 +19,7 @@ public:
     }
 
     string to_string();
-    string *generate_code();
+    string *generate_code(stack_manager *manager);
     stack_entry *create_stack_entry();
     void validate_semantic();
     bool has_range();

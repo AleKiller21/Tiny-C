@@ -26,19 +26,31 @@ void declaration_list::validate_semantic()
 
 string* declaration_list::generate_code(stack_manager *manager)
 {
-    string code;
-    bool is_word;
     int stack_displacement = 0;
     int size;
     map<string, stack_entry> entries;
+    string code = setup_stack(&entries, manager, &stack_displacement, &size);
 
     for(list<declaration*>::iterator it = declarations.begin(); it != declarations.end(); it++)
     {
-        //TODO: Obtener el codigo generado 
-        // string *decl_code = (*it)->generate_code();
-        // code += *decl_code;
-        // delete decl_code;
+        string *decl_code = (*it)->generate_code(manager);
+        code += *decl_code;
+        delete decl_code;
+    }
 
+    return new string(code);
+}
+
+string declaration_list::setup_stack(map<string, stack_entry> *entries_map, stack_manager *manager, int *displacement, int *Size)
+{
+    string code;
+    bool is_word;
+    int stack_displacement = *displacement;
+    int size = *Size;
+    map<string, stack_entry> entries = *entries_map;
+
+    for(list<declaration*>::iterator it = declarations.begin(); it != declarations.end(); it++)
+    {
         list<stack_entry> *decls = (*it)->create_stack_entries();
 
         for(list<stack_entry>::iterator it = decls->begin(); it != decls->end(); it++)
@@ -73,5 +85,5 @@ string* declaration_list::generate_code(stack_manager *manager)
     code += "\tsw $ra, " + std::to_string(stack_displacement - 8) + "($sp)\n";
     code += "\tmove $fp, $sp\n";
 
-    return new string(code);
+    return code;
 }

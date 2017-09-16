@@ -15,13 +15,13 @@ class simple_declarator : public declarator
 private:
     bool validate_initialization();
     void generate_global_code();
-    string *generate_local_code();
+    string *generate_local_code(stack_manager *manager);
 
 public:
     simple_declarator(string* id, int position) : declarator(id, position, SIMPLE) {}
 
     string to_string();
-    string *generate_code();
+    string *generate_code(stack_manager *manager);
     stack_entry *create_stack_entry();
     void validate_semantic();
     static bool validate_init_expression(id_attributes decl_type, expression* expr, int decl_position);

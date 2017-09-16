@@ -128,10 +128,10 @@ bool array_declarator::validate_range_type(string id)
     return true;
 }
 
-string* array_declarator::generate_code()
+string* array_declarator::generate_code(stack_manager *manager)
 {
     //TODO: Generar codigo para declaraciones globales y locales
-    return new string("");
+    return new string();
 }
 
 stack_entry* array_declarator::create_stack_entry()

@@ -13,6 +13,7 @@
 #include "../id_kind.h"
 #include "../../register_manager/register_manager.h"
 #include "../../label_manager/label_manager.h"
+#include "../../stack_manager/stack_manager.h"
 #include "../../asm_code/asm_code.h"
 
 using namespace std;
@@ -39,7 +40,7 @@ public:
     bool is_global;
     int type;
 
-    virtual string *generate_code() = 0;
+    virtual string *generate_code(stack_manager *manager) = 0;
     virtual void validate_semantic() = 0;
     virtual stack_entry *create_stack_entry() { return NULL; }
 

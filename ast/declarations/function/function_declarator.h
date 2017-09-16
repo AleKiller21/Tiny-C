@@ -23,7 +23,7 @@ public:
 
     vector<id_attributes> get_param_types();
     string to_string();
-    string *generate_code();
+    string *generate_code(stack_manager *manager);
     bool compare_existing_symbol(string id, symbol* sym);
     bool compare_param_types(vector<id_attributes> prev_decl, vector<id_attributes> curr_decl);
     bool validate_params();

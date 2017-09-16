@@ -107,7 +107,7 @@ bool function_declarator::validate_params()
     return params->validate_semantic();
 }
 
-string* function_declarator::generate_code()
+string* function_declarator::generate_code(stack_manager *manager)
 {
     if(redund_declaration) return new string();
     return new string(get_id() + ":\n");

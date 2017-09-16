@@ -7,6 +7,7 @@
 #include "../types.h"
 #include "../../label_manager/label_manager.h"
 #include "../../register_manager/register_manager.h"
+#include "../../stack_manager/stack_manager.h"
 #include <string>
 
 using namespace std;
@@ -24,7 +25,8 @@ protected:
 
 public:
     virtual string to_string() = 0;
-    virtual string *generate_code() = 0;
+    virtual string *generate_code() { return new string(); }
+    virtual string *generate_code(stack_manager *manager) { return new string(); }
     virtual void validate_semantic() = 0;
 };
 

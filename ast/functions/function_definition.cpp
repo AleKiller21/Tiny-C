@@ -58,7 +58,6 @@ void function_definition::validate_semantic()
     }
 
     sym_table.replace_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl, true });
-    //redund_manager.make_all_removable(id);
     validate_block_semantic();
 }
 
@@ -76,7 +75,7 @@ void function_definition::validate_block_semantic()
 string* function_definition::generate_code()
 {
     string main_prologue = "\tli $a0, BRIGHT_WHITE\n\tli $a1, BLACK\n\tjal set_color\n\tjal clear_screen\n\n";
-    string *func_header = decl->generate_code();
+    string *func_header = decl->generate_code(stck_manager);
     string code;
     string *block_code = block->generate_code(stck_manager);
 

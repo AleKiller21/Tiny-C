@@ -24,9 +24,9 @@ void declaration::validate_semantic()
     declarators->validate_semantic();
 }
 
-string* declaration::generate_code()
+string* declaration::generate_code(stack_manager *manager)
 {
-    return declarators->generate_code();
+    return declarators->generate_code(manager);
 }
 
 list<stack_entry>* declaration::create_stack_entries()
