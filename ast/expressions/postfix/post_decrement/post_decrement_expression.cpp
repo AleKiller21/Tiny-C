@@ -23,3 +23,25 @@ id_attributes post_decrement_expression::get_type()
 
     return { expr_type.type, expr_type.pointer, expr_type.kind, false };
 }
+
+asm_code *post_decrement_expression::generate_code(stack_manager *manager)
+{
+    asm_code *expr_code = expr->generate_code(manager);
+    string *operand_id = expr->get_operand_id();
+    string code = expr_code->code;
+    string treg = reg_manager.get_register(false);
+
+    //TODO: Tomar en cuenta como seria la suma con apuntadores. Ej: si es un int* se sumaria 4, no 1
+    code += "\taddi " + treg + ", " + expr_code->place + ", -1\n";
+    code += manager->store_into_var(treg, *operand_id);
+    reg_manager.free_register(treg);
+
+    delete expr_code;
+    delete operand_id;
+    return new asm_code { code, expr_code->place, -1 };
+}
+
+string *post_decrement_expression::get_operand_id()
+{
+    return expr->get_operand_id();
+}

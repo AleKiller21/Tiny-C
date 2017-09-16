@@ -24,7 +24,7 @@ public:
     }
     
     string to_string();
-    string get_lexeme();
+    string *get_operand_id();
     id_attributes get_type();
     int get_kind();
     asm_code *generate_code(stack_manager *manager);

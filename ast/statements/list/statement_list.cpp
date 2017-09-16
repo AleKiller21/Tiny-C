@@ -39,7 +39,7 @@ string* statement_list::generate_code(stack_manager *manager)
         string *stmt_code = (*it)->generate_code(manager);
         if(stmt_code == NULL) continue;
         
-        code += "\t" + *stmt_code;
+        code += *stmt_code;
         
         delete stmt_code;
     }

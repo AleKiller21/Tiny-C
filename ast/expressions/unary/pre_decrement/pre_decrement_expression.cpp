@@ -23,3 +23,8 @@ id_attributes pre_decrement_expression::get_type()
 
     return { expr_type.type, expr_type.pointer, expr_type.kind, false };
 }
+
+string *pre_decrement_expression::get_operand_id()
+{
+    return expr->get_operand_id();
+}

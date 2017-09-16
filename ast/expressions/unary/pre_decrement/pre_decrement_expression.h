@@ -10,6 +10,7 @@ public:
     string to_string();
     int get_kind();
     id_attributes get_type();
+    string *get_operand_id();
     // string generate_mips();
 };
 

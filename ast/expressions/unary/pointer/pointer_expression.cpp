@@ -23,3 +23,8 @@ id_attributes pointer_expression::get_type()
 
     return { expr_type.type, false, SIMPLE, false };
 }
+
+string *pointer_expression::get_operand_id()
+{
+    return expr->get_operand_id();
+}

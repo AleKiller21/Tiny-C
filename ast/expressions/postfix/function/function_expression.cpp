@@ -25,8 +25,11 @@ id_attributes function_expression::get_type()
         return { 0, 0, 0, true };
     }
 
-    symbol *id_sym = sym_table.get_symbol(((id_expression*)id)->get_lexeme());
+    string *id_operand = id->get_operand_id();
+    symbol *id_sym = sym_table.get_symbol(*id_operand);
     vector<id_attributes> attrs = ((function_declarator*)id_sym->decl_ptr)->get_param_types();
+
+    delete id_operand;
 
     if(arguments == NULL && attrs.size() != 0)
     {
@@ -74,7 +77,10 @@ asm_code *function_expression::generate_code(stack_manager *manager)
 
     if(arguments == NULL)
     {
-        code += "\tjal " + ((id_expression*)id)->get_lexeme() + "\n";
+        string *routine_id = id->get_operand_id();
+        code += "\tjal " + *routine_id + "\n";
+
+        delete routine_id;
         return new asm_code { code, "$v0", -1 };
     }
 
@@ -126,6 +132,14 @@ asm_code *function_expression::generate_code(stack_manager *manager)
         }
     }
 
-    code += "\tjal " + ((id_expression*)id)->get_lexeme() + "\n";
+    string * routine_id = id->get_operand_id();
+    code += "\tjal " + *routine_id + "\n";
+
+    delete routine_id;
     return new asm_code { code, "$v0", -1 };
+}
+
+string *function_expression::get_operand_id()
+{
+    return id->get_operand_id();
 }

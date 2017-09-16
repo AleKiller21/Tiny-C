@@ -5,9 +5,9 @@ string id_expression::to_string()
    return lexeme + " ";
 }
 
-string id_expression::get_lexeme()
+string *id_expression::get_operand_id()
 {
-    return lexeme;
+    return new string(lexeme);
 }
 
 id_attributes id_expression::get_type()

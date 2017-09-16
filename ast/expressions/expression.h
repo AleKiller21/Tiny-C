@@ -74,6 +74,7 @@ public:
         
     virtual id_attributes get_type() { throw "not implemented exception"; }
     virtual asm_code *generate_code(stack_manager *manager) { printf("expression generate_code not implemented."); return NULL; }
+    virtual string *get_operand_id() { return NULL; }
     virtual string to_string() = 0;
     virtual int get_kind() = 0;
     bool get_lvalue() { return lvalue; }

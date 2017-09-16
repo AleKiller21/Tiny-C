@@ -20,7 +20,11 @@ id_attributes sizeof_expression::get_type()
     if(expr_type.semantic_fail) return expr_type;
     if(expr_type.kind != ARRAY) return { INT, false, SIMPLE, false };
 
-    symbol *arr_symbol = sym_table.get_symbol(((id_expression*)expr)->get_lexeme());
+    string *arr_id = expr->get_operand_id();
+    symbol *arr_symbol = sym_table.get_symbol(*arr_id);
+
+    delete arr_id;
+    
     if(!arr_symbol->is_initialized && !((array_declarator*)arr_symbol->decl_ptr)->has_range())
     {
         string result = comp_utils::type_to_string(expr_type.type);        

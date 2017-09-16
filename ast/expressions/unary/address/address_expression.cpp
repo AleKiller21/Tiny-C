@@ -23,3 +23,8 @@ id_attributes address_expression::get_type()
 
     return { expr_type.type, true, SIMPLE, false };
 }
+
+string *address_expression::get_operand_id()
+{
+    return expr->get_operand_id();
+}
