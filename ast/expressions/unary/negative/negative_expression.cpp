@@ -23,3 +23,18 @@ id_attributes negative_expression::get_type()
 
     return { expr_type.type, false, SIMPLE, false };
 }
+
+asm_code *negative_expression::generate_code(stack_manager *manager)
+{
+    is_code = expr->is_code;
+    asm_code *expr_code = expr->generate_code(manager);
+
+    if(!expr->is_code)
+    {
+        expr_code->constant = -expr_code->constant;
+        return expr_code;
+    }
+
+    expr_code->code += "\tsubu " + expr_code->place + ", $zero, " + expr_code->place + "\n";
+    return expr_code;
+}
