@@ -38,6 +38,7 @@ void block_statement::push_statement(statement *stmt)
 string* block_statement::generate_code(stack_manager *manager)
 {
     string code;
+    string *statements_code;
 
     if(decl_list != NULL)
     {
@@ -55,12 +56,9 @@ string* block_statement::generate_code(stack_manager *manager)
         code += "\tmove $fp, $sp\n";
     }
 
-    if(stmt_list != NULL)
-    {
-        string *statements_code = stmt_list->generate_code(manager);
-        code += *statements_code;
-        delete statements_code;
-    }
+    statements_code = stmt_list->generate_code(manager);
+    code += *statements_code;
+    delete statements_code;
 
     return new string(code);
 }

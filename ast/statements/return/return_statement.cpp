@@ -21,6 +21,7 @@ void return_statement::validate_semantic(bool is_loop_statement, bool *has_retur
 string* return_statement::generate_code(stack_manager *manager)
 {
     string code;
+    bool reset_sregisters = reg_manager.get_sregs_used() > 0;
 
     if(expr != NULL) return new string(); //TODO: devolver la expresion en caso de que tenga
     
@@ -29,6 +30,8 @@ string* return_statement::generate_code(stack_manager *manager)
         code += "\tlw $s" + std::to_string(sregs_used - 1) + ", " + "($sp)\n";
         code += "\taddi $sp, $sp, 4\n";
     }
+
+    if(reset_sregisters) reg_manager.reset_sregisters();
 
     code += "\tlw $fp, " + std::to_string(manager->displacement - 4) + "($sp)\n";
     code += "\tlw $ra, " + std::to_string(manager->displacement - 8) + "($sp)\n";

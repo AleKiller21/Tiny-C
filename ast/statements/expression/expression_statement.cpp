@@ -18,6 +18,13 @@ void expression_statement::validate_semantic(bool is_loop_statement, bool *has_r
 }
 
 string* expression_statement::generate_code(stack_manager *manager)
-{
-    return NULL;
+{   
+    if(!expr->is_code) return NULL;
+
+    asm_code *expr_code = expr->generate_code(manager);
+    string code = expr_code->code;
+    reg_manager.free_register(expr_code->place);
+
+    delete expr_code;
+    return new string(code);
 }

@@ -19,11 +19,12 @@ public:
         this->id = id;
         this->arguments = arguments;
         lvalue = false;
+        is_code = true;
     }
     
     string to_string();
     int get_kind();
-    // string generate_mips();
+    asm_code *generate_code(stack_manager *manager);
     id_attributes get_type();
 };
 

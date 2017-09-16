@@ -19,7 +19,7 @@ public:
     int get_kind();
     list<expression*> get_list();
     id_attributes get_type();
-    // string generate_mips();
+    asm_code *generate_code(stack_manager *manager);
 };
 
 #endif // EXPRESSION_LIST

@@ -30,7 +30,7 @@ int id_expression::get_kind()
 
 asm_code* id_expression::generate_code(stack_manager *manager)
 {
-    string reg = reg_manager.get_free_register(false);
+    string reg = reg_manager.get_register(false);
     string code;
 
     if(is_global) code = choose_load_format(data_section[lexeme]) + reg + ", " + lexeme + "\n";
@@ -41,6 +41,6 @@ asm_code* id_expression::generate_code(stack_manager *manager)
 
 string id_expression::choose_load_format(string type)
 {
-    if(type == WORD) return "lw ";
-    return "lb ";
+    if(type == WORD) return "\tlw ";
+    return "\tlb ";
 }

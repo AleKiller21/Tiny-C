@@ -65,3 +65,67 @@ id_attributes function_expression::get_type()
 
     return { id_type.type, id_type.pointer, SIMPLE, false };
 }
+
+asm_code *function_expression::generate_code(stack_manager *manager)
+{
+    string code;
+    map<int, string> sregs;
+    int counter = 0;
+
+    if(arguments == NULL)
+    {
+        code += "\tjal " + ((id_expression*)id)->get_lexeme() + "\n";
+        return new asm_code { code, "$v0", -1 };
+    }
+
+    list<expression*> args = ((expression_list*)arguments)->get_list();
+
+    for(list<expression*>::iterator it = args.begin(); it != args.end(); it++)
+    {
+        expression *expr = *it;
+
+        if(expr->get_kind() != FUNCTION_EXPR) { counter++; continue; }
+
+        asm_code *arg_code = expr->generate_code(manager);
+        string reg = reg_manager.get_register(true);
+        code += arg_code->code;
+        code += manager->save_sregister(reg);
+        code += "\tmove " + reg + ", " + arg_code->place + "\n";
+        reg_manager.free_register(arg_code->place);
+        sregs[counter++] = reg;
+
+        delete arg_code;
+    }
+
+    counter = 0;
+    for(list<expression*>::iterator it = args.begin(); it != args.end(); it++)
+    {
+        try
+        {
+            string reg = sregs.at(counter);
+            code += "\tmove $a" + std::to_string(counter++) + ", " + reg + "\n";
+            reg_manager.free_register(reg);
+        }
+
+        catch(out_of_range)
+        {
+            expression *expr = *it;
+            asm_code *arg_code = expr->generate_code(manager);
+    
+            if(!expr->is_code)
+                code += "\tli $a" + std::to_string(counter++) + ", " + std::to_string(arg_code->constant) + "\n";
+            
+            else
+            {
+                code += arg_code->code;
+                reg_manager.free_register(arg_code->place);
+                code += "\tmove $a" + std::to_string(counter++) + ", " + arg_code->place + "\n";
+            }
+    
+            delete arg_code;
+        }
+    }
+
+    code += "\tjal " + ((id_expression*)id)->get_lexeme() + "\n";
+    return new asm_code { code, "$v0", -1 };
+}

@@ -12,15 +12,16 @@ class register_manager
 {
 private:
     map<string, bool> temp_regs;
-    vector<int> saved_regs;
+    map<string, bool> saved_regs;
+    map<string, string> sregs_asked;
+    int sregs_used;
 
 public:
     register_manager();
-    string get_free_register(bool preserved);
     int get_sregs_used();
+    string get_register(bool preserved);
     void free_register(string reg);
-    void push_sregs();
-    void pop_sregs();
+    void reset_sregisters();
 };
 
 #endif
