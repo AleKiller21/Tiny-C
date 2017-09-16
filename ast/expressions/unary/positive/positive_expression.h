@@ -10,7 +10,7 @@ public:
     string to_string();
     int get_kind();
     id_attributes get_type();
-    // string generate_mips();
+    asm_code *generate_code(stack_manager *manager);
 };
 
 #endif // POSITIVE_EXPRESSION

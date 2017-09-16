@@ -11,7 +11,7 @@ public:
     int get_kind();
     id_attributes get_type();
     string *get_operand_id();
-    // string generate_mips();
+    // string generate_mips(); TODO: generar codigo para expresiones con apuntadores
 };
 
 #endif // POINTER_EXPRESSION

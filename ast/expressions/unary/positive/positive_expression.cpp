@@ -23,3 +23,9 @@ id_attributes positive_expression::get_type()
 
     return { expr_type.type, false, SIMPLE, false };
 }
+
+asm_code *positive_expression::generate_code(stack_manager *manager)
+{
+    is_code = expr->is_code;
+    return expr->generate_code(manager);
+}
