@@ -66,8 +66,6 @@ string declaration_list::setup_stack(map<string, stack_entry> *entries_map, stac
 
             entries[id].byte_offset = stack_displacement;
             stack_displacement += size;
-
-            cout << entries[id].var_id + " Offset: " + std::to_string(entries[id].byte_offset) << endl;
         }
 
         decls->clear();

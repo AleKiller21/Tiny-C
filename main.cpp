@@ -16,6 +16,7 @@ extern int yyparse();
 list<external_declaration*> source;
 symbol_table sym_table;
 map<string, string> data_section;
+map<string, string> str_literals;
 
 redundancy_manager redund_manager;
 register_manager reg_manager;

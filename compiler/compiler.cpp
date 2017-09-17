@@ -21,6 +21,23 @@ void compiler::add_data_section(string label, string type, string value)
     data_section_str += "\t" + label + ": " + type + " " + value + "\n";
 }
 
+string compiler::add_string_literal(string literal)
+{
+    try
+    {
+        return str_literals.at(literal);
+    }
+
+    catch(out_of_range)
+    {
+        string label = lbl_manager.get_free_label("literal");
+        str_literals[literal] = label;
+        add_data_section(label, ".asciiz", "\"" + literal + "\"");
+
+        return label;
+    }
+}
+
 void compiler::mark_unnecessary_nodes()
 {
     for(map<string, list<redundant_declaration>* >::iterator it = redund_manager.redundant_declarations.begin(); it != redund_manager.redundant_declarations.end(); it++)
