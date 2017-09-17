@@ -62,6 +62,8 @@
 #include "ast/declarations/external_declaration.h"
 #include "ast/declarations/abstract_declarator.h"
 #include "ast/expressions/unary/printf/printf_expression.h"
-#include "ast/expressions/unary/scanf/scanf_expression.h"
+#include "ast/expressions/unary/time/time_expression.h"
+#include "ast/expressions/unary/srand/srand_expression.h"
+#include "ast/expressions/unary/rand/rand_expression.h"
 
 #endif // AST_H

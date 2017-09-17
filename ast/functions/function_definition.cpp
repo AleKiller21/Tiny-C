@@ -82,7 +82,7 @@ string* function_definition::generate_code()
     string *func_header = decl->generate_code(stck_manager);
     string *block_code = block->generate_code(stck_manager);
 
-    if(!decl->get_id().compare("main")) code = *func_header + main_prologue + stack_setup + *block_code;
+    if(!decl->get_id().compare("main")) code = *func_header + stack_setup + main_prologue + *block_code;
     else code = *func_header + stack_setup + *block_code;
 
     delete func_header;
@@ -103,7 +103,7 @@ string function_definition::setup_stack()
     string code = "\taddi $sp, $sp, -" + std::to_string(stck_manager->displacement) + "\n";
     code += "\tsw $fp, " + std::to_string(stck_manager->displacement - 4) + "($sp)\n";
     code += "\tsw $ra, " + std::to_string(stck_manager->displacement - 8) + "($sp)\n";
-    code += "\tmove $fp, $sp\n";
+    code += "\tmove $fp, $sp\n\n";
 
     return code;
 }

@@ -21,7 +21,8 @@ $(UNARY_EXPRESSION)/pre_increment/pre_increment_expression.cpp $(UNARY_EXPRESSIO
 $(UNARY_EXPRESSION)/pointer/pointer_expression.cpp $(UNARY_EXPRESSION)/address/address_expression.cpp \
 $(UNARY_EXPRESSION)/negative/negative_expression.cpp $(UNARY_EXPRESSION)/positive/positive_expression.cpp \
 $(UNARY_EXPRESSION)/two_complement/two_complement_expression.cpp $(UNARY_EXPRESSION)/negation/negation_expression.cpp \
-$(UNARY_EXPRESSION)/sizeof/sizeof_expression.cpp $(AST_EXPRESSION)/cast/cast_expression.cpp $(BINARY_EXPRESSION)/mult/mult_expression.cpp \
+$(UNARY_EXPRESSION)/sizeof/sizeof_expression.cpp $(UNARY_EXPRESSION)/time/time_expression.cpp $(UNARY_EXPRESSION)/srand/srand_expression.cpp \
+$(UNARY_EXPRESSION)/rand/rand_expression.cpp $(AST_EXPRESSION)/cast/cast_expression.cpp $(BINARY_EXPRESSION)/mult/mult_expression.cpp \
 $(BINARY_EXPRESSION)/div/div_expression.cpp $(BINARY_EXPRESSION)/mod/mod_expression.cpp $(BINARY_EXPRESSION)/sum/sum_expression.cpp \
 $(BINARY_EXPRESSION)/sub/sub_expression.cpp $(BINARY_EXPRESSION)/lshift/lshift_expression.cpp $(BINARY_EXPRESSION)/rshift/rshift_expression.cpp \
 $(BINARY_EXPRESSION)/less/less_expression.cpp $(BINARY_EXPRESSION)/less_equal/less_equal_expression.cpp \
@@ -35,9 +36,9 @@ $(AST_STATEMENT)/while/while_statement.cpp $(AST_STATEMENT)/if/if_statement.cpp 
 $(AST_DECLARATOR)/simple/simple_declarator.cpp $(AST_DECLARATOR)/array/array_declarator.cpp $(AST_DECLARATOR)/parameter_list/parameter_list.cpp \
 $(AST_DECLARATOR)/function/function_declarator.cpp $(AST_DECLARATOR)/initializer/initializer.cpp $(AST_DECLARATOR)/declarator_list/declarator_list.cpp \
 $(AST_DECLARATOR)/declaration/declaration.cpp $(AST_DECLARATOR)/declaration_list/declaration_list.cpp $(AST_STATEMENT)/block/block_statement.cpp \
-$(AST_FUNCTION)/function_definition.cpp $(UNARY_EXPRESSION)/printf/printf_expression.cpp $(UNARY_EXPRESSION)/scanf/scanf_expression.cpp \
-symbol_table/symbol_table.cpp redundancy_manager/redundancy_manager.cpp compiler/compiler.cpp comp_utils/comp_utils.cpp  \
-label_manager/label_manager.cpp register_manager/register_manager.cpp stack_manager/stack_manager.cpp parser.cpp lexer.cpp main.cpp
+$(AST_FUNCTION)/function_definition.cpp $(UNARY_EXPRESSION)/printf/printf_expression.cpp symbol_table/symbol_table.cpp \
+redundancy_manager/redundancy_manager.cpp compiler/compiler.cpp comp_utils/comp_utils.cpp label_manager/label_manager.cpp \
+register_manager/register_manager.cpp stack_manager/stack_manager.cpp parser.cpp lexer.cpp main.cpp
 
 .PHONY: clean
 

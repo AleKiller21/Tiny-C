@@ -37,7 +37,9 @@ OCTAL       0[0-7]*
 "char"                      { yylval.int_t = CHAR; return RW_CHAR; }
 "void"                      { yylval.int_t = VOID; return RW_VOID; }
 "printf"                    { return RW_PRINTF; }
-"scanf"                     { return RW_SCANF; }
+"time"                      { return RW_TIME; }
+"srand"                     { return RW_SRAND; }
+"rand"                      { return RW_RAND; }
 "if"                        { return RW_IF; }
 "else"                      { return RW_ELSE; }
 "while"                     { return RW_WHILE; }

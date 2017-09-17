@@ -55,6 +55,9 @@
 #define COND_EXPR       39
 #define ASSIGN_EXPR     40
 #define LIST_EXPR       41
+#define TIME_EXPR       42
+#define SRAND_EXPR      43
+#define RAND_EXPR       44
 
 using namespace std;
 
