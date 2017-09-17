@@ -3,6 +3,7 @@
 stack_manager::stack_manager()
 {
     displacement = 0;
+    current_byte_offset = 0;
 }
 
 int stack_manager::get_var_offset(string id)

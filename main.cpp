@@ -7,6 +7,7 @@
 #include "asm_code/asm_code.h"
 #include <iostream>
 #include <map>
+#include <vector>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ list<external_declaration*> source;
 symbol_table sym_table;
 map<string, string> data_section;
 map<string, string> str_literals;
+vector<int> stack_displacements;
 
 redundancy_manager redund_manager;
 register_manager reg_manager;
@@ -27,6 +29,7 @@ string data_section_str = ".data\n";
 int declaration_pos = 0;
 int declarator_pos = 0;
 int semantic_errors = 0;
+int stack_displacements_iterator = 0;
 bool main_flag = false;
 
 int main()

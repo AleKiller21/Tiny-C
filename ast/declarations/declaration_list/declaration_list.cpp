@@ -26,10 +26,8 @@ void declaration_list::validate_semantic()
 
 string* declaration_list::generate_code(stack_manager *manager)
 {
-    int stack_displacement = 0;
-    int size;
     map<string, stack_entry> entries;
-    string code = setup_stack(&entries, manager, &stack_displacement, &size);
+    string code = map_variables_to_stack(manager);
 
     for(list<declaration*>::iterator it = declarations.begin(); it != declarations.end(); it++)
     {
@@ -41,13 +39,12 @@ string* declaration_list::generate_code(stack_manager *manager)
     return new string(code);
 }
 
-string declaration_list::setup_stack(map<string, stack_entry> *entries_map, stack_manager *manager, int *displacement, int *Size)
+string declaration_list::map_variables_to_stack(stack_manager *manager)
 {
     string code;
     bool is_word;
-    int stack_displacement = *displacement;
-    int size = *Size;
-    map<string, stack_entry> entries = *entries_map;
+    int stack_displacement;
+    int size;
 
     for(list<declaration*>::iterator it = declarations.begin(); it != declarations.end(); it++)
     {
@@ -56,32 +53,21 @@ string declaration_list::setup_stack(map<string, stack_entry> *entries_map, stac
         for(list<stack_entry>::iterator it = decls->begin(); it != decls->end(); it++)
         {
             string id = (*it).var_id;
-            entries[id] = *it;
+            manager->vars[id] = *it;
 
-            is_word = entries[id].asm_type == WORD;
+            is_word = manager->vars[id].asm_type == WORD;
             size = is_word ? 4 : 1;
 
-            if(entries[id].asm_type == WORD)
-                while(stack_displacement % 4 != 0) stack_displacement++;
+            if(manager->vars[id].asm_type == WORD)
+                while(manager->current_byte_offset % 4 != 0) manager->current_byte_offset++;
 
-            entries[id].byte_offset = stack_displacement;
-            stack_displacement += size;
+            manager->vars[id].byte_offset = manager->current_byte_offset;
+            manager->current_byte_offset += size;
         }
 
         decls->clear();
         delete decls;
     }
-
-    if(stack_displacement % 4 != 0) stack_displacement = (stack_displacement / 4 + 1) * 4;
-
-    manager->vars = entries;
-    stack_displacement += 8;
-    manager->displacement = stack_displacement;
-    
-    code = "\taddi $sp, $sp, -" + std::to_string(stack_displacement) + "\n" + code;
-    code += "\tsw $fp, " + std::to_string(stack_displacement - 4) + "($sp)\n";
-    code += "\tsw $ra, " + std::to_string(stack_displacement - 8) + "($sp)\n";
-    code += "\tmove $fp, $sp\n";
 
     return code;
 }

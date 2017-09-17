@@ -15,6 +15,14 @@ vector<id_attributes> function_declarator::get_param_types()
     return params->get_types();
 }
 
+list<declarator*> function_declarator::get_params()
+{
+    list<declarator*> empty_params;
+    
+    if(params == NULL) return empty_params;
+    return params->get_params();
+}
+
 void function_declarator::validate_semantic()
 {
     string id = get_id();

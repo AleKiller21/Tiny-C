@@ -25,9 +25,10 @@ void array_declarator::validate_semantic()
     
     if(sym == NULL)
     {
+        //TODO: incrementar el stack displacement de acuerdo al size del arreglo
         bool is_initialized = init != NULL ? true : false;
         sym_table.add_symbol(id, new symbol { type, get_position(), is_initialized , pointer, get_kind(), this, is_global } );
-        if(!is_initialized) redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
+        if(!is_initialized && is_global) redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
     }
 
     else if(init != NULL)

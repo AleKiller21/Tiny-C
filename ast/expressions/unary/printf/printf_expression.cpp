@@ -75,7 +75,7 @@ asm_code *printf_expression::generate_code(stack_manager *manager)
 
     else if(end.size() == 1)
     {
-        code += "\tli $a0, '" + std::to_string(end[0]) + "'\n";
+        code += "\tli $a0, " + std::to_string(end[0]) + "\n";
         code += "\tjal put_char\n";
     }
 

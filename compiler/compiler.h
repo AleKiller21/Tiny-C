@@ -9,6 +9,7 @@
 #include "../ast/declarations/declarator.h"
 #include "../redundancy_manager/redundancy_manager.h"
 #include "../label_manager/label_manager.h"
+#include "../ast/types.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ extern redundancy_manager redund_manager;
 extern map<string, string> data_section;
 extern map<string, string> str_literals;
 extern label_manager lbl_manager;
+extern vector<int> stack_displacements;
 
 class compiler
 {
@@ -30,6 +32,7 @@ public:
     void validate_semantic();
     void mark_unnecessary_nodes();
     static void add_data_section(string label, string type, string value);
+    static void increase_stack_displacement(int type);
     static string add_string_literal(string literal);
     void generate_code();
 };

@@ -13,7 +13,7 @@ class declaration_list
 {
 private:
     list<declaration*> declarations;
-    string setup_stack(map<string, stack_entry> *entries_map, stack_manager *manager, int *displacement, int *Size);
+    string map_variables_to_stack(stack_manager *manager);
 
 public:
     void add_declaration(declaration* decl);

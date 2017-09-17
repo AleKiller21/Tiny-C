@@ -68,12 +68,14 @@ bool parameter_list::validate_semantic()
 
         if(decl->get_kind() == ARRAY)
         {
+            //TODO: aumentar el stack displacement segun el size del arreglo
             array_declarator* arr_decl = (array_declarator*)decl;
             if(!arr_decl->validate_pointer(id) || !arr_decl->validate_range_type(id)) continue;
             sym_table.add_symbol(id, new symbol { decl->type, decl->get_position(), true , true, SIMPLE, decl } );
             continue;
         }
 
+        compiler::increase_stack_displacement(decl->type);
         sym_table.add_symbol(id, new symbol { decl->type, decl->get_position(), true , decl->pointer, SIMPLE, decl } );
     }
 
@@ -83,4 +85,9 @@ bool parameter_list::validate_semantic()
 int parameter_list::get_params_amount()
 {
     return params.size();
+}
+
+list<declarator*> parameter_list::get_params()
+{
+    return params;
 }

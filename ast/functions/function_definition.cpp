@@ -40,6 +40,7 @@ void function_definition::validate_semantic()
     {
         if(!id.compare("main")) main_flag = true;
         
+        stack_displacements.push_back(0);
         sym_table.add_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl } );
         validate_block_semantic();
         return;
@@ -58,6 +59,7 @@ void function_definition::validate_semantic()
     }
 
     sym_table.replace_symbol(id, new symbol { type, decl->get_position(), true , decl->pointer, decl->get_kind(), decl, true });
+    stack_displacements.push_back(0);
     validate_block_semantic();
 }
 
@@ -74,16 +76,64 @@ void function_definition::validate_block_semantic()
 
 string* function_definition::generate_code()
 {
+    string code;
+    string stack_setup = setup_stack() + map_arguments_to_stack();
     string main_prologue = "\tli $a0, BRIGHT_WHITE\n\tli $a1, BLACK\n\tjal set_color\n\tjal clear_screen\n\n";
     string *func_header = decl->generate_code(stck_manager);
-    string code;
     string *block_code = block->generate_code(stck_manager);
 
-    if(!decl->get_id().compare("main")) code = *func_header + main_prologue + *block_code;
-    else code = *func_header + *block_code;
+    if(!decl->get_id().compare("main")) code = *func_header + main_prologue + stack_setup + *block_code;
+    else code = *func_header + stack_setup + *block_code;
 
     delete func_header;
     delete block_code;
     delete stck_manager;
+
+    stack_displacements_iterator++;
     return new string(code);
+}
+
+string function_definition::setup_stack()
+{
+    stck_manager->displacement = stack_displacements[stack_displacements_iterator];
+
+    if(stck_manager->displacement % 4 != 0) stck_manager->displacement = (stck_manager->displacement / 4 + 1) * 4;
+    stck_manager->displacement += 8;
+
+    string code = "\taddi $sp, $sp, -" + std::to_string(stck_manager->displacement) + "\n";
+    code += "\tsw $fp, " + std::to_string(stck_manager->displacement - 4) + "($sp)\n";
+    code += "\tsw $ra, " + std::to_string(stck_manager->displacement - 8) + "($sp)\n";
+    code += "\tmove $fp, $sp\n";
+
+    return code;
+}
+
+string function_definition::map_arguments_to_stack()
+{
+    list<declarator*> params = ((function_declarator*)decl)->get_params();
+    string code;
+    bool is_word;
+    int size;
+    int counter = 0;
+    
+    for(list<declarator*>::iterator it = params.begin(); it != params.end(); it++)
+    {
+        stack_entry *arg_entry = (*it)->create_stack_entry();
+        string id = arg_entry->var_id;
+        stck_manager->vars[id] = *arg_entry;
+
+        is_word = stck_manager->vars[id].asm_type == WORD;
+        size = is_word ? 4 : 1;
+
+        if(stck_manager->vars[id].asm_type == WORD)
+            while(stck_manager->current_byte_offset % 4 != 0) stck_manager->current_byte_offset++;
+
+        stck_manager->vars[id].byte_offset = stck_manager->current_byte_offset;
+        code += stck_manager->store_into_var("$a" + std::to_string(counter++), id);
+        stck_manager->current_byte_offset += size;
+
+        delete arg_entry;
+    }
+
+    return code;
 }

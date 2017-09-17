@@ -18,6 +18,7 @@
 
 using namespace std;
 
+extern vector<int> stack_displacements;
 extern symbol_table sym_table;
 extern redundancy_manager redund_manager;
 extern register_manager reg_manager;

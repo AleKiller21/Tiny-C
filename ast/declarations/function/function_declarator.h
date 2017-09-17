@@ -22,6 +22,7 @@ public:
     }
 
     vector<id_attributes> get_param_types();
+    list<declarator*> get_params();
     string to_string();
     string *generate_code(stack_manager *manager);
     bool compare_existing_symbol(string id, symbol* sym);

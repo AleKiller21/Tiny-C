@@ -21,6 +21,19 @@ void compiler::add_data_section(string label, string type, string value)
     data_section_str += "\t" + label + ": " + type + " " + value + "\n";
 }
 
+void compiler::increase_stack_displacement(int type)
+{
+    switch(type)
+    {
+        case INT:
+            stack_displacements[stack_displacements.size() - 1] = stack_displacements.back() + 4;
+            break;
+        case CHAR:
+            stack_displacements[stack_displacements.size() - 1] = stack_displacements.back() + 1;
+            break;
+    }
+}
+
 string compiler::add_string_literal(string literal)
 {
     try

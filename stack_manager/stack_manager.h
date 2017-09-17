@@ -11,7 +11,9 @@ class stack_manager
 {
 public:
     map<string, stack_entry> vars;
+    //map<string, stack_entry> arguments;
     map<string, string> sregs_asked;
+    int current_byte_offset;
     int displacement;
 
     stack_manager();
