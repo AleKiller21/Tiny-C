@@ -48,18 +48,12 @@ string* block_statement::generate_code(stack_manager *manager)
         delete declarations_code;
     }
 
-    // else
-    // {
-    //     manager->displacement = 8;        
-    //     code = "\taddi $sp, $sp, -" + std::to_string(manager->displacement) + "\n" + code;
-    //     code += "\tsw $fp, " + std::to_string(manager->displacement - 4) + "($sp)\n";
-    //     code += "\tsw $ra, " + std::to_string(manager->displacement - 8) + "($sp)\n";
-    //     code += "\tmove $fp, $sp\n";
-    // }
-
-    statements_code = stmt_list->generate_code(manager);
-    code += *statements_code;
-    delete statements_code;
+    if(stmt_list != NULL)
+    {
+        statements_code = stmt_list->generate_code(manager);
+        code += *statements_code;
+        delete statements_code;
+    }
 
     return new string(code);
 }
