@@ -86,8 +86,6 @@ asm_code *printf_expression::generate_code(stack_manager *manager)
         code += "\tjal puts\n";
     }
 
-    code += "\tli $a0, '\\n'\n";
-    code += "\tjal put_char\n";
     code += "\tli $v0, " + std::to_string(expressions.size()) + "\n";
 
     return new asm_code { code, "$v0", -1 };

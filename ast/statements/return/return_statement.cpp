@@ -23,7 +23,17 @@ string* return_statement::generate_code(stack_manager *manager)
     string code;
     bool reset_sregisters = reg_manager.get_sregs_used() > 0;
 
-    if(expr != NULL) return new string(); //TODO: devolver la expresion en caso de que tenga
+    if(expr != NULL)
+    {
+        asm_code *expr_code = expr->generate_code(manager);
+        if(!expr->is_code) code = "\tli $v0, " + std::to_string(expr_code->constant) + "\n";
+        else
+        {
+            code = expr_code->code;
+            code += "\tmove $v0, " + expr_code->place + "\n";
+            reg_manager.free_register(expr_code->place);
+        }
+    }
     
     for(int sregs_used = reg_manager.get_sregs_used(); sregs_used > 0; sregs_used--)
     {
