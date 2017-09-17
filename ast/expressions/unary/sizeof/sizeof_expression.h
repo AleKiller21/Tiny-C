@@ -6,6 +6,8 @@
 #include "../../primary/id/id_expression.h"
 #include "../../../declarations/array/array_declarator.h"
 
+extern map<string, string> data_section;
+
 class sizeof_expression : public unary_expression
 {
 private:
@@ -16,12 +18,13 @@ public:
     {
         this->type = type;
         lvalue = false;
+        is_code = false;
     }
 
     string to_string();
     int get_kind();
     id_attributes get_type();
-    // string generate_mips();
+    asm_code *generate_code(stack_manager *manager);
 };
 
 #endif // SIZEOF_EXPRESSION

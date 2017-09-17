@@ -34,3 +34,28 @@ id_attributes sizeof_expression::get_type()
 
     return { INT, false, SIMPLE, false };
 }
+
+asm_code *sizeof_expression::generate_code(stack_manager *manager)
+{
+    if(type != NULL)
+    {
+        if(type->pointer) return new asm_code { "", "", sizeof(int) };
+        if(type->type == INT) return new asm_code { "", "", sizeof(int) };
+        if(type->type == CHAR) return new asm_code { "", "", sizeof(char) };
+    }
+
+    if(expr->get_kind() != ID_EXPR) return new asm_code { "", "", sizeof(int) };
+
+    string *operand_id = expr->get_operand_id();
+    asm_code *expr_code;
+    string type;
+
+    if(((id_expression*)expr)->is_global) type = data_section[*operand_id];
+    else type = manager->vars[*operand_id].asm_type;
+
+    if(type == WORD) expr_code = new asm_code { "", "", sizeof(int) };
+    else expr_code = new asm_code { "", "", sizeof(char) };
+
+    delete operand_id;
+    return expr_code;
+}
