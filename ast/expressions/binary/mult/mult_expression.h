@@ -11,7 +11,7 @@ public:
 
     string to_string();
     int get_kind();
-    // string generate_mips();
+    asm_code *generate_code(stack_manager *manager);
 };
 
 #endif // MULT_EXPRESSION
