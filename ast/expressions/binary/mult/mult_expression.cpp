@@ -14,13 +14,19 @@ asm_code *mult_expression::generate_code(stack_manager *manager)
 {
     asm_code *expr1_code;
     asm_code *expr2_code;
-    string code;
+    asm_code *expr_code;
     bool right_operand_first = false;
 
     generate_operands_code(manager, &expr1_code, &expr2_code, &right_operand_first);
-    asm_code *expr_code = evaluate_function_expressions(manager, expr1_code, expr2_code, right_operand_first);
+    string code = evaluate_function_expressions(manager, expr1_code, expr2_code, right_operand_first);
 
-    if(expr_code != NULL) {}
+    if(!code.empty())
+    {
+        code += "\tmove $a0, " + expr1_code->place + "\n";
+        code += "\tmove $a1, " + expr2_code->place + "\n";
+        code += "\tjal mult\n";
+        expr_code = new asm_code { code, "$v0", -1 };
+    }
 
     else if(!expr1->is_code && !expr2->is_code)
         expr_code = new asm_code { "", "", expr1_code->constant * expr2_code->constant };

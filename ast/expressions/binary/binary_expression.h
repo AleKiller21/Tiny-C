@@ -59,11 +59,9 @@ protected:
         is_code = !(!expr1->is_code && !expr2->is_code);
     }
 
-    asm_code *evaluate_function_expressions(stack_manager *manager, asm_code *expr1_code, asm_code *expr2_code, bool right_operand_first)
+    string evaluate_function_expressions(stack_manager *manager, asm_code *expr1_code, asm_code *expr2_code, bool right_operand_first)
     {
-        asm_code *expr_code = NULL;
         string code;
-
         if(!expr1_code->place.compare("$v0") && !expr2_code->place.compare("$v0"))
         {
             string sreg = reg_manager.get_register(true);
@@ -87,13 +85,10 @@ protected:
     
             reg_manager.free_register(expr1_code->place);
             reg_manager.free_register(expr2_code->place);
-            code += "\tmove $a0, " + expr1_code->place + "\n";
-            code += "\tmove $a1, " + expr2_code->place + "\n";
-            code += "\tjal mult\n";
-            expr_code = new asm_code { code, "$v0", -1 };
+            return code;
         }
 
-        return expr_code;
+        return "";
     }
 };
 
