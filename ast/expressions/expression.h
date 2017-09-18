@@ -82,9 +82,9 @@ public:
     virtual int get_kind() = 0;
     bool get_lvalue() { return lvalue; }
 
-    bool is_binary_or_function(int kind)
+    bool is_compound_expression()
     {
-        switch(kind)
+        switch(get_kind())
         {
             case MULT_EXPR: case DIV_EXPR: case MOD_EXPR: case SUM_EXPR: case SUB_EXPR: case LSHIFT_EXPR: case RSHIFT_EXPR:
             case LT_EXPR: case GT_EXPR: case LE_EXPR: case GE_EXPR: case EQUAL_EXPR: case NE_EXPR: case AND_EXPR:
