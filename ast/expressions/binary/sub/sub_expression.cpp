@@ -28,8 +28,9 @@ asm_code *sub_expression::generate_code(stack_manager *manager)
 
     else if(!expr1->is_code && !expr2->is_code)
     {
+        expr_code = new asm_code { "", "", expr1_code->constant - expr2_code->constant };
         delete expr1_code, expr2_code;
-        return new asm_code { "", "", expr1_code->constant - expr2_code->constant };
+        return expr_code;
     }
 
     else if(expr1->is_code && expr2->is_code)
