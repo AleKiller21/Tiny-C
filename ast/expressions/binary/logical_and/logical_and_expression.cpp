@@ -26,7 +26,7 @@ asm_code *logical_and_expression::generate_code(stack_manager *manager)
         treg = reg_manager.get_register(false);
         code += "\tsne " + expr1_code->place + ", " + expr1_code->place + ", $zero\n";
         code += "\tsne " + expr2_code->place + ", " + expr2_code->place + ", $zero\n";
-        code += "\tseq " + treg + ", " + expr1_code->place + ", " + expr2_code->place + "\n";
+        code += "\tand " + treg + ", " + expr1_code->place + ", " + expr2_code->place + "\n";
     }
 
     else if(!expr1->is_code && !expr2->is_code)
@@ -46,7 +46,7 @@ asm_code *logical_and_expression::generate_code(stack_manager *manager)
         treg = reg_manager.get_register(false);
         code += "\tsne " + expr1_code->place + ", " + expr1_code->place + ", $zero\n";
         code += "\tsne " + expr2_code->place + ", " + expr2_code->place + ", $zero\n";
-        code += "\tseq " + treg + ", " + expr1_code->place + ", " + expr2_code->place + "\n";
+        code += "\tand " + treg + ", " + expr1_code->place + ", " + expr2_code->place + "\n";
     }
 
     else if(expr1->is_code)
@@ -56,7 +56,7 @@ asm_code *logical_and_expression::generate_code(stack_manager *manager)
         code += "\tli " + treg + ", " + std::to_string(expr2_code->constant) + "\n";
         code += "\tsne " + expr1_code->place + ", " + expr1_code->place + ", $zero\n";
         code += "\tsne " + treg + ", " + treg + ", $zero\n";
-        code += "\tseq " + treg + ", " + expr1_code->place + ", " + treg + "\n";
+        code += "\tand " + treg + ", " + expr1_code->place + ", " + treg + "\n";
         reg_manager.free_register(expr1_code->place);
     }
 
@@ -67,7 +67,7 @@ asm_code *logical_and_expression::generate_code(stack_manager *manager)
         code += "\tli " + treg + ", " + std::to_string(expr1_code->constant) + "\n";
         code += "\tsne " + treg + ", " + treg + ", $zero\n";
         code += "\tsne " + expr2_code->place + ", " + expr2_code->place + ", $zero\n";
-        code += "\tseq " + treg + ", " + treg  + ", " +expr2_code->place + "\n";
+        code += "\tand " + treg + ", " + treg  + ", " +expr2_code->place + "\n";
         reg_manager.free_register(expr2_code->place);
     }
 

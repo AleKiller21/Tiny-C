@@ -10,6 +10,7 @@
 #include "../../asm_code/asm_code.h"
 #include "../../stack_manager/stack_manager.h"
 #include "../../register_manager/register_manager.h"
+#include "../../label_manager/label_manager.h"
 #include "../id_attributes.h"
 #include "../id_kind.h"
 #include "../types.h"
@@ -63,6 +64,7 @@ using namespace std;
 
 extern symbol_table sym_table;
 extern register_manager reg_manager;
+extern label_manager lbl_manager;
 
 class expression
 {
