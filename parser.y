@@ -129,8 +129,10 @@ loop_statement: while_statement { $$ = $1; }
 while_statement: RW_WHILE '(' expression ')' statement { $$ = new while_statement($3, $5, yylineno); }
 ;
 
-for_statement: RW_FOR '(' expression_statement expression_statement expression ')' statement { $$ = new for_statement(yylineno, $7, $3, $4, $5); }
-             | RW_FOR '(' expression_statement expression_statement ')' statement { $$ = new for_statement(yylineno, $6, $3, $4, NULL); }
+for_statement: RW_FOR '(' expression_statement expression ';' expression ')' statement { $$ = new for_statement(yylineno, $8, $3, $4, $6); }
+             | RW_FOR '(' expression_statement ';' expression ')' statement { $$ = new for_statement(yylineno, $7, $3, NULL, $5); }
+             | RW_FOR '(' expression_statement expression ';' ')' statement { $$ = new for_statement(yylineno, $7, $3, $4, NULL); }
+             | RW_FOR '(' expression_statement ';' ')' statement { $$ = new for_statement(yylineno, $6, $3, NULL, NULL); }
 ;
 
 jump_statement: RW_CONTINUE ';' { $$ = new continue_statement(yylineno); }

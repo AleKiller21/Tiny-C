@@ -19,7 +19,7 @@ void expression_statement::validate_semantic(bool is_loop_statement, bool *has_r
 
 string* expression_statement::generate_code(stack_manager *manager)
 {   
-    if(!expr->is_code) return NULL;
+    if(expr == NULL || !expr->is_code) return new string();
 
     asm_code *expr_code = expr->generate_code(manager);
     string code = expr_code->code;
