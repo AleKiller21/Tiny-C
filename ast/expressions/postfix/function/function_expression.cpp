@@ -89,7 +89,8 @@ asm_code *function_expression::generate_code(stack_manager *manager)
     {
         expression *expr = *it;
 
-        if(expr->get_kind() != FUNCTION_EXPR && expr->get_kind() != PRINTF_EXPR) { counter++; continue; }
+        if(expr->get_kind() != FUNCTION_EXPR && expr->get_kind() != PRINTF_EXPR && expr->get_kind() != MULT_EXPR 
+            && expr->get_kind() != DIV_EXPR && expr->get_kind() != MOD_EXPR) { counter++; continue; }
 
         asm_code *arg_code = expr->generate_code(manager);
         string reg = reg_manager.get_register(true);
