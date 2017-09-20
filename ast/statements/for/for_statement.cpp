@@ -21,13 +21,13 @@ void for_statement::validate_semantic(bool is_loop_statement, bool *has_return)
     if(expr3 != NULL) expr3->get_type();
 }
 
-string* for_statement::generate_code(stack_manager *manager)
+string* for_statement::generate_code(stack_manager *manager, string nearest_loop, string nearest_loop_end)
 {
     string code, treg;
     string loop_label = lbl_manager.get_free_label("forloop");
     string end_label = lbl_manager.get_free_label("endfor");
     string expr3_label = lbl_manager.get_free_label("forinc");
-    string *expr1_code = expr1->generate_code(manager);
+    string *expr1_code = expr1->generate_code(manager, "", "");
 
     code = *expr1_code;
     code += loop_label + ":\n";
@@ -53,7 +53,7 @@ string* for_statement::generate_code(stack_manager *manager)
         delete expr2_code;
     }
 
-    string *block_code = block->generate_code(manager);
+    string *block_code = block->generate_code(manager, expr3_label, end_label);
     code += *block_code;
     code += expr3_label + ":\n";
 

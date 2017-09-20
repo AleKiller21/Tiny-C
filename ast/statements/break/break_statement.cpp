@@ -16,7 +16,7 @@ void break_statement::validate_semantic(bool is_loop_statement, bool *has_return
     comp_utils::show_message("error", "break statement not within a loop", position);
 }
 
-string* break_statement::generate_code(stack_manager *manager)
+string* break_statement::generate_code(stack_manager *manager, string nearest_loop, string nearest_loop_end)
 {
-    throw "break_Statement generate_code not implemented";
+    return new string("\tj " + nearest_loop_end + "\n");
 }

@@ -16,7 +16,7 @@ void while_statement::validate_semantic(bool is_loop_statement, bool *has_return
     block->validate_semantic(true, NULL);
 }
 
-string *while_statement::generate_code(stack_manager *manager)
+string *while_statement::generate_code(stack_manager *manager, string nearest_loop, string nearest_loop_end)
 {
     string loop_label = lbl_manager.get_free_label("while");
     string end_label = lbl_manager.get_free_label("endwhile");
@@ -40,7 +40,7 @@ string *while_statement::generate_code(stack_manager *manager)
 
     code += "\tbeqz " + treg + ", " + end_label + "\n";
     reg_manager.free_register(treg);
-    block_code = block->generate_code(manager);
+    block_code = block->generate_code(manager, loop_label, end_label);
     code += *block_code;
     code += "\tj " + loop_label + "\n";
     code += end_label + ":\n";

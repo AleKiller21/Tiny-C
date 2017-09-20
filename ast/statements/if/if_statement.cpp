@@ -26,10 +26,10 @@ void if_statement::validate_semantic(bool is_loop_statement, bool *has_return)
     if(has_return != NULL && (true_return && false_return)) *has_return = true;
 }
 
-string *if_statement::generate_code(stack_manager *manager)
+string *if_statement::generate_code(stack_manager *manager, string nearest_loop, string nearest_loop_end)
 {
     asm_code *cond_code = condition->generate_code(manager);
-    string *true_code = true_block->generate_code(manager);
+    string *true_code = true_block->generate_code(manager, nearest_loop, nearest_loop_end);
     string end_label = lbl_manager.get_free_label("endif");;
     string treg;
     string code;
@@ -58,7 +58,7 @@ string *if_statement::generate_code(stack_manager *manager)
         return new string(code);
     }
 
-    string *false_code = false_block->generate_code(manager);
+    string *false_code = false_block->generate_code(manager, nearest_loop, nearest_loop_end);
     string false_label = lbl_manager.get_free_label("if_false");
 
     code += "\tbeqz " + treg + ", " + false_label + "\n";

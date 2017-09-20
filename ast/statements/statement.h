@@ -35,7 +35,7 @@ public:
     statement(int position) { this->position = position; }
 
     virtual void validate_semantic(bool is_loop_statement, bool *has_return) = 0;
-    virtual string *generate_code(stack_manager *manager) { throw "statement generate_code not implemented"; }
+    virtual string *generate_code(stack_manager *manager, string nearest_loop, string nearest_loop_end) = 0;
     virtual string to_string() = 0;
     virtual int get_kind() = 0;
 };

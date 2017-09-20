@@ -80,7 +80,7 @@ string* function_definition::generate_code()
     string stack_setup = setup_stack() + map_arguments_to_stack();
     string main_prologue = "\tli $a0, BRIGHT_WHITE\n\tli $a1, BLACK\n\tjal set_color\n\tjal clear_screen\n\n";
     string *func_header = decl->generate_code(stck_manager);
-    string *block_code = block->generate_code(stck_manager);
+    string *block_code = block->generate_code(stck_manager, "", "");
 
     if(!decl->get_id().compare("main")) code = *func_header + stack_setup + main_prologue + *block_code;
     else code = *func_header + stack_setup + *block_code;

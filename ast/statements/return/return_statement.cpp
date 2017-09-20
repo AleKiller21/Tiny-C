@@ -18,7 +18,7 @@ void return_statement::validate_semantic(bool is_loop_statement, bool *has_retur
     if(has_return != NULL) *has_return = true;
 }
 
-string* return_statement::generate_code(stack_manager *manager)
+string* return_statement::generate_code(stack_manager *manager, string nearest_loop, string nearest_loop_end)
 {
     string code;
     bool reset_sregisters = reg_manager.get_sregs_used() > 0;
