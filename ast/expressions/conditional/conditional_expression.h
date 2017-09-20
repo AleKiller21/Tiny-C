@@ -10,7 +10,7 @@ class conditional_expression : public expression
 {
 private:
     expression *evaluate_expression, *true_expression, *false_expression;
-    map<string, id_attributes> rules;
+    map<string, type_attributes> rules;
 
 public:
     conditional_expression(expression* evaluate, expression* true_expr, expression* false_expr, int position) :
@@ -32,7 +32,7 @@ public:
 
     string to_string();
     int get_kind();
-    id_attributes get_type();
+    type_attributes get_type();
     asm_code *generate_code(stack_manager *manager);
 };
 

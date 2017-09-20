@@ -10,11 +10,11 @@ int conditional_expression::get_kind()
     return COND_EXPR;
 }
 
-id_attributes conditional_expression::get_type()
+type_attributes conditional_expression::get_type()
 {
-    id_attributes cond_type = evaluate_expression->get_type();
-    id_attributes true_expr_type = true_expression->get_type();
-    id_attributes false_expr_type = false_expression->get_type();
+    type_attributes cond_type = evaluate_expression->get_type();
+    type_attributes true_expr_type = true_expression->get_type();
+    type_attributes false_expr_type = false_expression->get_type();
 
     if(cond_type.semantic_fail || true_expr_type.semantic_fail || false_expr_type.semantic_fail) return cond_type;
     string op1 = comp_utils::id_attrs_to_string(true_expr_type);

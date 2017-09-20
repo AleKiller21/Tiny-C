@@ -1,5 +1,5 @@
 TARGET = Tiny
-CXXFLAGS = -std=c++11
+CXXFLAGS = -std=c++11 -g -Wall
 CPPFLAGS = -MMD -MP
 
 AST_EXPRESSION =./ast/expressions

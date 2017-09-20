@@ -10,9 +10,9 @@ int pointer_expression::get_kind()
     return POINTER_EXPR;
 }
 
-id_attributes pointer_expression::get_type()
+type_attributes pointer_expression::get_type()
 {
-    id_attributes expr_type = expr->get_type();
+    type_attributes expr_type = expr->get_type();
 
     if(expr_type.semantic_fail) return expr_type;
     if(!expr_type.pointer && expr_type.kind != ARRAY)

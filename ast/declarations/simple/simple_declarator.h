@@ -24,7 +24,7 @@ public:
     string *generate_code(stack_manager *manager);
     stack_entry *create_stack_entry();
     void validate_semantic();
-    static bool validate_init_expression(id_attributes decl_type, expression* expr, int decl_position);
+    static bool validate_init_expression(type_attributes decl_type, expression* expr, int decl_position);
 };
 
 #endif // SIMPLE_DECLARATOR

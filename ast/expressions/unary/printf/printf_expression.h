@@ -18,7 +18,7 @@ public:
     printf_expression(expression* args, int position) : unary_expression(args, position) { is_code = true; }
     string to_string();
     int get_kind();
-    id_attributes get_type();
+    type_attributes get_type();
     asm_code *generate_code(stack_manager *manager);
 };
 

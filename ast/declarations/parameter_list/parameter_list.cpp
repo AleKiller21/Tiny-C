@@ -24,9 +24,9 @@ string parameter_list::to_string()
     return str;
 }
 
-vector<id_attributes> parameter_list::get_types()
+vector<type_attributes> parameter_list::get_types()
 {
-    vector<id_attributes> types;
+    vector<type_attributes> types;
 
     for(list<declarator*>::iterator it = params.begin(); it != params.end(); it++)
         types.push_back({ (*it)->type, (*it)->pointer, (*it)->get_kind() });

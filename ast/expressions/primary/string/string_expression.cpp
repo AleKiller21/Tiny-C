@@ -15,7 +15,7 @@ int string_expression::get_kind()
     return STRING_EXPR;
 }
 
-id_attributes string_expression::get_type()
+type_attributes string_expression::get_type()
 {
     return { CHAR, true, SIMPLE, false };
 }

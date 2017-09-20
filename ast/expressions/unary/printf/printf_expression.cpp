@@ -10,9 +10,9 @@ int printf_expression::get_kind()
     return PRINTF_EXPR;
 }
 
-id_attributes printf_expression::get_type()
+type_attributes printf_expression::get_type()
 {
-    id_attributes expr_type = expr->get_type();
+    type_attributes expr_type = expr->get_type();
     list<expression*> expressions = ((expression_list*)expr)->get_list();
 
     if(expr_type.semantic_fail) return expr_type;

@@ -10,9 +10,9 @@ int srand_expression::get_kind()
     return SRAND_EXPR;
 }
 
-id_attributes srand_expression::get_type()
+type_attributes srand_expression::get_type()
 {
-    id_attributes expr_type = expr->get_type();
+    type_attributes expr_type = expr->get_type();
 
     if(expr_type.semantic_fail) return expr_type;
     return { VOID, false, SIMPLE, false };

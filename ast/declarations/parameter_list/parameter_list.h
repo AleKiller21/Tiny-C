@@ -5,7 +5,7 @@
 #include "../declarator.h"
 #include "../../../comp_utils/comp_utils.h"
 #include "../../../compiler/compiler.h"
-#include "../../id_attributes.h"
+#include "../../type_attributes.h"
 #include <vector>
 #include <iostream>
 
@@ -20,7 +20,7 @@ private:
 
 public:
     string to_string();
-    vector<id_attributes> get_types();
+    vector<type_attributes> get_types();
     list<declarator*> get_params();
     void add_param(declarator* param);
     // string generate_mips();

@@ -10,15 +10,15 @@ int assignment_expression::get_kind()
     return ASSIGN_EXPR;
 }
 
-map<string, id_attributes> assignment_expression::get_rules()
+map<string, type_attributes> assignment_expression::get_rules()
 {
     return rules;
 }
 
-id_attributes assignment_expression::get_type()
+type_attributes assignment_expression::get_type()
 {
-    id_attributes expr1_type = expr1->get_type();
-    id_attributes expr2_type = expr2->get_type();
+    type_attributes expr1_type = expr1->get_type();
+    type_attributes expr2_type = expr2->get_type();
 
     if(expr1_type.semantic_fail || expr2_type.semantic_fail) return expr1_type;
     if(!expr1->get_lvalue() || expr1_type.kind == FUNCTION)
@@ -48,4 +48,9 @@ id_attributes assignment_expression::get_type()
         comp_utils::show_message("error", "invalid operands to binary " + op + entries, position);
         return { 0, 0, 0, true };
     }
+}
+
+asm_code *assignment_expression::generate_code(stack_manager *manager)
+{
+    //TODO: Crear una funcion is_id_global que me dira si el id operando de una expresion es global o no
 }

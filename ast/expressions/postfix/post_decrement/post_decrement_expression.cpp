@@ -10,9 +10,9 @@ int post_decrement_expression::get_kind()
     return POST_DEC_EXPR;
 }
 
-id_attributes post_decrement_expression::get_type()
+type_attributes post_decrement_expression::get_type()
 {
-    id_attributes expr_type = expr->get_type();
+    type_attributes expr_type = expr->get_type();
     
     if(expr_type.semantic_fail) return expr_type;
     if(!expr->get_lvalue() || expr_type.kind == ARRAY)

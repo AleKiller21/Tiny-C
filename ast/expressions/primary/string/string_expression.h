@@ -19,7 +19,7 @@ public:
     string to_string();
     string get_lexeme();
     int get_kind();
-    id_attributes get_type();
+    type_attributes get_type();
     // string generate_mips(); TODO: generar codigo de strings
 };
 

@@ -9,7 +9,7 @@ public:
     pre_decrement_expression(expression* expr, int position) : unary_expression(expr, position) { lvalue = false; is_code = true;}
     string to_string();
     int get_kind();
-    id_attributes get_type();
+    type_attributes get_type();
     string *get_operand_id();
     asm_code *generate_code(stack_manager *manager);
 };

@@ -27,11 +27,11 @@ list<expression*> expression_list::get_list()
     return expressions;
 }
 
-id_attributes expression_list::get_type()
+type_attributes expression_list::get_type()
 {
     for(list<expression*>::iterator it = expressions.begin(); it != expressions.end(); it++)
     {
-        id_attributes expr_type = (*it)->get_type();
+        type_attributes expr_type = (*it)->get_type();
         if(expr_type.semantic_fail) return expr_type;
         if(expr_type.type == VOID)
         {

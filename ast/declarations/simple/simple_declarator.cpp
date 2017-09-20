@@ -67,7 +67,7 @@ bool simple_declarator::validate_initialization()
     return simple_declarator::validate_init_expression({ type, pointer, SIMPLE, false }, init->single_expr, get_position());
 }
 
-bool simple_declarator::validate_init_expression(id_attributes decl_type, expression* expr, int decl_position)
+bool simple_declarator::validate_init_expression(type_attributes decl_type, expression* expr, int decl_position)
 {
     //TODO: validar que no acepte esto en el contexto global: int num1; int num2 = num2 = 5;
     if(sym_table.get_scope_level() == 0 && expr->get_lvalue())
@@ -76,11 +76,11 @@ bool simple_declarator::validate_init_expression(id_attributes decl_type, expres
         return false;
     }
 
-    id_attributes expr_type = expr->get_type();
+    type_attributes expr_type = expr->get_type();
     if(expr_type.semantic_fail) return false;
 
     assignment_expression *assign_expr = new assignment_expression(NULL, NULL, 0);
-    map<string, id_attributes> rules = assign_expr->get_rules();
+    map<string, type_attributes> rules = assign_expr->get_rules();
     bool success = false;
 
     string op1 = comp_utils::id_attrs_to_string(decl_type);

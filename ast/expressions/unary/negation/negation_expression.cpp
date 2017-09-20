@@ -10,9 +10,9 @@ int negation_expression::get_kind()
     return NEGATION_EXPR;
 }
 
-id_attributes negation_expression::get_type()
+type_attributes negation_expression::get_type()
 {
-    id_attributes expr_type = expr->get_type();
+    type_attributes expr_type = expr->get_type();
     
     if(expr_type.semantic_fail) return expr_type;
     return { INT, false, SIMPLE, false };

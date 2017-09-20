@@ -18,7 +18,7 @@ public:
     
     string to_string();
     int get_kind();
-    id_attributes get_type();
+    type_attributes get_type();
     asm_code *generate_code(stack_manager *manager);
     string *get_operand_id();
 };

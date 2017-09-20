@@ -8,7 +8,7 @@ class binary_expression : public expression
 {
 protected:
     expression *expr1, *expr2;
-    map<string, id_attributes> rules;
+    map<string, type_attributes> rules;
     string op;
 
     binary_expression(expression* expr1, expression* expr2, int position, string op) : expression(position)
@@ -19,10 +19,10 @@ protected:
         lvalue = false;
     }
 
-    virtual id_attributes get_type()
+    virtual type_attributes get_type()
     {
-        id_attributes expr1_type = expr1->get_type();
-        id_attributes expr2_type = expr2->get_type();
+        type_attributes expr1_type = expr1->get_type();
+        type_attributes expr2_type = expr2->get_type();
 
         if(expr1_type.semantic_fail || expr2_type.semantic_fail) return expr1_type;
         string op1 = comp_utils::id_attrs_to_string(expr1_type);

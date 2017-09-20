@@ -11,7 +11,7 @@ void comp_utils::show_message(string type, string msg, int position)
         fprintf(stderr, "Line %d: " YELLOW "%s:" RESET " %s\n", position, type.c_str(), msg.c_str());
 }
 
-string comp_utils::id_attrs_to_string(id_attributes attrs)
+string comp_utils::id_attrs_to_string(type_attributes attrs)
 {
     string result = comp_utils::type_to_string(attrs.type);
 
@@ -49,17 +49,17 @@ string comp_utils::determine_asm_type(int type, bool pointer)
     }
 }
 
-bool comp_utils::is_type_int(id_attributes attrs)
+bool comp_utils::is_type_int(type_attributes attrs)
 {
     return attrs.type == INT;
 }
 
-bool comp_utils::is_type_char(id_attributes attrs)
+bool comp_utils::is_type_char(type_attributes attrs)
 {
     return attrs.type == CHAR;
 }
 
-bool comp_utils::is_type_void(id_attributes attrs)
+bool comp_utils::is_type_void(type_attributes attrs)
 {
     return attrs.type == VOID;
 }

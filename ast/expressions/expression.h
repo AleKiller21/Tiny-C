@@ -11,7 +11,7 @@
 #include "../../stack_manager/stack_manager.h"
 #include "../../register_manager/register_manager.h"
 #include "../../label_manager/label_manager.h"
-#include "../id_attributes.h"
+#include "../type_attributes.h"
 #include "../id_kind.h"
 #include "../types.h"
 
@@ -77,7 +77,7 @@ public:
 
     expression(int position) { this->position = position; lvalue = false; }
         
-    virtual id_attributes get_type() { throw "not implemented exception"; }
+    virtual type_attributes get_type() { throw "not implemented exception"; }
     virtual asm_code *generate_code(stack_manager *manager) { printf("expression generate_code not implemented."); return NULL; }
     virtual string *get_operand_id() { return NULL; }
     virtual string to_string() = 0;

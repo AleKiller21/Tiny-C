@@ -59,7 +59,7 @@ bool array_declarator::validate_initialization()
     }
 
     list<expression*> init_exprs = init->list_expr->get_list();
-    id_attributes decl_type = { type, false, SIMPLE, false };
+    type_attributes decl_type = { type, false, SIMPLE, false };
     
     for(list<expression*>::iterator it = init_exprs.begin(); it != init_exprs.end(); it++)
     {
@@ -112,7 +112,7 @@ bool array_declarator::validate_range_type(string id)
 {
     if(!has_range()) return true;
     
-    id_attributes index_type = index_expr->get_type();
+    type_attributes index_type = index_expr->get_type();
     if(index_type.semantic_fail) return false;
     if(index_expr->get_lvalue() && is_global)
     {

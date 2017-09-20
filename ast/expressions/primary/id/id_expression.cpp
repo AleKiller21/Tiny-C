@@ -10,7 +10,7 @@ string *id_expression::get_operand_id()
     return new string(lexeme);
 }
 
-id_attributes id_expression::get_type()
+type_attributes id_expression::get_type()
 {
     symbol *sym = sym_table.get_symbol(lexeme);
     if(sym == NULL)

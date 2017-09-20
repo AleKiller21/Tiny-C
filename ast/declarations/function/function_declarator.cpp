@@ -9,9 +9,9 @@ string function_declarator::to_string()
     return ptr + get_id() + "(" + ")" + declarator::to_string();
 }
 
-vector<id_attributes> function_declarator::get_param_types()
+vector<type_attributes> function_declarator::get_param_types()
 {
-    if(params == NULL) return vector<id_attributes>();
+    if(params == NULL) return vector<type_attributes>();
     return params->get_types();
 }
 
@@ -70,8 +70,8 @@ bool function_declarator::compare_existing_symbol(string id, symbol* sym)
         return false;
     }
 
-    vector<id_attributes> prev_decl_param_types = ((function_declarator*)sym->decl_ptr)->get_param_types();
-    vector<id_attributes> curr_decl_param_types = get_param_types();
+    vector<type_attributes> prev_decl_param_types = ((function_declarator*)sym->decl_ptr)->get_param_types();
+    vector<type_attributes> curr_decl_param_types = get_param_types();
 
     if(!compare_param_types(prev_decl_param_types, curr_decl_param_types))
     {
@@ -83,7 +83,7 @@ bool function_declarator::compare_existing_symbol(string id, symbol* sym)
     return true;
 }
 
-bool function_declarator::compare_param_types(vector<id_attributes> prev_decl, vector<id_attributes> curr_decl)
+bool function_declarator::compare_param_types(vector<type_attributes> prev_decl, vector<type_attributes> curr_decl)
 {
     if(prev_decl.size() != curr_decl.size()) return false;
 

@@ -10,7 +10,7 @@ int rand_expression::get_kind()
     return SRAND_EXPR;
 }
 
-id_attributes rand_expression::get_type()
+type_attributes rand_expression::get_type()
 {
     return { INT, false, SIMPLE, false };
 }

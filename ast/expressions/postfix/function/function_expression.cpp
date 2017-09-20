@@ -11,11 +11,11 @@ int function_expression::get_kind()
     return FUNCTION_EXPR;
 }
 
-id_attributes function_expression::get_type()
+type_attributes function_expression::get_type()
 {
-    id_attributes id_type = id->get_type();
-    id_attributes arg_types;
-    id_attributes type;
+    type_attributes id_type = id->get_type();
+    type_attributes arg_types;
+    type_attributes type;
 
     if(id_type.semantic_fail) return id_type;
     if(id_type.kind != FUNCTION)
@@ -27,7 +27,7 @@ id_attributes function_expression::get_type()
 
     string *id_operand = id->get_operand_id();
     symbol *id_sym = sym_table.get_symbol(*id_operand);
-    vector<id_attributes> attrs = ((function_declarator*)id_sym->decl_ptr)->get_param_types();
+    vector<type_attributes> attrs = ((function_declarator*)id_sym->decl_ptr)->get_param_types();
 
     delete id_operand;
 

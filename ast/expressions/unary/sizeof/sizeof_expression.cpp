@@ -12,11 +12,11 @@ int sizeof_expression::get_kind()
     return SIZEOF_EXPR;
 }
 
-id_attributes sizeof_expression::get_type()
+type_attributes sizeof_expression::get_type()
 {
     if(type != NULL) return { INT, false, SIMPLE, false };
 
-    id_attributes expr_type = expr->get_type();
+    type_attributes expr_type = expr->get_type();
     if(expr_type.semantic_fail) return expr_type;
     if(expr_type.kind != ARRAY) return { INT, false, SIMPLE, false };
 

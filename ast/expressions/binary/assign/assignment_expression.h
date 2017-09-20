@@ -18,9 +18,9 @@ public:
     }
     string to_string();
     int get_kind();
-    id_attributes get_type();
-    map<string, id_attributes> get_rules();
-    //string generate_mips();
+    type_attributes get_type();
+    map<string, type_attributes> get_rules();
+    asm_code *generate_code(stack_manager *manager);
 };
 
 #endif // ASSIGNMENT_EXPRESSION

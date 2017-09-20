@@ -15,7 +15,7 @@ int int_expression::get_kind()
     return INT_EXPR;
 }
 
-id_attributes int_expression::get_type()
+type_attributes int_expression::get_type()
 {
     return { INT, false, SIMPLE, false };
 }
