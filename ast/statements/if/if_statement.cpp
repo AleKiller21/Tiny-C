@@ -25,3 +25,52 @@ void if_statement::validate_semantic(bool is_loop_statement, bool *has_return)
 
     if(has_return != NULL && (true_return && false_return)) *has_return = true;
 }
+
+string *if_statement::generate_code(stack_manager *manager)
+{
+    asm_code *cond_code = condition->generate_code(manager);
+    string *true_code = true_block->generate_code(manager);
+    string end_label = lbl_manager.get_free_label("endif");;
+    string treg;
+    string code;
+
+    if(!condition->is_code)
+    {
+        treg = reg_manager.get_register(false);
+        code = "\tli " + treg + ", " + std::to_string(cond_code->constant) + "\n";
+    }
+
+    else
+    {
+        code = cond_code->code;
+        reg_manager.free_register(cond_code->place);
+        treg = cond_code->place;
+    }
+
+    if(false_block == NULL)
+    {
+        code += "\tbeqz " + treg + ", " + end_label + "\n";
+        code += *true_code;
+        code += end_label + ":\n";
+    
+        delete cond_code;
+        delete true_code;
+        return new string(code);
+    }
+
+    string *false_code = false_block->generate_code(manager);
+    string false_label = lbl_manager.get_free_label("if_false");
+
+    code += "\tbeqz " + treg + ", " + false_label + "\n";
+    code += *true_code;
+    code += "\tj " + end_label + "\n";
+    code += false_label + ":\n";
+    code += *false_code;
+    code += end_label + ":\n";
+
+    delete cond_code;
+    delete true_code;
+    delete false_code;
+
+    return new string(code);
+}

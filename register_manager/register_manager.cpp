@@ -40,6 +40,8 @@ string register_manager::get_register(bool preserved)
             return it->first;
         }
     }
+
+    return "";
 }
 
 void register_manager::free_register(string reg)

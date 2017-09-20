@@ -7,8 +7,12 @@
 #include "../../symbol_table/symbol_table.h"
 #include "../../comp_utils/comp_utils.h"
 #include "../../stack_manager/stack_manager.h"
+#include "../../label_manager/label_manager.h"
+#include "../../register_manager/register_manager.h"
 
 extern symbol_table sym_table;
+extern label_manager lbl_manager;
+extern register_manager reg_manager;
 
 #define BLOCK_STMT      1
 #define BREAK_STMT      2

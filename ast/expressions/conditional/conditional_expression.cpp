@@ -98,6 +98,8 @@ asm_code *conditional_expression::generate_code(stack_manager *manager)
 
     code += end_label + ":\n";
     expr_code = new asm_code { code, treg, -1 };
-    delete eval_expr_code, true_expr_code, false_expr_code;
+    delete eval_expr_code;
+    delete true_expr_code;
+    delete false_expr_code;
     return expr_code;
 }
