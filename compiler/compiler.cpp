@@ -72,7 +72,7 @@ void compiler::generate_code()
     string code;
 
     for(list<external_declaration*>::iterator it = source_code.begin(); it != source_code.end(); it++)
-{
+    {
         string *fragment = (*it)->generate_code();
         code += *fragment;
         

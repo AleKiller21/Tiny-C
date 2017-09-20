@@ -2,6 +2,12 @@
 #define ASSIGNMENT_EXPRESSION
 
 #include "../binary_expression.h"
+#include "../../primary/id/id_expression.h"
+#include <map>
+
+using namespace std;
+
+extern map<string, string> data_section;
 
 class assignment_expression : public binary_expression
 {
@@ -15,8 +21,12 @@ public:
 
         rules["int*,int*"]      = { INT, true, SIMPLE, false };
         rules["char*,char*"]    = { CHAR, true, SIMPLE, false };
+
+        is_code = true;
     }
+    
     string to_string();
+    string choose_store_format(string type);
     int get_kind();
     type_attributes get_type();
     map<string, type_attributes> get_rules();

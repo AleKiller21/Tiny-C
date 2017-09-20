@@ -5,6 +5,12 @@ string assignment_expression::to_string()
     return expr1->to_string() + "= " + expr2->to_string();
 }
 
+string assignment_expression::choose_store_format(string type)
+{
+    if(type == WORD) return "\tsw ";
+    return "\tsb ";
+}
+
 int assignment_expression::get_kind()
 {
     return ASSIGN_EXPR;
@@ -52,5 +58,38 @@ type_attributes assignment_expression::get_type()
 
 asm_code *assignment_expression::generate_code(stack_manager *manager)
 {
-    //TODO: Crear una funcion is_id_global que me dira si el id operando de una expresion es global o no
+    asm_code *expr2_code = expr2->generate_code(manager);
+    string code;
+    string treg;
+
+    if(!expr2->is_code)
+    {
+        treg = reg_manager.get_register(false);
+        code = "\tli " + treg + ", " + std::to_string(expr2_code->constant) + "\n";
+    }
+
+    else
+    {
+        code = expr2_code->code;
+        treg = expr2_code->place;
+    }
+
+    if(expr1->get_kind() == ID_EXPR)
+    {
+        id_expression *id_expr = (id_expression*)expr1;
+        string *id = id_expr->get_operand_id();
+        if(id_expr->is_global)
+            code += choose_store_format(data_section[*id]) + treg + ", " + *id + "\n";
+        
+        else code += manager->store_into_var(treg, *id);
+        delete id;
+    }
+
+    string temp = treg;
+    reg_manager.free_register(treg);
+    treg = reg_manager.get_register(false);
+    code += "\tmove " + treg + ", " + temp + "\n";
+
+    delete expr2_code;
+    return new asm_code { code, treg, -1 };
 }

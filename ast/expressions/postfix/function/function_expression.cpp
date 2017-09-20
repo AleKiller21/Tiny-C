@@ -15,7 +15,6 @@ type_attributes function_expression::get_type()
 {
     type_attributes id_type = id->get_type();
     type_attributes arg_types;
-    type_attributes type;
 
     if(id_type.semantic_fail) return id_type;
     if(id_type.kind != FUNCTION)

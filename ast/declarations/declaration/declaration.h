@@ -19,6 +19,7 @@ public:
 
     string to_string();
     string *generate_code(stack_manager *manager);
+    string *generate_code();
     list<stack_entry> *create_stack_entries();
     void validate_semantic();
 };

@@ -29,6 +29,11 @@ string* declaration::generate_code(stack_manager *manager)
     return declarators->generate_code(manager);
 }
 
+string* declaration::generate_code()
+{
+    return declarators->generate_code(NULL);
+}
+
 list<stack_entry>* declaration::create_stack_entries()
 {
     return declarators->create_stack_entries();
