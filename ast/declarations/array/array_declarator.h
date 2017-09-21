@@ -18,6 +18,8 @@ private:
     bool set_size();
     void set_stack_displacement();
     void generate_global_code(stack_manager *manager);
+    void generate_code_global_initialization(stack_manager *manager, list<expression*> *init_exprs, string *str_value);
+    void generate_code_local_initialization(stack_manager *manager, list<expression*> *init_exprs, string *code, int *offset);
     string *generate_local_code(stack_manager *manager);
 
 public:
@@ -28,7 +30,6 @@ public:
 
     string to_string();
     string *generate_code(stack_manager *manager);
-    void generate_code_global_initialization(stack_manager *manager, list<expression*> *init_exprs, string *str_value);
     stack_entry *create_stack_entry();
     void validate_semantic();
     bool has_range();

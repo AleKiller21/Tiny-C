@@ -37,7 +37,6 @@ void block_statement::push_statement(statement *stmt)
 
 string* block_statement::generate_code(stack_manager *manager, string nearest_loop, string nearest_loop_end)
 {
-    //TODO: Tomar en consideracion que pueden haber bloques anidades. Sin embargo, el size del stack solo se calcula una vez al mero inicio de la funcion
     string code;
     string *statements_code;
 

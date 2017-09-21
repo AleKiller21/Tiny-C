@@ -189,7 +189,33 @@ void array_declarator::generate_global_code(stack_manager *manager)
 
 string *array_declarator::generate_local_code(stack_manager *manager)
 {
-    return new string();
+    list<expression*> init_exprs;
+    string code, treg;
+    int offset = 0;
+    
+    if(!has_range() && init != NULL)
+    {
+        init_exprs = init->list_expr->get_list();
+        generate_code_local_initialization(manager, &init_exprs, &code, &offset);
+    }
+
+    else if(has_range() && init != NULL)
+    {
+        string str_value;
+        init_exprs = init->list_expr->get_list();
+
+        generate_code_local_initialization(manager, &init_exprs, &code, &offset);
+        if(size > init_exprs.size())
+        {
+            for(int i = 0; i < size - init_exprs.size(); i++)
+            {
+                code += manager->store_into_var("$zero", get_id(), offset);
+                offset++;
+            }
+        }
+    }
+
+    return new string(code);
 }
 
 stack_entry *array_declarator::create_stack_entry()
@@ -219,6 +245,33 @@ void array_declarator::generate_code_global_initialization(stack_manager *manage
     }
 
     str_value->erase(str_value->size() - 2);
+}
+
+void array_declarator::generate_code_local_initialization(stack_manager *manager, list<expression*> *init_exprs, string *code, int *offset)
+{
+    string treg;
+
+    for(list<expression*>::iterator it = init_exprs->begin(); it != init_exprs->end(); it++)
+    {    
+        asm_code *value = (*it)->generate_code(manager);
+        if(!(*it)->is_code)
+        {
+            treg = reg_manager.get_register(false);
+            *code += "\tli " + treg + ", " + std::to_string(value->constant) + "\n";
+            *code += manager->store_into_var(treg, get_id(), *offset);
+            reg_manager.free_register(treg);
+        }
+
+        else
+        {
+            *code += value->code;
+            *code += manager->store_into_var(value->place, get_id(), *offset);
+            reg_manager.free_register(value->place);
+        }
+
+        *offset += 1;
+        delete value;
+    }
 }
 
 bool array_declarator::set_size()

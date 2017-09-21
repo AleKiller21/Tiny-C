@@ -75,7 +75,7 @@ bool parameter_list::validate_semantic()
             continue;
         }
 
-        if (decl->type == INT) compiler::increase_stack_displacement(4);
+        if (decl->type == INT || decl->pointer) compiler::increase_stack_displacement(4);
         else compiler::increase_stack_displacement(1);
         
         sym_table.add_symbol(id, new symbol { decl->type, decl->get_position(), true , decl->pointer, SIMPLE, decl } );
