@@ -42,9 +42,6 @@ string* declaration_list::generate_code(stack_manager *manager)
 string declaration_list::map_variables_to_stack(stack_manager *manager)
 {
     string code;
-    bool is_word;
-    int stack_displacement;
-    int size;
 
     for(list<declaration*>::iterator it = declarations.begin(); it != declarations.end(); it++)
     {
@@ -55,14 +52,11 @@ string declaration_list::map_variables_to_stack(stack_manager *manager)
             string id = (*it).var_id;
             manager->vars[id] = *it;
 
-            is_word = manager->vars[id].asm_type == WORD;
-            size = is_word ? 4 : 1;
-
             if(manager->vars[id].asm_type == WORD)
                 while(manager->current_byte_offset % 4 != 0) manager->current_byte_offset++;
 
             manager->vars[id].byte_offset = manager->current_byte_offset;
-            manager->current_byte_offset += size;
+            manager->current_byte_offset += (*it).size;
         }
 
         decls->clear();

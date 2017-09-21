@@ -12,11 +12,13 @@ class array_declarator : public declarator
 {
 private:
     expression* index_expr;
-    bool validate_initialization();
-    void generate_global_code(stack_manager *manager);
-    void set_size();
-    string *generate_local_code(stack_manager *manager);
     int size;
+    
+    bool validate_initialization();
+    bool set_size();
+    void set_stack_displacement();
+    void generate_global_code(stack_manager *manager);
+    string *generate_local_code(stack_manager *manager);
 
 public:
     array_declarator(int position, string* id, expression* index) : declarator(id, position, ARRAY)

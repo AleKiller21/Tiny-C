@@ -27,10 +27,11 @@ void array_declarator::validate_semantic()
     if(!validate_type(id) || !validate_pointer(id) || !validate_range(id)) return;
     if(!validate_existance(id, sym, get_kind())) return;
     if(!validate_initialization()) return;
+    if(!set_size()) return;
     
     if(sym == NULL)
     {
-        //TODO: incrementar el stack displacement de acuerdo al size del arreglo
+        set_stack_displacement();
         bool is_initialized = init != NULL ? true : false;
         sym_table.add_symbol(id, new symbol { type, get_position(), is_initialized , pointer, get_kind(), this, is_global } );
         if(!is_initialized && is_global) redund_manager.push_declaration(id, { declaration_pos, declarator_pos, false, this });
@@ -152,16 +153,11 @@ void array_declarator::generate_global_code(stack_manager *manager)
 {
     string asm_type = comp_utils::determine_asm_type(type, pointer);
 
-    if(!has_range() && init == NULL)
-    {
-        size = 1;
-        compiler::add_data_section(get_id(), asm_type, "0");
-    }
+    if(!has_range() && init == NULL) compiler::add_data_section(get_id(), asm_type, "0");
 
     else if(has_range() && init == NULL)
     {
         string value = "0";
-        set_size();
         for(int i = 0; i < size - 1; i++) value += ", 0";
 
         compiler::add_data_section(get_id(), asm_type, value);
@@ -171,7 +167,6 @@ void array_declarator::generate_global_code(stack_manager *manager)
     {
         string str_value;
         list<expression*> init_exprs = init->list_expr->get_list();
-        size = init_exprs.size();
         
         generate_code_global_initialization(manager, &init_exprs, &str_value);
         compiler::add_data_section(get_id(), asm_type, str_value);
@@ -181,13 +176,6 @@ void array_declarator::generate_global_code(stack_manager *manager)
     {
         string str_value;
         list<expression*> init_exprs = init->list_expr->get_list();
-        set_size();
-
-        if(size < init_exprs.size())
-        {
-            comp_utils::show_message("error", "the number of elements in initializer is greater than the established size of the array", get_position());
-            return;
-        }
 
         generate_code_global_initialization(manager, &init_exprs, &str_value);
         if(size > init_exprs.size())
@@ -201,13 +189,18 @@ void array_declarator::generate_global_code(stack_manager *manager)
 
 string *array_declarator::generate_local_code(stack_manager *manager)
 {
-
+    return new string();
 }
 
-stack_entry* array_declarator::create_stack_entry()
+stack_entry *array_declarator::create_stack_entry()
 {
-    //TODO: Calcular el size que ocupara el arreglo en el stack
-    return NULL;
+    string asm_type;
+    int displacement;
+    
+    if(type == INT) { asm_type = WORD; displacement = 4 * size; }
+    if(type == CHAR) { asm_type = BYTE; displacement = size; }
+
+    return new stack_entry { asm_type, get_id(), -1, displacement };
 }
 
 void array_declarator::generate_code_global_initialization(stack_manager *manager, list<expression*> *init_exprs, string *str_value)
@@ -228,7 +221,35 @@ void array_declarator::generate_code_global_initialization(stack_manager *manage
     str_value->erase(str_value->size() - 2);
 }
 
-void array_declarator::set_size()
+bool array_declarator::set_size()
 {
-    size = index_expr->get_kind() == INT_EXPR ? ((int_expression*)index_expr)->get_value() : ((char_expression*)index_expr)->get_value();
+    if(!has_range() && init == NULL) { size = 1; }
+
+    else if(has_range() && init == NULL)
+        size = index_expr->get_kind() == INT_EXPR ? ((int_expression*)index_expr)->get_value() : ((char_expression*)index_expr)->get_value();
+
+    else if(!has_range() && init != NULL) size = init->list_expr->get_list().size();
+
+    else if(has_range() && init != NULL)
+    {
+        string str_value;
+        list<expression*> init_exprs = init->list_expr->get_list();
+        size = index_expr->get_kind() == INT_EXPR ? ((int_expression*)index_expr)->get_value() : ((char_expression*)index_expr)->get_value();
+
+        if(size < init_exprs.size())
+        {
+            comp_utils::show_message("error", "the number of elements in initializer is greater than the established size of the array", get_position());
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void array_declarator::set_stack_displacement()
+{
+    if(is_global) return;
+    
+    if (type == INT) compiler::increase_stack_displacement(size * 4);
+    else compiler::increase_stack_displacement(size);
 }

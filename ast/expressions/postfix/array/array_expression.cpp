@@ -14,7 +14,6 @@ type_attributes array_expression::get_type()
 {
     type_attributes index_type = index->get_type();
     type_attributes expr_type = expr->get_type();
-    type_attributes type;
 
     if(expr_type.semantic_fail) return expr_type;
     

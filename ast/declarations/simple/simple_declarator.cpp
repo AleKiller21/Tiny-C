@@ -23,7 +23,7 @@ void simple_declarator::validate_semantic()
 
     if(sym == NULL)
     {
-        if(!is_global) compiler::increase_stack_displacement(type);
+        if(!is_global) compiler::increase_stack_displacement(4);
         
         bool is_initialized = init != NULL ? true : false;
         sym_table.add_symbol(id, new symbol { type, get_position(), is_initialized , pointer, get_kind(), this, is_global } );
@@ -162,9 +162,10 @@ void simple_declarator::generate_global_code()
 stack_entry* simple_declarator::create_stack_entry()
 {
     string asm_type;
+    int size;
     
-    if(pointer || type == INT) asm_type = WORD;
-    if(type == CHAR) asm_type = BYTE;
+    if(pointer || type == INT) { asm_type = WORD; size = 4; }
+    if(type == CHAR) { asm_type = BYTE; size = 1; }
 
-    return new stack_entry { asm_type, get_id(), -1 };
+    return new stack_entry { asm_type, get_id(), -1, size };
 }

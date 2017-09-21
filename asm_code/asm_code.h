@@ -21,6 +21,7 @@ struct stack_entry
     string asm_type;
     string var_id;
     int byte_offset;
+    int size;
 };
 
 #endif // ASM_CODE

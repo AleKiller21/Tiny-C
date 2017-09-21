@@ -32,7 +32,7 @@ public:
     void validate_semantic();
     void mark_unnecessary_nodes();
     static void add_data_section(string label, string type, string value);
-    static void increase_stack_displacement(int type);
+    static void increase_stack_displacement(int size);
     static string add_string_literal(string literal);
     void generate_code();
 };
