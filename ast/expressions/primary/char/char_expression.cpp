@@ -10,6 +10,11 @@ int char_expression::get_kind()
     return CHAR_EXPR;
 }
 
+int char_expression::get_value()
+{
+    return value;
+}
+
 type_attributes char_expression::get_type()
 {
     return { CHAR, false, SIMPLE, false };

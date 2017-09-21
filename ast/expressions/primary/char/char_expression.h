@@ -18,6 +18,7 @@ public:
     
     string to_string();
     int get_kind();
+    int get_value();
 
     type_attributes get_type();
     asm_code *generate_code(stack_manager *manager);

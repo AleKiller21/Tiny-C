@@ -15,6 +15,11 @@ int int_expression::get_kind()
     return INT_EXPR;
 }
 
+int int_expression::get_value()
+{
+    return value;
+}
+
 type_attributes int_expression::get_type()
 {
     return { INT, false, SIMPLE, false };
