@@ -18,6 +18,7 @@ public:
     stack_manager();
     
     int get_var_offset(string id);
+    string get_var_type(string id);
     string store_into_var(string reg, string id, int offset = 0);
     string load_from_var(string reg, string id, int offset = 0);
     string save_sregister(string sreg);

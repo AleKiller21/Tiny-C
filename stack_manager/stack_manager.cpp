@@ -11,6 +11,11 @@ int stack_manager::get_var_offset(string id)
     return vars[id].byte_offset;
 }
 
+string stack_manager::get_var_type(string id)
+{
+    return vars[id].asm_type;
+}
+
 string stack_manager::load_from_var(string reg, string id, int offset)
 {
     stack_entry entry = vars[id];    

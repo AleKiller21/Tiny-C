@@ -23,15 +23,6 @@ void compiler::add_data_section(string label, string type, string value)
 
 void compiler::increase_stack_displacement(int size)
 {
-    // switch(type)
-    // {
-    //     case INT:
-    //         stack_displacements[stack_displacements.size() - 1] = stack_displacements.back() + 4;
-    //         break;
-    //     case CHAR:
-    //         stack_displacements[stack_displacements.size() - 1] = stack_displacements.back() + 1;
-    //         break;
-    // }
     stack_displacements[stack_displacements.size() - 1] = stack_displacements.back() + size;
 }
 
