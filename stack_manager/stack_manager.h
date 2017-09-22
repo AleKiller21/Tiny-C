@@ -17,10 +17,13 @@ public:
 
     stack_manager();
     
+    bool is_argument(string id);
     int get_var_offset(string id);
     string get_var_type(string id);
     string store_into_var(string reg, string id);
     string load_from_var(string reg, string id);
+    string store_array_base_address_from_arguments(string reg, string id);
+    string load_array_base_address_from_arguments(string reg, string id);
     string load_from_array(string reg, string id, int offset);
     string store_into_array(string reg, string id, int offset);
     string save_sregister(string sreg);

@@ -130,7 +130,10 @@ string function_definition::map_arguments_to_stack()
             while(stck_manager->current_byte_offset % 4 != 0) stck_manager->current_byte_offset++;
 
         stck_manager->vars[id].byte_offset = stck_manager->current_byte_offset;
-        code += stck_manager->store_into_var("$a" + std::to_string(counter++), id);
+
+        if(stck_manager->vars[id].is_array) code += stck_manager->store_array_base_address_from_arguments("$a" + std::to_string(counter++), id);
+        else code += stck_manager->store_into_var("$a" + std::to_string(counter++), id);
+        
         stck_manager->current_byte_offset += size;
 
         delete arg_entry;

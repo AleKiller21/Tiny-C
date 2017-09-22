@@ -92,7 +92,9 @@ asm_code *array_expression::generate_array_expression_code(stack_manager *manage
             int base_address_offset = manager->get_var_offset(*id);
             string type = manager->get_var_type(*id);
 
-            code += "\taddi " + base_reg + ", $fp, " + std::to_string(base_address_offset) + "\n";
+            if(manager->is_argument(*id)) code += manager->load_array_base_address_from_arguments(base_reg, *id);
+            else code += "\taddi " + base_reg + ", $fp, " + std::to_string(base_address_offset) + "\n";
+
             if(type == WORD) code += "\tsll " + indx_expr->place + ", " + indx_expr->place + ", 2\n";
             code += "\tadd " + base_reg + ", " + base_reg + ", " + indx_expr->place + "\n";
 

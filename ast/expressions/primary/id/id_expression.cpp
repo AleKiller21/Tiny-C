@@ -40,6 +40,7 @@ asm_code* id_expression::generate_code(stack_manager *manager)
         else code = manager->load_from_var(treg, lexeme);
     }
 
+    //TODO: Considerar que el arreglo puede venir de argumento. Entonces seria un SIMPLE con puntero y habria que mandar la direccion base de este
     else if(kind == ARRAY)
     {
         if(is_global) code = "\tla " + treg + ", " + lexeme + "\n";
