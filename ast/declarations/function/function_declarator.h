@@ -27,7 +27,7 @@ public:
     string *generate_code(stack_manager *manager);
     bool compare_existing_symbol(string id, symbol* sym);
     bool compare_param_types(vector<type_attributes> prev_decl, vector<type_attributes> curr_decl);
-    bool validate_params();
+    bool validate_params(bool calculate_stack_displacement);
     void validate_semantic();
 };
 

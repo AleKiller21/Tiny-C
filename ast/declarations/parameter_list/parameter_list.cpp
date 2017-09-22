@@ -39,7 +39,7 @@ void parameter_list::add_param(declarator* param)
     params.push_back(param);
 }
 
-bool parameter_list::validate_semantic()
+bool parameter_list::validate_semantic(bool calculate_stack_displacement)
 {
     for(list<declarator*>::iterator it = params.begin(); it != params.end(); it++)
     {
@@ -75,8 +75,8 @@ bool parameter_list::validate_semantic()
             continue;
         }
 
-        if (decl->type == INT || decl->pointer) compiler::increase_stack_displacement(4);
-        else compiler::increase_stack_displacement(1);
+        if ((decl->type == INT || decl->pointer) && calculate_stack_displacement) compiler::increase_stack_displacement(4);
+        else if(calculate_stack_displacement) compiler::increase_stack_displacement(1);
         
         sym_table.add_symbol(id, new symbol { decl->type, decl->get_position(), true , decl->pointer, SIMPLE, decl } );
     }

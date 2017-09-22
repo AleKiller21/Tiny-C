@@ -24,7 +24,7 @@ public:
     list<declarator*> get_params();
     void add_param(declarator* param);
     // string generate_mips();
-    bool validate_semantic();
+    bool validate_semantic(bool calculate_stack_displacement);
     int get_params_amount();
 };
 

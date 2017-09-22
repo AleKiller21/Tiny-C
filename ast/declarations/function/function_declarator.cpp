@@ -38,7 +38,7 @@ void function_declarator::validate_semantic()
     if(sym == NULL)
     {
         sym_table.push_scope();
-        validate_params();
+        validate_params(false);
         sym_table.pop_scope();
 
         sym_table.add_symbol(id, new symbol { type, get_position(), false , pointer, get_kind(), this, is_global } );
@@ -49,7 +49,7 @@ void function_declarator::validate_semantic()
     if(!compare_existing_symbol(id, sym)) return;
 
     sym_table.push_scope();
-    validate_params();
+    validate_params(false);
     sym_table.pop_scope();
 
     redund_manager.push_declaration(id, { declaration_pos, declarator_pos, true, this });
@@ -103,7 +103,7 @@ bool function_declarator::compare_param_types(vector<type_attributes> prev_decl,
     return true;
 }
 
-bool function_declarator::validate_params()
+bool function_declarator::validate_params(bool calculate_stack_displacement)
 {
     if(params == NULL) return true;
     if(params->get_params_amount() > 4)
@@ -112,7 +112,7 @@ bool function_declarator::validate_params()
         return false;
     }
     
-    return params->validate_semantic();
+    return params->validate_semantic(calculate_stack_displacement);
 }
 
 string* function_declarator::generate_code(stack_manager *manager)
