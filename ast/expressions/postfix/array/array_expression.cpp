@@ -36,11 +36,17 @@ type_attributes array_expression::get_type()
 
 asm_code *array_expression::generate_code(stack_manager *manager)
 {
+    string treg = reg_manager.get_register(false);
+    return generate_array_expression_code(manager, treg);
+}
+
+asm_code *array_expression::generate_array_expression_code(stack_manager *manager, string reg, string memory_access_operation)
+{
     asm_code *expr_code;
     asm_code *indx_expr = index->generate_code(manager);
     id_expression *id_expr = (id_expression*)expr;
     string *id = id_expr->get_operand_id();
-    string treg = reg_manager.get_register(false);
+    string mem_access = !memory_access_operation.compare("load") ? "\tl" : "\ts";
     string code;
 
     if(!index->is_code)
@@ -51,13 +57,17 @@ asm_code *array_expression::generate_code(stack_manager *manager)
             int offset;
             string base_reg = reg_manager.get_register(false);
             code = "\tla " + base_reg + ", " + *id + "\n";
-            if(data_section[*id] == WORD) { code += "\tlw "; offset = indx_expr->constant * 4; }
-            else { code += "\tlb "; offset = indx_expr->constant; }
+            if(data_section[*id] == WORD) { code += mem_access + "w "; offset = indx_expr->constant * 4; }
+            else { code += mem_access + "b "; offset = indx_expr->constant; }
 
             reg_manager.free_register(base_reg);
-            code += treg + ", " + std::to_string(offset) + "(" + base_reg + ")" + "\n";
+            code += reg + ", " + std::to_string(offset) + "(" + base_reg + ")" + "\n";
         }
-        else code = manager->load_from_var(treg, *id, indx_expr->constant);
+        else
+        {
+            if(!memory_access_operation.compare("load")) code = manager->load_from_var(reg, *id, indx_expr->constant);
+            else code = manager->store_into_var(reg, *id, indx_expr->constant);
+        }
     }
 
     else
@@ -72,10 +82,10 @@ asm_code *array_expression::generate_code(stack_manager *manager)
             code += "\tla " + base_reg + ", " + *id + "\n";
             if(is_word) code += "\tsll " + indx_expr->place + ", " + indx_expr->place + ", 2\n";
             code += "\tadd " + base_reg + ", " + base_reg + ", " + indx_expr->place + "\n";
-            if(is_word) code += "\tlw ";
-            else code += "\tlb ";
+            if(is_word) code += mem_access + "w ";
+            else code += mem_access + "b ";
 
-            code += treg + ", " + "(" + base_reg + ")" + "\n";
+            code += reg + ", " + "(" + base_reg + ")" + "\n";
         }
         else
         {
@@ -86,44 +96,20 @@ asm_code *array_expression::generate_code(stack_manager *manager)
             if(type == WORD) code += "\tsll " + indx_expr->place + ", " + indx_expr->place + ", 2\n";
             code += "\tadd " + base_reg + ", " + base_reg + ", " + indx_expr->place + "\n";
 
-            if(type == WORD) code += "\tlw ";
-            else code += "\tlb ";
+            if(type == WORD) code += mem_access + "w ";
+            else code += mem_access + "b ";
 
-            code += treg + ", " + "(" + base_reg + ")" + "\n";
+            code += reg + ", " + "(" + base_reg + ")" + "\n";
         }
 
         reg_manager.free_register(indx_expr->place);
         reg_manager.free_register(base_reg);
     }
 
-    expr_code = new asm_code { code, treg, -1 };
+    expr_code = new asm_code { code, reg, -1 };
     delete indx_expr;
     delete id_expr;
     delete id;
 
     return expr_code;
-}
-
-string array_expression::load_base_address(stack_manager *manager)
-{
-    string code;
-
-    // if(expr->get_kind() == ID_EXPR)
-    // {
-    //     id_expression *id_expr = (id_expression*)expr;
-    //     string *id = id_expr->get_operand_id();
-    //     if(id_expr->is_global)
-    //     {
-    //         string base_reg = reg_manager.get_register(false);
-    //         code = "\tla " + base_reg + ", " + *id + "\n";
-    //         if(data_section[*id] == WORD) code += "\tlw ";
-    //         else code += "\tlb ";
-
-    //         reg_manager.free_register(base_reg);
-    //         return code;
-    //     }
-        
-    //     else code += manager->store_into_var(reg, *id);
-    //     delete id;
-    // }
 }

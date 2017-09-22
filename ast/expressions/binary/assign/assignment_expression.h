@@ -3,6 +3,7 @@
 
 #include "../binary_expression.h"
 #include "../../primary/id/id_expression.h"
+#include "../../postfix/array/array_expression.h"
 #include <map>
 
 using namespace std;

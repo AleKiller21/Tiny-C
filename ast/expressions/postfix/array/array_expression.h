@@ -12,8 +12,6 @@ private:
     expression* expr;
     expression* index;
 
-    string load_base_address(stack_manager *manager);
-
 public:
     array_expression(expression* expr, expression* index, int position) : expression(position)
     {
@@ -27,6 +25,7 @@ public:
     int get_kind();
     type_attributes get_type();
     asm_code *generate_code(stack_manager *manager);
+    asm_code *generate_array_expression_code(stack_manager *manager, string reg, string memory_access_operation = "load");
 };
 
 #endif // ARRAY_EXPRESSION

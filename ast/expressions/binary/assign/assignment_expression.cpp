@@ -60,18 +60,22 @@ asm_code *assignment_expression::generate_code(stack_manager *manager)
 {
     asm_code *expr2_code = expr2->generate_code(manager);
     string code;
-    string treg;
+    string sreg;
 
     if(!expr2->is_code)
     {
-        treg = reg_manager.get_register(false);
-        code = "\tli " + treg + ", " + std::to_string(expr2_code->constant) + "\n";
+        sreg = reg_manager.get_register(true);
+        code += manager->save_sregister(sreg);
+        code += "\tli " + sreg + ", " + std::to_string(expr2_code->constant) + "\n";
     }
 
     else
     {
-        code = expr2_code->code;
-        treg = expr2_code->place;
+        code += expr2_code->code;
+        reg_manager.free_register(expr2_code->place);
+        sreg = reg_manager.get_register(true);
+        code += manager->save_sregister(sreg);
+        code += "\tmove " + sreg + ", " + expr2_code->place + "\n";
     }
 
     if(expr1->get_kind() == ID_EXPR)
@@ -79,17 +83,19 @@ asm_code *assignment_expression::generate_code(stack_manager *manager)
         id_expression *id_expr = (id_expression*)expr1;
         string *id = id_expr->get_operand_id();
         if(id_expr->is_global)
-            code += choose_store_format(data_section[*id]) + treg + ", " + *id + "\n";
+            code += choose_store_format(data_section[*id]) + sreg + ", " + *id + "\n";
         
-        else code += manager->store_into_var(treg, *id);
+        else code += manager->store_into_var(sreg, *id);
         delete id;
     }
 
-    string temp = treg;
-    reg_manager.free_register(treg);
-    treg = reg_manager.get_register(false);
-    code += "\tmove " + treg + ", " + temp + "\n";
+    else if(expr1->get_kind() == ARRAY_EXPR)
+    {
+        asm_code *array_store = ((array_expression*)expr1)->generate_array_expression_code(manager, sreg, "store");
+        code += array_store->code;
+        delete array_store;
+    }
 
     delete expr2_code;
-    return new asm_code { code, treg, -1 };
+    return new asm_code { code, sreg, -1 };
 }
