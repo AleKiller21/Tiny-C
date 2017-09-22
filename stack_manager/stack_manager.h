@@ -18,6 +18,7 @@ public:
     stack_manager();
     
     bool is_argument(string id);
+    
     int get_var_offset(string id);
     string get_var_type(string id);
     string store_into_var(string reg, string id);

@@ -37,6 +37,7 @@ asm_code* id_expression::generate_code(stack_manager *manager)
     if(kind == SIMPLE)
     {
         if(is_global) code = choose_load_format(data_section[lexeme]) + treg + ", " + lexeme + "\n";
+        else if(manager->vars[lexeme].is_array) code = manager->load_array_base_address_from_arguments(treg, lexeme);
         else code = manager->load_from_var(treg, lexeme);
     }
 
