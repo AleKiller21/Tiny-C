@@ -21,7 +21,6 @@ public:
     string to_string();
     int get_kind();
     type_attributes get_type();
-    // string generate_mips(); TODO: generar codigo
 };
 
 #endif // CAST_EXPRESSION

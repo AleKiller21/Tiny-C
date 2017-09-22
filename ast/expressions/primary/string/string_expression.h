@@ -20,7 +20,6 @@ public:
     string get_lexeme();
     int get_kind();
     type_attributes get_type();
-    // string generate_mips(); TODO: generar codigo de strings
 };
 
 #endif // STRING_EXPRESSION
