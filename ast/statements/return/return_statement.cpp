@@ -35,10 +35,17 @@ string* return_statement::generate_code(stack_manager *manager, string nearest_l
         }
     }
     
-    for(int sregs_used = reg_manager.get_sregs_used(); sregs_used > 0; sregs_used--)
+    // for(int sregs_used = reg_manager.get_sregs_used(); sregs_used > 0; sregs_used--)
+    // {
+    //     code += "\tlw $s" + std::to_string(sregs_used - 1) + ", " + "($sp)\n";
+    //     code += "\taddi $sp, $sp, 4\n";
+    // }
+    int counter = manager->displacement - 12;
+    for(int i = 0; i < 8; i++)
     {
-        code += "\tlw $s" + std::to_string(sregs_used - 1) + ", " + "($sp)\n";
-        code += "\taddi $sp, $sp, 4\n";
+        code += "\tlw $s" + std::to_string(i) + ", " + std::to_string(counter) + "($fp)\n";
+        counter -= 4;
+        //code += "\taddi $sp, $sp, 4\n";
     }
 
     if(reset_sregisters) reg_manager.reset_sregisters();

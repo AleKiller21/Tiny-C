@@ -68,7 +68,7 @@ protected:
             if(right_operand_first)
             {
                 code = expr2_code->code;
-                code += manager->save_sregister(sreg);
+                // code += manager->save_sregister(sreg);
                 code += "\tmove " + sreg + ", $v0\n";
                 code += expr1_code->code;
                 expr2_code->place = sreg;
@@ -77,7 +77,7 @@ protected:
             else
             {
                 code = expr1_code->code;
-                code += manager->save_sregister(sreg);
+                // code += manager->save_sregister(sreg);
                 code += "\tmove " + sreg + ", $v0\n";
                 code += expr2_code->code;
                 expr1_code->place = sreg;

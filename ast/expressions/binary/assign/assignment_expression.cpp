@@ -65,7 +65,7 @@ asm_code *assignment_expression::generate_code(stack_manager *manager)
     if(!expr2->is_code)
     {
         sreg = reg_manager.get_register(true);
-        code += manager->save_sregister(sreg);
+        //code += manager->save_sregister(sreg);
         code += "\tli " + sreg + ", " + std::to_string(expr2_code->constant) + "\n";
     }
 
@@ -74,7 +74,7 @@ asm_code *assignment_expression::generate_code(stack_manager *manager)
         code += expr2_code->code;
         reg_manager.free_register(expr2_code->place);
         sreg = reg_manager.get_register(true);
-        code += manager->save_sregister(sreg);
+        //code += manager->save_sregister(sreg);
         code += "\tmove " + sreg + ", " + expr2_code->place + "\n";
     }
 

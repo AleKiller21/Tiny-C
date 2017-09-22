@@ -98,11 +98,19 @@ string function_definition::setup_stack()
     stck_manager->displacement = stack_displacements[stack_displacements_iterator];
 
     if(stck_manager->displacement % 4 != 0) stck_manager->displacement = (stck_manager->displacement / 4 + 1) * 4;
-    stck_manager->displacement += 8;
+    stck_manager->displacement += 40;
+    int counter = stck_manager->displacement - 12;
 
     string code = "\taddi $sp, $sp, -" + std::to_string(stck_manager->displacement) + "\n";
     code += "\tsw $fp, " + std::to_string(stck_manager->displacement - 4) + "($sp)\n";
     code += "\tsw $ra, " + std::to_string(stck_manager->displacement - 8) + "($sp)\n";
+
+    for(int i = 0; i < 8; i++)
+    {
+        code += "\tsw $s" + std::to_string(i) + ", " + std::to_string(counter) + "($sp)\n";
+        counter -= 4;
+    }
+
     code += "\tmove $fp, $sp\n\n";
 
     return code;

@@ -88,7 +88,7 @@ asm_code *function_expression::generate_code(stack_manager *manager)
         asm_code *arg_code = expr->generate_code(manager);
         string reg = reg_manager.get_register(true);
         code += arg_code->code;
-        code += manager->save_sregister(reg);
+        // code += manager->save_sregister(reg);
         code += "\tmove " + reg + ", " + arg_code->place + "\n";
         reg_manager.free_register(arg_code->place);
         sregs[counter++] = reg;
