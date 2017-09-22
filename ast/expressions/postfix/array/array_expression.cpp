@@ -65,8 +65,8 @@ asm_code *array_expression::generate_array_expression_code(stack_manager *manage
         }
         else
         {
-            if(!memory_access_operation.compare("load")) code = manager->load_from_var(reg, *id, indx_expr->constant);
-            else code = manager->store_into_var(reg, *id, indx_expr->constant);
+            if(!memory_access_operation.compare("load")) code = manager->load_from_array(reg, *id, indx_expr->constant);
+            else code = manager->store_into_array(reg, *id, indx_expr->constant);
         }
     }
 

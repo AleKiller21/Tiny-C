@@ -10,6 +10,7 @@ class id_expression : public expression
 {
 private:
     string lexeme;
+    int kind;
 
     string choose_load_format(string type);
 

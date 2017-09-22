@@ -119,13 +119,14 @@ string function_definition::map_arguments_to_stack()
     for(list<declarator*>::iterator it = params.begin(); it != params.end(); it++)
     {
         stack_entry *arg_entry = (*it)->create_stack_entry();
+        arg_entry->is_argument = true;
         string id = arg_entry->var_id;
         stck_manager->vars[id] = *arg_entry;
 
-        is_word = stck_manager->vars[id].asm_type == WORD;
+        is_word = stck_manager->vars[id].asm_type == WORD || stck_manager->vars[id].is_array;
         size = is_word ? 4 : 1;
 
-        if(stck_manager->vars[id].asm_type == WORD)
+        if(is_word)
             while(stck_manager->current_byte_offset % 4 != 0) stck_manager->current_byte_offset++;
 
         stck_manager->vars[id].byte_offset = stck_manager->current_byte_offset;

@@ -22,6 +22,8 @@ struct stack_entry
     string var_id;
     int byte_offset;
     int size;
+    bool is_argument;
+    bool is_array;
 };
 
 #endif // ASM_CODE

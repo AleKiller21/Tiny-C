@@ -209,7 +209,7 @@ string *array_declarator::generate_local_code(stack_manager *manager)
         {
             for(int i = 0; i < size - init_exprs.size(); i++)
             {
-                code += manager->store_into_var("$zero", get_id(), offset);
+                code += manager->store_into_array("$zero", get_id(), offset);
                 offset++;
             }
         }
@@ -226,7 +226,7 @@ stack_entry *array_declarator::create_stack_entry()
     if(type == INT) { asm_type = WORD; displacement = 4 * size; }
     if(type == CHAR) { asm_type = BYTE; displacement = size; }
 
-    return new stack_entry { asm_type, get_id(), -1, displacement };
+    return new stack_entry { asm_type, get_id(), -1, displacement, false, true };
 }
 
 void array_declarator::generate_code_global_initialization(stack_manager *manager, list<expression*> *init_exprs, string *str_value)
@@ -258,14 +258,14 @@ void array_declarator::generate_code_local_initialization(stack_manager *manager
         {
             treg = reg_manager.get_register(false);
             *code += "\tli " + treg + ", " + std::to_string(value->constant) + "\n";
-            *code += manager->store_into_var(treg, get_id(), *offset);
+            *code += manager->store_into_array(treg, get_id(), *offset);
             reg_manager.free_register(treg);
         }
 
         else
         {
             *code += value->code;
-            *code += manager->store_into_var(value->place, get_id(), *offset);
+            *code += manager->store_into_array(value->place, get_id(), *offset);
             reg_manager.free_register(value->place);
         }
 

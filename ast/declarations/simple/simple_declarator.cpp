@@ -167,5 +167,5 @@ stack_entry* simple_declarator::create_stack_entry()
     if(pointer || type == INT) { asm_type = WORD; size = 4; }
     if(type == CHAR) { asm_type = BYTE; size = 1; }
 
-    return new stack_entry { asm_type, get_id(), -1, size };
+    return new stack_entry { asm_type, get_id(), -1, size, false, false };
 }

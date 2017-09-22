@@ -20,6 +20,7 @@ type_attributes id_expression::get_type()
     }
 
     is_global = sym->is_global;
+    kind = sym->category;
     return { sym->type, sym->pointer, sym->category, false };
 }
 
@@ -30,13 +31,26 @@ int id_expression::get_kind()
 
 asm_code* id_expression::generate_code(stack_manager *manager)
 {
-    string reg = reg_manager.get_register(false);
+    string treg = reg_manager.get_register(false);
     string code;
 
-    if(is_global) code = choose_load_format(data_section[lexeme]) + reg + ", " + lexeme + "\n";
-    else code = manager->load_from_var(reg, lexeme);
+    if(kind == SIMPLE)
+    {
+        if(is_global) code = choose_load_format(data_section[lexeme]) + treg + ", " + lexeme + "\n";
+        else code = manager->load_from_var(treg, lexeme);
+    }
 
-    return new asm_code { code, reg, -1 };
+    else if(kind == ARRAY)
+    {
+        if(is_global) code = "\tla " + treg + ", " + lexeme + "\n";
+        else
+        {
+            int offset = manager->get_var_offset(lexeme);
+            code = "\taddi " + treg + ", $fp, " + std::to_string(offset) + "\n";
+        }
+    }
+
+    return new asm_code { code, treg, -1 };
 }
 
 string id_expression::choose_load_format(string type)
