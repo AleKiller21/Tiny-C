@@ -58,13 +58,6 @@ type_attributes function_expression::get_type()
         }
     }
 
-    if(!id_sym->is_initialized)
-    {
-        string id_lexeme = id->get_kind() == ID_EXPR ? id->to_string() : "";
-        comp_utils::show_message("error", "undefined reference to '" + id_lexeme + "'", position);
-        return { 0, 0, 0, true };
-    }
-
     return { id_type.type, id_type.pointer, SIMPLE, false };
 }
 
